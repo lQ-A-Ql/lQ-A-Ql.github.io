@@ -380,6 +380,37 @@ h1 {
   border-bottom: 1px solid var(--line);
 }
 
+.search-page-box {
+  padding: clamp(1rem, 2.4vw, 1.8rem);
+}
+
+.search-page-box input[type='search'],
+.search-page-box input[type='text'] {
+  width: min(100%, 640px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.62rem 0.9rem;
+  background: #fff;
+  color: var(--ink);
+}
+
+.search-page-box button,
+.search-page-box input[type='submit'] {
+  margin-left: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.62rem 0.9rem;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(120deg, var(--pink) 0%, var(--pink-deep) 100%);
+}
+
+.search-page-box .search-results,
+.search-page-box .search__results,
+.search-page-box ul {
+  margin-top: 1rem;
+}
+
 .pagination {
   margin-top: 1.2rem;
   display: flex;
