@@ -22,11 +22,10 @@ if ('IntersectionObserver' in window && revealNodes.length > 0) {
     revealNodes.forEach((node) => observer.observe(node));
 } else {
     revealNodes.forEach((node) => node.classList.add('is-visible'));
-}// Smooth Page Exits for non-View-Transition browsers
-document.addEventListener('click', (e) => {
-    const isViewTransitionSupported = 'startViewTransition' in document && document.querySelector('meta[name="view-transition"]');
-    if (isViewTransitionSupported) return;
+}
 
+// Smooth page exits while preserving live backdrop blur effects.
+document.addEventListener('click', (e) => {
     const link = e.target.closest('a');
     if (!link) return;
 

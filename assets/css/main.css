@@ -121,33 +121,6 @@ html::before {
   animation: page-slide-out 0.35s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
 }
 
-/* Define View Transition (Chrome 111+) for an ultra-smooth swap */
-@view-transition {
-  navigation: auto;
-}
-
-@keyframes vt-fade-out {
-  to {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-}
-
-@keyframes vt-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-}
-
-::view-transition-old(root) {
-  animation: 0.3s cubic-bezier(0.4, 0, 1, 1) both vt-fade-out;
-}
-
-::view-transition-new(root) {
-  animation: 0.3s cubic-bezier(0, 0, 0.2, 1) both vt-fade-in;
-}
-
 main {
   width: 100%;
 }
