@@ -47,7 +47,6 @@ body {
   font-family: var(--font-body);
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
-  animation: page-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html::before {
@@ -73,29 +72,9 @@ html::before {
   }
 }
 
-@keyframes page-fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes page-fade-out {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
 @keyframes page-slide-in {
   0% {
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
 
   100% {
@@ -114,15 +93,17 @@ html::before {
 }
 
 .page-is-exiting {
-  animation: page-fade-out 0.35s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+  pointer-events: none;
 }
 
 .page-is-exiting main {
-  animation: page-slide-out 0.35s cubic-bezier(0.7, 0, 0.84, 0) forwards !important;
+  animation: page-slide-out 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
 }
 
 main {
   width: 100%;
+  animation: page-slide-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 a {
