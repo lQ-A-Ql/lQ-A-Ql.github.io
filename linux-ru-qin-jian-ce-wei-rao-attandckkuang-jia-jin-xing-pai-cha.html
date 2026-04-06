@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux 入侵检测——围绕ATT&amp;CK框架进行排查（1） - QAQ | QAQ</title><meta name="description" content=""><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css"><meta name="view-transition" content="same-origin"><link rel="stylesheet" href="https://lq-a-ql.github.io/assets/css/main.css"></head><body><header class="site-header"><div class="container header-inner"><a class="brand" href="https://lq-a-ql.github.io/index.html"><img src="https://lq-a-ql.github.io/assets/images/avatar.png" alt="Avatar" class="avatar-sm"> QAQ</a><nav class="main-nav js-main-nav" aria-label="Primary navigation"><a href="https://lq-a-ql.github.io/index.html">Home</a> <a href="https://lq-a-ql.github.io/search.html">Search</a></nav></div></header><main class="container article-view"><article class="article-card reveal"><header class="article-header"><p class="eyebrow">Post</p><h1>Linux 入侵检测——围绕ATT&amp;CK框架进行排查（1）</h1><p class="meta-line"><time datetime="2026-04-06">2026-04-06</time> <span>by QAQ</span></p></header><div class="article-content prose"><blockquote><p>由于是第一次写这样的教程性文章，会有很多不足之处，希望理解，感谢各位的批评指正</p></blockquote><h2 id="开始之前">开始之前</h2><h3 id="什么是attck框架">什么是ATT&amp;CK框架</h3><p>简单来说，可以把ATT&amp;CK看成一个表格，如下图所示，表头是诸如<code>侦察目标</code> <code>资源准备</code>等攻击者的目的与攻击路径，而表中内容则是实现这些目的的技术，或者说攻击手法</p><figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406153723073.png" alt="image-20260406153723073" data-is-external-image="true"></figure><p>通过查阅框架，可以了解攻击者的行为手段，推断他的行为意图从而更有针对性地对失陷主机进行排查</p><h3 id="一些名词">一些名词</h3><p>在正式开始之前还需要了解一些名词</p><table><thead><tr><th>名称</th><th>格式（x表示数字）</th><th>简介</th></tr></thead><tbody><tr><td>Tactics (战术)</td><td>TAxxxx</td><td>攻击者执行某项操作时的短期目标，也就是表头部分</td></tr><tr><td>Techniques (技术)</td><td>Txxxx</td><td>攻击者实现目标所使用的具体技术，也就是表格部分</td></tr><tr><td>Sub-techniques (子技术)</td><td>Txxxx.xxx</td><td>对技术的进一步细化</td></tr></tbody></table><h3 id="关注什么">关注什么</h3><p>优先把目光放到<strong>持久化</strong>(图中是持续控制，翻译问题)(<strong>TA0003</strong>)和<strong>提权</strong> (<strong>TA0004</strong>)，这是在失陷主机中最容易捕获到的痕迹(除非攻击者只进行一次攻击<del>那他很闲了</del>)，接下来则关注以下技术</p><ul><li>T1053.003 cron计划任务</li><li>T1098.004 修改SSH文件</li><li>T1505.003 WEBSHELL</li><li>T1543.002 修改systemd服务</li><li>T1546.004 修改shell配置文件</li><li>T1548.001 设置UID/GID</li><li>T1548.003 sudo缓存和sudoers文件</li></ul><blockquote><p>剩下的后面再说吧</p></blockquote><h2 id="正式进入主题">正式进入主题</h2><h3 id="t1053003">T1053.003</h3><blockquote><p>对手可能会滥用<code>cron</code>实用程序来执行任务调度，以初始或定期执行恶意代码。(引用: 20 macOS Common Tools and Techniques) <code>cron</code>实用程序是类Unix操作系统的基于时间的作业调度程序。<code>crontab</code>文件包含要运行的cron条目和指定的执行时间。任何<code>crontab</code>文件都存储在特定于操作系统的文件路径中。 对手可能会在Linux或Unix环境中使用<code>cron</code>在系统启动时或定期执行程序以实现<a href="https://attack.mitre.org/tactics/TA0003">持久性</a>。</p></blockquote><p>cron在linux主要包含两个部分</p><ol><li><p>crontab</p></li><li><p>/etc/cron*</p></li></ol><h4 id="crontab">crontab</h4><p>涉及两个命令：</p><ul><li><p>编辑定时任务</p><ul><li><pre><code class="language-bash">crontab -e
+</code></pre></li></ul></li></ul><p>​ 运行后即可进入编辑器</p><p>​ <img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406165008625.png" alt="image-20260406165008625" style="zoom:50%;" data-is-external-image="true"></p><p>​ 其中，<code>m h dom mon dow</code> 分别代表 分/时/月中某一天(day of month)/月/周中某一天(day of week)</p><p>​ 例：<code>*/1 * * * *</code> 就代表每隔1分中执行command</p><ul><li><p>查看定时任务</p><ul><li><pre><code class="language-bash">crontab -l
+</code></pre></li></ul></li></ul><p>​ 运行后即可查看当前用户的定时任务</p><p>​ <img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406165600933.png" alt="image-20260406165600933" style="zoom:50%;" data-is-external-image="true"></p><h4 id="etccron">/etc/cron*</h4><p>这个值得是存放在/etc目录下的cron文件，包含<code>cron.d</code> <code>cron.daily</code> <code>cron.hourly</code> <code>cron.monthly</code> <code>cron.weekly</code> <code>cron.yearly</code> <code>cronbtab(与上述crontab不同)</code></p><p>使用</p><pre><code class="language-bash">ls /etc/cron*
+</code></pre><p>就可以进行查看</p><p>​	<img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406170300426.png" alt="image-20260406170300426" style="zoom:67%;" data-is-external-image="true"></p><blockquote><p>crontab命令与/etc/crontab的区别：</p><ul><li>crontab命令只能编辑当前用户的定时任务，而/etc/crontab可以指定任意用户的定时任务，并且只有root可以修改</li></ul></blockquote><hr><h3 id="t1098004">T1098.004</h3><blockquote><p>对手可能会修改 SSH <code>authorized_keys</code> 文件以在受害者主机上保持持久性。Linux 发行版和 macOS 通常使用基于密钥的身份验证来保护 SSH 会话的身份验证过程以进行远程管理。SSH 中的 <code>authorized_keys</code> 文件指定可用于登录配置该文件的用户帐户的 SSH 密钥。此文件通常位于用户主目录下的 <code>&lt;user-home&gt;/.ssh/authorized_keys</code>。(引用: SSH Authorized Keys) 用户可以编辑系统的 SSH 配置文件，将指令 PubkeyAuthentication 和 RSAAuthentication 修改为值“yes”以确保启用公钥和 RSA 身份验证。SSH 配置文件通常位于 <code>/etc/ssh/sshd_config</code> 下。 对手可能会直接使用脚本或 shell 命令修改 SSH <code>authorized_keys</code> 文件以添加他们自己提供的公钥。在云环境中，对手可能能够通过命令行界面或 REST API 修改特定虚拟机的 SSH authorized_keys 文件。例如，通过使用 Google Cloud CLI 的“add-metadata”命令，对手可以向用户帐户添加 SSH 密钥。(引用: Google Cloud Add Metadata)(引用: Google Cloud Privilege Escalation) 类似地，在 Azure 中，对手可以通过向 API 发送 PATCH 请求来更新虚拟机的 authorized_keys 文件。(引用: Azure Update Virtual Machines) 这确保了拥有相应私钥的对手可以通过 SSH 以现有用户身份登录。(引用: Venafi SSH Key Abuse)(引用: Cybereason Linux Exim Worm) 这也可能导致权限提升，其中虚拟机或实例具有与请求用户不同的权限。 如果通过云 API 或命令行界面修改 authorized_keys 文件，对手可能会在目标虚拟机上实现权限提升，如果他们向更高权限的用户添加密钥。 SSH 密钥也可以添加到网络设备上的帐户，例如使用 <code>ip ssh pubkey-chain</code> <a href="https://attack.mitre.org/techniques/T1059/008">网络设备 CLI</a> 命令。(引用: cisco_ip_ssh_pubkey_ch_cmd)</p></blockquote><p>这个则是需要启动ssh公钥认证登录，启动后<code>~/.ssh</code>下就会生成<code>authorized_keys</code>文件，攻击者就可以在其中添加自己的公钥实现后续的免密登录</p><hr><h3 id="t1505003">T1505.003</h3><blockquote><p>对手可能会在 Web 服务器上植入 Web shell 以建立对系统的持久访问。Web shell 是放置在公开可访问的 Web 服务器上的 Web 脚本，允许对手访问 Web 服务器作为进入网络的网关。Web shell 可能提供一组功能来执行或在托管 Web 服务器的系统上提供命令行界面。(引用: volexity_0day_sophos_FW) 除了服务器端脚本，Web shell 可能还有一个客户端界面程序，用于与 Web 服务器通信（例如，<a href="https://attack.mitre.org/software/S0020">China Chopper</a> Web shell 客户端）。(引用: Lee 2013)</p></blockquote><p>这个嘛就很熟悉了，在web目录下放一个webshell，就不多说了。一般apache/nginx的web目录会存放在<code>/var/www</code>下，tomcat则是放置在tomcat自己的目录内，要是实在找不到可以用find搜一下</p><hr><h3 id="t1543002">T1543.002</h3><blockquote><p>对手可能会创建或修改systemd服务，以作为持久性的一部分反复执行恶意负载。Systemd是一个系统和服务管理器，通常用于管理后台守护进程（也称为服务）和其他系统资源。(引用: Linux man-pages: systemd January 2014) Systemd是许多Linux发行版上的默认初始化(init)系统，取代了遗留的init系统，包括SysVinit和Upstart，同时保持向后兼容。 Systemd使用扩展名为.service的单元配置文件来编码有关服务进程的信息。默认情况下，系统级单元文件存储在根拥有的目录(/)的/systemd/system目录中。用户级单元文件存储在用户拥有的目录($HOME)的/systemd/user目录中。(引用: lambert systemd 2022) 在.service单元文件中，以下指令用于执行命令：(引用: freedesktop systemd.service) * ExecStart、ExecStartPre和ExecStartPost指令在服务由systemctl手动启动或在系统启动时执行，如果服务设置为自动启动。 * ExecReload指令在服务重新启动时执行。 * ExecStop、ExecStopPre和ExecStopPost指令在服务停止时执行。 对手已经创建了新的服务文件，更改了.service文件指令执行的命令，并修改了.service文件执行的用户指令，这可能导致权限提升。对手还可能在这些目录中放置符号链接，使systemd能够找到这些负载，无论它们在文件系统中的位置。(引用: Anomali Rocke March 2019)(引用: airwalk backdoor unix systems)(引用: Rapid7 Service Persistence 22JUNE2016) .service文件的User指令可用于以特定用户身份运行服务，这可能会根据特定用户/组权限导致权限提升。</p></blockquote><p>简单的来说就是攻击者使用<code>systemctl</code>命令加载了一个恶意服务，这个恶意服务可能是修改了原先的服务文件，也可能是攻击者新建的服务文件。而在linux中，服务文件通常存放在<code>/etc/systemd/system</code>和<code>/usr/lib/systemd/system</code>下，并以<code>.service</code>为后缀</p><p>​	<img src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406183417790.png" alt="image-20260406183417790" style="zoom:67%;" data-is-external-image="true"></p><p>这边以sshd.service为例子</p><p>​</p><figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406183757086.png" alt="image-20260406183757086" data-is-external-image="true"></figure><p></p><p>**[Unit]**描述了服务的元数据，可以看到服务的简介与依赖项等信息</p><p><strong>[Service]<strong>则是告诉服务如何运行，重点关注</strong>ExecStart</strong>字段，他定义了服务执行的二进制文件以及参数，攻击者可在这里植入后门，例：</p><pre><code>ExecStart=/tmp/backdoor
+</code></pre><p>​	然后使用<code>systemctl daemon-reload</code>重载服务再<code>systemctl enable backdoor</code>设置后门服务的开机自启</p><p><strong>[Install]</strong> 中的<strong>WantedBy=multi-user.target</strong>则代表着服务开机自启，在linux中，如果执行了<code>systemctl enable [service]</code>命令，就会在<strong>multi-user.target.wants</strong>目录下创建一个软链接</p><p>​</p><figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406185316941.png" alt="image-20260406185316941" data-is-external-image="true"></figure><p></p><p>那么排查的思路呢就是优先查看修改/创建时间比较新的服务，关注<strong>Execstart</strong>字段即可</p><blockquote><p><code>/etc/systemd/system</code>和<code>/usr/lib/systemd/system</code>的区别</p><ul><li><code>/etc/systemd/system</code>可以由root创建，或者使用<code>systemctl</code>命令生成，<code>/usr/lib/systemd/system</code>则是由包管理器生成</li><li><code>/etc/systemd/system</code>运行优先级比 <code>/usr/lib/systemd/system</code> 高，即两个目录内如有同名服务则优先运行<code>/etc/systemd/system</code>下的服务</li></ul></blockquote><hr><h3 id="t1546004">T1546.004</h3><blockquote><p>对手可能通过执行由用户的 shell 触发的恶意命令来建立持久性。用户<a href="https://attack.mitre.org/techniques/T1059/004">Unix Shell</a>在会话的不同点执行几个配置脚本，基于事件。例如，当用户打开命令行界面或远程登录（例如通过 SSH）时，会启动登录 shell。登录 shell 从系统 (<code>/etc</code>) 和用户的主目录 (<code>~/</code>) 执行脚本以配置环境。系统上的所有登录 shell 都使用 /etc/profile 启动。这些配置脚本以其目录的权限级别运行，通常用于设置环境变量、创建别名和自定义用户的环境。当 shell 退出或终止时，将执行其他 shell 脚本以确保 shell 正常退出。 对手可能会尝试通过将命令插入到 shell 自动执行的脚本中来建立持久性。以 bash 为例，大多数 GNU/Linux 系统的默认 shell，对手可能会将启动恶意二进制文件的命令添加到 <code>/etc/profile</code> 和 <code>/etc/profile.d</code> 文件中。(引用: intezer-kaiji-malware)(引用: bencane blog bashrc) 这些文件通常需要 root 权限才能修改，并且每次系统上的任何 shell 启动时都会执行。对于用户级权限，对手可以将恶意命令插入 <code>~/.bash_profile</code>、<code>~/.bash_login</code> 或 <code>~/.profile</code>，这些命令在用户打开命令行界面或远程连接时会被调用。(引用: anomali-rocke-tactics)(引用: Linux manual bash invocation) 由于系统仅执行列表顺序中的第一个现有文件，因此对手使用 <code>~/.bash_profile</code> 来确保执行。对手还利用 <code>~/.bashrc</code> 文件，如果连接是远程建立的或打开了额外的交互式 shell（例如命令行界面中的新选项卡），则会额外执行。(引用: Tsunami)(引用: anomali-rocke-tactics)(引用: anomali-linux-rabbit)(引用: Magento) 一些恶意软件在程序终止时触发执行，对手可以使用 <code>~/.bash_logout</code> 文件在会话结束时执行恶意命令。 对于 macOS，此技术的功能类似，但可能利用 zsh，这是 macOS 10.15+ 的默认 shell。当打开 Terminal.app 时，应用程序会启动 zsh 登录 shell 和 zsh 交互式 shell。登录 shell 使用 <code>/etc/profile</code>、<code>/etc/zshenv</code>、<code>/etc/zprofile</code> 和 <code>/etc/zlogin</code> 配置系统环境。(引用: ScriptingOSX zsh)(引用: PersistentJXA_leopitt)(引用: code_persistence_zsh)(引用: macOS MS office sandbox escape) 然后，登录 shell 使用 <code>~/.zprofile</code> 和 <code>~/.zlogin</code> 配置用户环境。交互式 shell 使用 <code>~/.zshrc</code> 配置用户环境。退出时，执行 <code>/etc/zlogout</code> 和 <code>~/.zlogout</code>。对于旧版程序，macOS 在启动时执行 <code>/etc/bashrc</code>。</p></blockquote><p>linux中的shell分为<code>sh</code> <code>bash</code> <code>zsh</code> 三种，而每一种都有对应的配置文件，这些配置文件会在shell启动时运行，而攻击者就可以利用这一点实现后门的植入</p><p>这里以最常见的<code>.bashrc</code> 为例</p><pre><code class="language-bash"># ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don&#39;t do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don&#39;t put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don&#39;t overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern &quot;**&quot; used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+#[ -x /usr/bin/lesspipe ] &amp;&amp; eval &quot;$(SHELL=/bin/sh lesspipe)&quot;
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z &quot;${debian_chroot:-}&quot; ] &amp;&amp; [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a fancy prompt (non-color, unless we know we &quot;want&quot; color)
+case &quot;$TERM&quot; in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+
+if [ -n &quot;$force_color_prompt&quot; ]; then
+    if [ -x /usr/bin/tput ] &amp;&amp; tput setaf 1 &gt;&amp;/dev/null; then
+        # We have color support; assume it&#39;s compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
+    else
+        color_prompt=
+    fi
+fi
+
+# The following block is surrounded by two delimiters.
+# These delimiters must not be modified. Thanks.
+# START KALI CONFIG VARIABLES
+PROMPT_ALTERNATIVE=twoline
+NEWLINE_BEFORE_PROMPT=yes
+# STOP KALI CONFIG VARIABLES
+
+if [ &quot;$color_prompt&quot; = yes ]; then
+    # override default virtualenv indicator in prompt
+    VIRTUAL_ENV_DISABLE_PROMPT=1
+
+    prompt_color=&#39;\[\033[;32m\]&#39;
+    info_color=&#39;\[\033[1;34m\]&#39;
+    prompt_symbol=㉿
+    if [ &quot;$EUID&quot; -eq 0 ]; then # Change prompt colors for root user
+        prompt_color=&#39;\[\033[;94m\]&#39;
+        info_color=&#39;\[\033[1;31m\]&#39;
+        # Skull emoji for root terminal
+        #prompt_symbol=💀
+    fi
+    case &quot;$PROMPT_ALTERNATIVE&quot; in
+        twoline)
+            PS1=$prompt_color&#39;┌──${debian_chroot:+($debian_chroot)──}${VIRTUAL_ENV:+(\[\033[0;1m\]$(basename $VIRTUAL_ENV)&#39;$prompt_color&#39;)}(&#39;$info_color&#39;\u&#39;$prompt_symbol&#39;\h&#39;$prompt_color&#39;)-[\[\033[0;1m\]\w&#39;$prompt_color&#39;]\n&#39;$prompt_color&#39;└─&#39;$info_color&#39;\$\[\033[0m\] &#39;;;
+        oneline)
+            PS1=&#39;${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}&#39;$info_color&#39;\u@\h\[\033[00m\]:&#39;$prompt_color&#39;\[\033[01m\]\w\[\033[00m\]\$ &#39;;;
+        backtrack)
+            PS1=&#39;${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#39;;;
+    esac
+    unset prompt_color
+    unset info_color
+    unset prompt_symbol
+else
+    PS1=&#39;${debian_chroot:+($debian_chroot)}\u@\h:\w\$ &#39;
+fi
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case &quot;$TERM&quot; in
+xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
+    PS1=&quot;\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1&quot;
+    ;;
+*)
+    ;;
+esac
+
+[ &quot;$NEWLINE_BEFORE_PROMPT&quot; = yes ] &amp;&amp; PROMPT_COMMAND=&quot;PROMPT_COMMAND=echo&quot;
+
+
+
+/tmp/backdoor &amp; #恶意代码的植入
+
+
+
+# enable color support of ls, less and man, and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors &amp;&amp; eval &quot;$(dircolors -b ~/.dircolors)&quot; || eval &quot;$(dircolors -b)&quot;
+    export LS_COLORS=&quot;$LS_COLORS:ow=30;44:&quot; # fix ls color for folders with 777 permissions
+
+    alias ls=&#39;ls --color=auto&#39;
+    #alias dir=&#39;dir --color=auto&#39;
+    #alias vdir=&#39;vdir --color=auto&#39;
+
+    alias grep=&#39;grep --color=auto&#39;
+    alias fgrep=&#39;fgrep --color=auto&#39;
+    alias egrep=&#39;egrep --color=auto&#39;
+    alias diff=&#39;diff --color=auto&#39;
+    alias ip=&#39;ip --color=auto&#39;
+
+    export LESS_TERMCAP_mb=$&#39;\E[1;31m&#39;     # begin blink
+    export LESS_TERMCAP_md=$&#39;\E[1;36m&#39;     # begin bold
+    export LESS_TERMCAP_me=$&#39;\E[0m&#39;        # reset bold/blink
+    export LESS_TERMCAP_so=$&#39;\E[01;33m&#39;    # begin reverse video
+    export LESS_TERMCAP_se=$&#39;\E[0m&#39;        # reset reverse video
+    export LESS_TERMCAP_us=$&#39;\E[1;32m&#39;     # begin underline
+    export LESS_TERMCAP_ue=$&#39;\E[0m&#39;        # reset underline
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS=&#39;error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01&#39;
+
+# some more ls aliases
+alias ll=&#39;ls -l&#39;
+alias la=&#39;ls -A&#39;
+alias l=&#39;ls -CF&#39;
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don&#39;t need to enable
+# this, if it&#39;s already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+</code></pre><p>再中间插入一句<code>/tmp/backdoor &amp;</code>即可实现自动运行后门</p><p>排查思路则是优先查看 <code>/etc</code>下的配置文件以及<code>profile</code>，他们全局有效因此需要重点排查，而主文件夹下的配置只对当前用户生效</p><hr><h3 id="t1548001">T1548.001</h3><blockquote><p>对手可能会滥用配置，其中应用程序设置了 setuid 或 setgid 位，以便在不同（可能更高级别）用户的上下文中运行代码。在 Linux 或 macOS 上，当为应用程序二进制文件设置 setuid 或 setgid 位时，应用程序将以拥有用户或组的权限运行。(引用: setuid man page) 通常，应用程序在当前用户的上下文中运行，无论哪个用户或组拥有应用程序。然而，在某些情况下，程序需要在提升的上下文中执行才能正常运行，但运行它们的用户可能没有特定的所需权限。 与在 sudoers 文件中创建条目不同，这必须由 root 完成，任何用户都可以指定为自己的应用程序设置 setuid 或 setgid 标志（即<a href="https://attack.mitre.org/techniques/T1222/002">Linux 和 Mac 文件和目录权限修改</a>）。可以使用位掩码通过 <code>chmod</code> 命令设置这些位，<code>chmod 4777 [file]</code> 或通过简写命名，<code>chmod u+s [file]</code>。这将启用 setuid 位。要启用 setgid 位，可以使用 <code>chmod 2775</code> 和 <code>chmod g+s</code>。 对手可以在自己的恶意软件上使用此机制，以确保他们能够在未来的提升上下文中执行。(引用: OSX Keydnap malware) 这种滥用通常是“shell 逃逸”或其他绕过具有受限权限的执行环境的操作的一部分。 或者，对手可能会选择查找和目标具有已启用 setuid 或 setgid 位的易受攻击的二进制文件（即<a href="https://attack.mitre.org/techniques/T1083">文件和目录发现</a>）。通过 <code>ls -l</code> 查看文件属性时，setuid 和 setgid 位用“s”而不是“x”表示。<code>find</code> 命令也可以用于搜索此类文件。例如，<code>find / -perm +4000 2&gt;/dev/null</code> 可用于查找设置了 setuid 的文件，<code>find / -perm +2000 2&gt;/dev/null</code> 可用于查找设置了 setgid 的文件。然后，对手可能会滥用这些位已设置的二进制文件。(引用: GTFOBins Suid)</p></blockquote><p>这边以常用的SUID为例，当对一个执行文件使用<code>stat</code>命令时，即可查看他的权限，这时就可以发现，除了常规的读写执行外还有一个标志位，这个标志位就是SUID</p><p>​</p><figure class="post__image"><img src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406193623413.png" alt="image-20260406193623413" data-is-external-image="true"></figure><p></p><p>此时在root下使用<code>chmod u+s example</code> 为其赋予SUID，可以看到，权限从<code>0777</code>变成了<code>4777</code>，4就是root赋予他的SUID权限</p><p>​	<img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406193738499.png" alt="image-20260406193738499" style="zoom:80%;" data-is-external-image="true"></p><p>那么他的作用是什么呢？简单的来讲当一个文件被赋予了root的suid后即<code>4xxx</code>那么任何用户执行这个文件都会以root权限运行，这就给了攻击者提权的入口，而我们就可以通过<code>find / -perm +4000 2&gt;/dev/null</code> 查找这些文件</p><blockquote><p>SUID和SGID的区别</p><ul><li>SUID只作用于文件，SGID则可作用于目录</li><li>SUID可以将用户变为文件的所属者（标志位为4），SGID则是用户组（标志位为2）–</li></ul></blockquote><hr><h3 id="t1548003">T1548.003</h3><blockquote><p>对手可能会执行 sudo 缓存和/或使用 sudoers 文件来提升权限。对手可能这样做是为了以其他用户身份执行命令或生成具有更高权限的进程。 在 Linux 和 MacOS 系统中，sudo（有时称为“超级用户执行”）允许用户从终端以提升的权限执行命令，并控制谁可以在系统上执行这些命令。<code>sudo</code> 命令“允许系统管理员委派权限，授予某些用户（或用户组）以 root 或其他用户身份运行某些（或所有）命令的能力，同时提供命令及其参数的审计跟踪。”(引用: sudo man page 2018) 由于 sudo 是为系统管理员设计的，因此它具有一些有用的配置功能，例如 <code>timestamp_timeout</code>，这是 <code>sudo</code> 之间的时间间隔，以分钟为单位，然后它会重新提示输入密码。这是因为 <code>sudo</code> 具有缓存凭据的能力。Sudo 会在 <code>/var/db/sudo</code> 处创建（或触摸）一个文件，其中包含上次运行 sudo 的时间戳，以确定此超时。此外，还有一个 <code>tty_tickets</code> 变量，它将每个新的 tty（终端会话）视为隔离的。这意味着，例如，一个 tty 的 sudo 超时不会影响另一个 tty（您将不得不再次输入密码）。 sudoers 文件 <code>/etc/sudoers</code> 描述了哪些用户可以从哪些终端运行哪些命令。这还描述了用户可以以其他用户或组身份运行哪些命令。这提供了最低权限原则，使用户在大多数时间内以最低可能的权限运行，并且仅在需要时通过提示输入密码提升到其他用户或权限。然而，sudoers 文件还可以通过类似 <code>user1 ALL=(ALL) NOPASSWD: ALL</code> 的行指定何时不提示用户输入密码。(引用: OSX.Dok Malware) 但是，编辑此文件需要提升的权限。 对手还可以滥用这些机制的配置不当来提升权限而无需用户的密码。例如，可以监视 <code>/var/db/sudo</code> 的时间戳以查看它是否在 <code>timestamp_timeout</code> 范围内。如果是，则恶意软件可以执行 sudo 命令而无需提供用户的密码。此外，如果禁用 <code>tty_tickets</code>，对手可以从该用户的任何 tty 执行此操作。 在野外，恶意软件已禁用 <code>tty_tickets</code> 以潜在地使脚本编写更容易，通过发出 <code>echo \&#39;Defaults !tty_tickets\&#39; &gt;&gt; /etc/sudoers</code>。(引用: cybereason osx proton) 为了使此更改生效，恶意软件还发出了 <code>killall Terminal</code>。从 macOS Sierra 开始，sudoers 文件默认启用了 <code>tty_tickets</code>。</p></blockquote><p>先说<code>sudoers</code>，这是一个存放在<code>/etc</code>目录下的一个文件，打开后可以看到如下字段</p><p>​</p><figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260406195909369.png" alt="image-20260406195909369" data-is-external-image="true"></figure><p></p><p>其中第一个<code>ALL</code>代表所有主机，<code>(ALL:ALL)</code> 代表所有用户与所有用户组，最后一个<code>ALL</code>则是所有命令，组合起来就构成了root权限</p><p>那么如果攻击者加入这么一行 <code>hack ALL=(ALL:ALL) ALL</code> 那么就相当于hack用户拥有了root的权限，这种提权方式会比修改<code>/etc/passwd</code>中的UID和GID要隐秘得多</p><p><code>sudo缓存</code>则是利用了<code>sudo</code> 生成的时间戳票据，新系统通常存放在<code>/run/sudo/ts</code>目录下</p><hr><h2 id="附录">附录</h2><blockquote><p>ATT&amp;CK 原站：<a href="https://attack.mitre.org/">MITRE ATT&amp;CK®</a></p><p>ATT&amp;CK 中文站：<a href="https://www.seccmd.net/Attack_CN/">ATT&amp;CK 中文版</a></p></blockquote></div></article></main><footer class="site-footer"><div class="container footer-inner"><p>Made with Publii and the Blush Persona theme.</p><p>&copy; QAQ</p></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script><script>hljs.highlightAll();</script><script src="https://lq-a-ql.github.io/assets/js/main.js" defer="defer"></script></body></html>
