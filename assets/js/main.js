@@ -29,20 +29,20 @@ document.addEventListener('click', (e) => {
 
     const link = e.target.closest('a');
     if (!link) return;
-    
+
     const hrefAttr = link.getAttribute('href');
     if (link.target === '_blank' || link.hostname !== window.location.hostname || link.pathname === window.location.pathname || !hrefAttr || hrefAttr.startsWith('#') || hrefAttr.startsWith('javascript:')) {
         return;
     }
-    
+
     e.preventDefault();
     const href = link.href;
-    
+
     document.body.classList.add('page-is-exiting');
-    
+
     setTimeout(() => {
         window.location.href = href;
-    }, 320); 
+    }, 320);
 });
 
 window.addEventListener('pageshow', (event) => {
