@@ -3,12 +3,185 @@
     <title>QAQ</title>
     <link href="https://lq-a-ql.github.io/feed.xml" rel="self" />
     <link href="https://lq-a-ql.github.io" />
-    <updated>2026-04-06T23:15:28+08:00</updated>
+    <updated>2026-04-08T11:14:58+08:00</updated>
     <author>
         <name>QAQ</name>
     </author>
     <id>https://lq-a-ql.github.io</id>
 
+    <entry>
+        <title>Linux 入侵检测——围绕ATT&amp;CK框架进行排查(2)</title>
+        <author>
+            <name>QAQ</name>
+        </author>
+        <link href="https://lq-a-ql.github.io/linux-ru-qin-jian-ce-wei-rao-attandckkuang-jia-jin-xing-pai-cha2.html"/>
+        <id>https://lq-a-ql.github.io/linux-ru-qin-jian-ce-wei-rao-attandckkuang-jia-jin-xing-pai-cha2.html</id>
+
+        <updated>2026-04-08T11:14:58+08:00</updated>
+            <summary type="html">
+                <![CDATA[
+                    勘误 T1548.001 上一篇中对 T1548.001 设置SUID与SGID的描述并不准确，该技术的实现需要具有前提——文件的所属者必须是root/root组 同时文件需要给予普通用户可执行的权限，设置SUID或SGID并不能支持普通用户执行没有权限的文件，真正的使用场景应该如下 ​	1.黑客创建回连马并给予可执行权限 ​	2.黑客以root身份赋予回连马SUID ​	3.普通用户（无root）运行回连马 ​	4.黑客拿到回连shell（root权限） 在上一篇文章中介绍了ATT&amp;CK中部分攻击者持久化( TA0003 )和提权( TA0004 )的部分技术，这里将接续上文继续介绍如下技术 对手可能滥用systemd计时器来执行任务调度，以初始或定期执行恶意代码。Systemd计时器是文件扩展名为.timer的单元文件，用于控制服务。计时器可以设置为在日历事件或相对于起点的时间跨度后运行。它们可以作为Linux环境中Cron的替代品。(引用: archlinux Systemd Timers Aug 2020) Systemd计时器可以通过systemctl命令行实用程序远程激活，该实用程序通过SSH操作。(引用: Systemd Remote Control) 每个.timer文件必须有一个对应的.service文件，名称相同，例如example.timer和example.service。.service文件是Systemd服务单元文件，由systemd系统和服务管理器管理。(引用: Linux man-pages: systemd January&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <blockquote>
+<ul>
+<li><p>勘误 T1548.001</p><p>上一篇中对 T1548.001 设置SUID与SGID的描述并不准确，该技术的实现需要具有前提——文件的所属者必须是root/root组</p><p>同时文件需要给予普通用户可执行的权限，设置SUID或SGID并不能支持普通用户执行没有权限的文件，真正的使用场景应该如下</p><p>​	1.黑客创建回连马并给予可执行权限</p><p>​	2.黑客以root身份赋予回连马SUID</p><p>​	3.普通用户（无root）运行回连马</p><p>​	4.黑客拿到回连shell（root权限）</p></li>
+</ul>
+</blockquote>
+<p>在上一篇文章中介绍了ATT&amp;CK中部分攻击者持久化( <strong>TA0003</strong> )和提权( <strong>TA0004</strong> )的部分技术，这里将接续上文继续介绍如下技术</p><ul>
+<li>T1053.006 systemd 计时任务 </li>
+<li>T1055.009 /proc 进程注入</li>
+<li>T1547.006 加载恶意内核</li>
+</ul>
+<h3 id="t1053006">T1053.006</h3>
+<blockquote>
+<p> 对手可能滥用systemd计时器来执行任务调度，以初始或定期执行恶意代码。Systemd计时器是文件扩展名为<code>.timer</code>的单元文件，用于控制服务。计时器可以设置为在日历事件或相对于起点的时间跨度后运行。它们可以作为Linux环境中<a href="https://attack.mitre.org/techniques/T1053/003">Cron</a>的替代品。(引用: archlinux Systemd Timers Aug 2020) Systemd计时器可以通过<code>systemctl</code>命令行实用程序远程激活，该实用程序通过<a href="https://attack.mitre.org/techniques/T1021/004">SSH</a>操作。(引用: Systemd Remote Control) 每个<code>.timer</code>文件必须有一个对应的<code>.service</code>文件，名称相同，例如<code>example.timer</code>和<code>example.service</code>。<code>.service</code>文件是<a href="https://attack.mitre.org/techniques/T1543/002">Systemd服务</a>单元文件，由systemd系统和服务管理器管理。(引用: Linux man-pages: systemd January 2014) 特权计时器写入<code>/etc/systemd/system/</code>和<code>/usr/lib/systemd/system</code>，而用户级别的写入<code>~/.config/systemd/user/</code>。 对手可能使用systemd计时器在系统启动时或定期执行恶意代码以实现持久性。(引用: Arch Linux Package Systemd Compromise BleepingComputer 10JUL2018)(引用: gist Arch package compromise 10JUL2018)(引用: acroread package compromised Arch Linux Mail 8JUL2018) 使用特权路径安装的计时器可能用于保持root级别的持久性。对手也可能安装用户级别的计时器以实现用户级别的持久性。(引用: Falcon Sandbox smp: 28553b3a9d)</p></blockquote>
+<p>这是除了cron外的另一种另一种定时任务：在<code>/etc/systemd/system/</code>或者<code>/usr/lib/systemd/system</code>目录下还存在着后缀名位<code>.timer</code>的文件用于定时运行任务</p><p>​	<img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260407232734598.png" alt="image-20260407232734598" style="zoom: 67%;"  data-is-external-image="true"></p><p>随便看一个timer，可以看到文件结构与<code>.service</code>类似，不同的是 <strong>[Service]</strong> 变成了 <strong>[Timer]</strong> 其中 <strong>OnCalendar</strong> 字段则代表了执行周期，daily意思就是每天的零点执行</p><blockquote>
+<p>timer默认指向同名service，可以使用 <strong>Unit</strong> 字段进行更改</p><p>上述<code>.timer</code>文件为系统级，用户级timer需要在~/.config/systemd/user自己创建<code>.timer</code>文件</p></blockquote>
+<p>​	<figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260407233213727.png" alt="image-20260407233213727" data-is-external-image="true"></figure></p><p>攻击者的路径就应该是：</p><ul>
+<li>创建恶意服务</li>
+<li>创建恶意timer，定期执行恶意服务</li>
+</ul>
+<p>相比于只有恶意服务来说，使用timer可以实现后门的重复执行以及断线重连，同时时间点分散，更难发现</p><h4 id="排查思路">排查思路</h4>
+<pre><code class="language-bash">systemctl list-timer -all				#列出所有timer，筛选可疑timer
+systemctl show &lt;timer名&gt; -p Unit			#查看timer指向的service
+systemctl cat &lt;service名&gt;                #查看可疑service的具体内容 重点关注ExecStart字段
+
+#用户级timer排查
+find /home -path &quot;*/.config/systemd/user/*.timer&quot; 2&gt;/dev/null
+</code></pre>
+<blockquote>
+<p><code>/etc/systemd/system/</code>与<code>/usr/lib/systemd/system</code>的区别在前文叙述过，若在<code>/usr/lib/systemd/system</code>下发现非包管理器生成的timer或service则可直接列为怀疑对象</p><ul>
+<li>timer部分字段的解释</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>OnActiveSec</code></td>
+<td>timer 激活后多久触发</td>
+<td><code>OnActiveSec=5min</code></td>
+</tr>
+<tr>
+<td><code>OnBootSec</code></td>
+<td>开机后多久触发</td>
+<td><code>OnBootSec=60</code></td>
+</tr>
+<tr>
+<td><code>OnStartupSec</code></td>
+<td>systemd 启动后多久触发</td>
+<td><code>OnStartupSec=30</code></td>
+</tr>
+<tr>
+<td><code>OnUnitActiveSec</code></td>
+<td>service 上次执行后间隔多久</td>
+<td><code>OnUnitActiveSec=10min</code></td>
+</tr>
+<tr>
+<td><code>OnUnitInactiveSec</code></td>
+<td>service 上次结束后间隔多久</td>
+<td><code>OnUnitInactiveSec=1h</code></td>
+</tr>
+<tr>
+<td><code>OnCalendar</code></td>
+<td>指定日历时间</td>
+<td><code>OnCalendar=*-*-* 03:00:00</code></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Unit</code></td>
+<td>指定触发哪个 service（默认同名）</td>
+<td><code>Unit=backdoor.service</code></td>
+</tr>
+<tr>
+<td><code>Persistent</code></td>
+<td>错过执行后开机是否补执行</td>
+<td><code>Persistent=true</code></td>
+</tr>
+<tr>
+<td><code>WakeSystem</code></td>
+<td>是否唤醒休眠的系统</td>
+<td><code>WakeSystem=false</code></td>
+</tr>
+<tr>
+<td><code>RemainAfterElapse</code></td>
+<td>执行完后 timer 是否保持活跃</td>
+<td><code>RemainAfterElapse=false</code></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>RandomizedDelaySec</code></td>
+<td>随机延迟时间范围</td>
+<td><code>RandomizedDelaySec=1h</code></td>
+</tr>
+<tr>
+<td><code>FixedRandomDelay</code></td>
+<td>延迟值固定（不每次随机）</td>
+<td><code>FixedRandomDelay=true</code></td>
+</tr>
+<tr>
+<td><code>AccuracySec</code></td>
+<td>触发精度范围</td>
+<td><code>AccuracySec=1min</code></td>
+</tr>
+</tbody></table>
+</blockquote>
+<hr>
+<h3 id="t1055009">T1055.009</h3>
+<blockquote>
+<p>对手可能会通过 /proc 文件系统将恶意代码注入进程中，以规避基于进程的防御，并可能提升权限。进程内存注入是一种在单独的活动进程地址空间中执行任意代码的方法。 进程内存注入涉及通过 /proc 文件系统 (<code>/proc/[pid]</code>) 枚举进程的内存，然后使用可用的小工具/指令制作返回导向编程 (ROP) 负载。每个运行的进程都有自己的目录，其中包括内存映射。进程内存注入通常通过使用 /proc 文件系统提供的内存映射覆盖目标进程的堆栈来执行。这些信息可用于枚举偏移量（包括堆栈）和小工具（或程序中可用于构建恶意负载的指令），这些偏移量和小工具通常被进程内存保护（如地址空间布局随机化 (ASLR)）隐藏。一旦枚举完毕，可以使用 dd 覆盖 <code>/proc/[pid]/maps</code> 中的目标进程内存映射。(引用: Uninformed Needle)(引用: GDS Linux Injection)(引用: DD Man) 其他技术（如 <a href="https://attack.mitre.org/techniques/T1574/006">动态链接器劫持</a>）可用于填充目标进程以提供更多可用的小工具。类似于 <a href="https://attack.mitre.org/techniques/T1055/012">进程空洞化</a>，进程内存注入可能会针对子进程（如后台的 sleep 副本）。(引用: GDS Linux Injection) 在另一个进程的上下文中运行代码可能允许访问该进程的内存、系统/网络资源，并可能提升权限。通过进程内存注入执行还可能规避安全产品的检测，因为执行被掩盖在合法进程下。</p></blockquote>
+<p>攻击者可以通过读取<code>/proc/[pid]/maps</code>文件中所以记录的可执行代码段，获某个内存映射的基址与偏移，然后计算其在内存中的绝对地址，接着就可以在这段内存中注入恶意payload</p><h4 id="排查方式">排查方式</h4>
+<p>在可疑进程目录下执行<code>cat maps | grep -E &quot;rwx|r-x|--x&quot;</code> 查看某个可执行段是否指向正常的链接库</p><blockquote>
+<p>其实这个我不是很明白啊，T1055内存注入技术是一个挺大的板块，后续搞明白点会单独出一篇文章，今天就先水一水了（嘻嘻）</p></blockquote>
+<hr>
+<h3 id="t1547006">T1547.006</h3>
+<blockquote>
+<p>对手可能会修改内核以在系统启动时自动执行程序。可加载内核模块（LKM）是可以按需加载和卸载到内核中的代码片段。它们扩展了内核的功能，而无需重新启动系统。例如，一种类型的模块是设备驱动程序，它允许内核访问连接到系统的硬件。(引用: Linux Kernel Programming) 恶意使用时，LKM可以是一种内核模式<a href="https://attack.mitre.org/techniques/T1014">Rootkit</a>，以最高的操作系统权限（Ring 0）运行。(引用: Linux Kernel Module Programming Guide) LKM基于rootkit的常见功能包括：隐藏自身、选择性隐藏文件、进程和网络活动，以及日志篡改、提供认证的后门，并使非特权用户能够获得root访问权限。(引用: iDefense Rootkit Overview) 内核扩展，也称为kext，在macOS中用于加载功能，类似于Linux的LKM。由于内核负责执行安全性，并且内核扩展作为内核的一部分运行，因此kext不受macOS安全策略的约束。kext通过<code>kextload</code>和<code>kextunload</code>命令加载和卸载。kext需要使用开发者ID签名，该ID由Apple授予权限，允许其签名内核扩展。没有这些权限的开发者仍然可以签名kext，但除非禁用SIP，否则它们不会加载。如果启用了SIP，则在将kext添加到AuxKC之前会验证其签名。(引用: System and kernel extensions in macOS) 自macOS Catalina 10.15以来，内核扩展已被弃用，取而代之的是系统扩展。然而，kext仍然被允许作为“遗留系统扩展”，因为没有用于内核编程接口的系统扩展。(引用: Apple Kernel Extension Deprecation) 对手可以使用LKM和kext在系统上进行<a href="https://attack.mitre.org/tactics/TA0003">持久性</a>和/或<a href="https://attack.mitre.org/tactics/TA0004">权限提升</a>。在野外已经发现了一些示例，并且也有一些相关的开源项目。(引用: Volatility Phalanx2)(引用: CrowdStrike Linux Rootkit)(引用: GitHub Reptile)(引用: GitHub Diamorphine)(引用: RSAC 2015 San Francisco Patrick Wardle)(引用: Synack Secure Kernel Extension Broken)(引用: Securelist Ventir)(引用: Trend Micro Skidmap)</p></blockquote>
+<p>在linux中，root用户可以使用<code>insmod</code> <code>modprobe</code>的方式安装内核模块(<code>.ko</code>文件)。攻击者正是利用这点，在拿到权限后安装编译好的恶意内核即内核马实现持久化等目的。通过这种方式，即使服务器删除后门用户，更改账号密码，黑客仍然可以控制服务器</p><h4 id="排查方式-1">排查方式</h4>
+<pre><code class="language-bash">#1
+lsmod #列出运行中的模块，筛选可以模块
+modinfo &lt;mod&gt; #查看可疑模块具体信息，重点关注 author和license字段（若为空则多半为恶意模块）
+
+
+#2
+debsums -c | grep &quot;^/lib/modules/.*\.ko&quot;   #使用debsums校验包完整性，检索被篡改模块
+
+#3
+find /lib/modules/$(uname -r) -name &quot;*.ko*&quot; -mtime -7 -ls # 检索最近修改或创建的模块
+
+#4 
+chkrootkit  #使用开源排查工具
+</code></pre>
+<blockquote>
+<p>第二届长城杯半决赛的应急响应正巧是内核马，感兴趣可以看看，不过他是通过<code>.service</code>文件注入的，排查起来倒也没那么麻烦</p></blockquote>
+<hr>
+<p>ok啊，提权和持久化的部分就暂时告一段落了，后续会继续关注横向移动方面的技术，然后再水一篇linux的常用命令，然后感觉linux入侵检测这个系列就差不多了（似乎）。windows的话就不是很擅长，可能会写的有点晚，但也会写。现在感觉windows应急响应最好的方式就是拷一个360安装包过去（bushi）</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title> 2024CISCN&amp;CCB初赛 SC05</title>
         <author>
