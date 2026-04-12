@@ -3,12 +3,33 @@
     <title>QAQ</title>
     <link href="https://lq-a-ql.github.io/feed.xml" rel="self" />
     <link href="https://lq-a-ql.github.io" />
-    <updated>2026-04-10T23:51:48+08:00</updated>
+    <updated>2026-04-12T19:29:26+08:00</updated>
     <author>
         <name>QAQ</name>
     </author>
     <id>https://lq-a-ql.github.io</id>
 
+    <entry>
+        <title>Coming~</title>
+        <author>
+            <name>QAQ</name>
+        </author>
+        <link href="https://lq-a-ql.github.io/coming~.html"/>
+        <id>https://lq-a-ql.github.io/coming~.html</id>
+
+        <updated>2026-04-12T19:29:26+08:00</updated>
+            <summary type="html">
+                <![CDATA[
+                    猜猜我在哪~
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h2 id="猜猜我在哪">猜猜我在哪~</h2>
+<figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/0b3758a2867f87c9e03b2b3c0ea28843.jpeg" alt="0b3758a2867f87c9e03b2b3c0ea28843" data-is-external-image="true"></figure>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Linux入侵检测——常用命令</title>
         <author>
