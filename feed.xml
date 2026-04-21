@@ -3,7 +3,7 @@
     <title>QAQ</title>
     <link href="https://lq-a-ql.github.io/feed.xml" rel="self" />
     <link href="https://lq-a-ql.github.io" />
-    <updated>2026-04-21T23:35:16+08:00</updated>
+    <updated>2026-04-21T23:37:19+08:00</updated>
     <author>
         <name>QAQ</name>
     </author>
@@ -59,7 +59,7 @@ for i,s in enumerate(matches, 1):
 <p>解释一下参数</p><ul>
 <li><code>-k session key</code></li>
 </ul>
-<p>![屏幕截图 2026-04-21 215003](<a href="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE">https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/屏幕截图</a> 2026-04-21 215003.png)</p><ul>
+<p>​<figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-04-21%20215003.png" alt="dsfsdfsdf" data-is-external-image="true"></figure></p><ul>
 <li><code>-p NTProofstr</code></li>
 </ul>
 <p>​	<figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260421215208285.png" alt="image-20260421215208285" data-is-external-image="true"></figure></p><ul>
