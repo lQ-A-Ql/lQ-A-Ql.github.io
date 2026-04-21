@@ -3,7 +3,7 @@
     <title>QAQ</title>
     <link href="https://lq-a-ql.github.io/feed.xml" rel="self" />
     <link href="https://lq-a-ql.github.io" />
-    <updated>2026-04-21T23:37:19+08:00</updated>
+    <updated>2026-04-21T23:40:12+08:00</updated>
     <author>
         <name>QAQ</name>
     </author>
@@ -72,7 +72,7 @@ for i,s in enumerate(matches, 1):
 </code></pre>
 <p>这里导出<code>.pyrdp</code>文件（用<code>wsl</code>啊，烧杯<code>windows</code>会报非法路径，抽象的很）</p><p>接着打开<code>pyrdp-player</code>就可以查看还原的<code>rdp</code>信息啦，包括键盘行为，鼠标行为，理论上来讲屏幕也可以还原来着但这没有，反正美美拿到flag</p><p>​	<figure class="post__image"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260421223419188.png" alt="image-20260421223419188" data-is-external-image="true"></figure></p><p>赛方说要大写，反正我没看出来哪里大写了，<code>sync</code> 里<code>capslock</code>都是<code>False</code>，抽象</p><p>下一篇文章会简单讲讲<code>winrm</code> <code>SMB3</code>的加密原理和怎么手动解密，但是不知道什么时候更新了说是，抽象排课早八排到晚九，诶哟</p><hr>
 <h2 id="广告时间--">广告时间~ ~ ~</h2>
-<p>项目地址: <a href="https://github.com/lQ-A-Ql/Gshark">https://github.com/lQ-A-Ql/Gshark</a></p><p>关于我的Gshark哈，也是托这个抽象比赛的福，给了我一点灵感，加上了<code>winrm</code>解密和<code>SMB3</code> 的<code>Random SK</code> 生成，不细说了，直接看结果叭</p><p>​	<img src="C:\Users\QAQ\AppData\Roaming\Typora\typora-user-images\image-20260421224515873.png" alt="image-20260421224515873" style="zoom: 50%;"  data-is-external-image="true"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260421224610707.png" alt="image-20260421224610707" style="zoom: 50%;"  data-is-external-image="true"><img src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260421224654358.png" alt="image-20260421224654358" style="zoom:50%;"  data-is-external-image="true"></p><p>然后还顺便更新了一下图标嘻嘻</p><img loading="lazy" src="C:\Users\QAQ\Downloads\图片添加斜体Gshark字样.png" alt="图片添加斜体Gshark字样" style="zoom: 25%;"  data-is-external-image="true">
+<p>项目地址: <a href="https://github.com/lQ-A-Ql/Gshark">https://github.com/lQ-A-Ql/Gshark</a></p><p>关于我的Gshark哈，也是托这个抽象比赛的福，给了我一点灵感，加上了<code>winrm</code>解密和<code>SMB3</code> 的<code>Random SK</code> 生成，不细说了，直接看结果叭</p><p>​	<img src="C:\Users\QAQ\AppData\Roaming\Typora\typora-user-images\image-20260421224515873.png" alt="image-20260421224515873" style="zoom: 50%;"  data-is-external-image="true"><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260421224610707.png" alt="image-20260421224610707" style="zoom: 50%;"  data-is-external-image="true"><img src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260421224654358.png" alt="image-20260421224654358" style="zoom:50%;"  data-is-external-image="true"></p><p>然后还顺便更新了一下图标嘻嘻</p><img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/图片添加斜体Gshark字样.png" alt="asdasdada" style="zoom:25%;"  data-is-external-image="true">
 
 <img loading="lazy" src="https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/media_1776768170.png" alt="media_1776768170" style="zoom:25%;"  data-is-external-image="true">
             ]]>
