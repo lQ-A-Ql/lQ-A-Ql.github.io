@@ -35,7 +35,6 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
         />
 
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,122,169,0.16),transparent_28%),radial-gradient(circle_at_78%_18%,rgba(132,92,255,0.14),transparent_24%),radial-gradient(circle_at_15%_78%,rgba(71,164,255,0.08),transparent_22%)]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)", backgroundSize: "32px 32px", maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 88%)" }} />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_50%_0%,rgba(255,142,196,0.24),transparent_58%)]" />
 
         <motion.div
