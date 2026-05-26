@@ -41,7 +41,7 @@ export function BlogCard({
       whileTap={{ scale: 0.98 }}
       style={{ cursor: id ? "pointer" : "default" }}
     >
-      <Card className="group relative overflow-hidden bg-[rgba(88,72,108,0.16)] backdrop-blur-lg border-white/14 hover:border-primary/38 transition-all duration-500 cursor-pointer shadow-[0_16px_38px_rgba(0,0,0,0.1)]">
+      <Card className="group relative overflow-hidden bg-[rgba(116,96,145,0.11)] backdrop-blur-xl backdrop-saturate-150 border-white/16 hover:border-primary/42 transition-all duration-500 cursor-pointer shadow-[0_18px_40px_rgba(0,0,0,0.12)]">
         {imageUrl && (
           <div className="aspect-video overflow-hidden">
             <img 
@@ -52,6 +52,13 @@ export function BlogCard({
             <div className="absolute inset-0 bg-gradient-to-t from-[rgba(22,18,34,0.58)] via-[rgba(22,18,34,0.04)] to-transparent" />
           </div>
         )}
+
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute inset-y-0 -left-1/3 w-2/3 rotate-[18deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.24),rgba(255,255,255,0.12)_18%,rgba(255,196,234,0.14)_42%,rgba(146,211,255,0.12)_62%,transparent_82%)] opacity-70 blur-2xl transition-transform duration-700 group-hover:translate-x-8" />
+          <div className="absolute -right-10 top-8 h-28 w-28 rounded-full bg-[rgba(255,196,237,0.12)] blur-3xl transition-transform duration-700 group-hover:-translate-y-2" />
+          <div className="absolute left-6 top-5 h-px w-[42%] bg-[linear-gradient(90deg,rgba(255,255,255,0.68),rgba(255,255,255,0.18),transparent)] opacity-70" />
+          <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] opacity-60" />
+        </div>
         
         <div className="p-6 relative">
           {/* Category Tag */}
@@ -90,7 +97,7 @@ export function BlogCard({
         
         {/* Hover Glow Effect */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-tr from-primary/8 via-transparent to-accent/7" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,143,203,0.12),transparent_40%,rgba(161,121,255,0.12)_72%,transparent)]" />
         </div>
       </Card>
     </motion.div>
