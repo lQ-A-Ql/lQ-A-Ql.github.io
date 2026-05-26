@@ -25,16 +25,17 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
         <Header />
 
         <div
-          className="pointer-events-none absolute inset-0 opacity-55"
+          className="pointer-events-none absolute inset-0 opacity-65"
           style={{
-            backgroundImage: `linear-gradient(rgba(5,6,12,0.72), rgba(5,6,12,0.9)), url('${siteConfig.heroBackground}')`,
+            backgroundImage: `linear-gradient(rgba(10,8,18,0.64), rgba(7,7,14,0.88)), url('${siteConfig.heroBackground}')`,
             backgroundSize: "cover",
             backgroundPosition: "center top",
             backgroundAttachment: "fixed",
           }}
         />
 
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,122,169,0.16),transparent_28%),radial-gradient(circle_at_78%_18%,rgba(132,92,255,0.14),transparent_24%),radial-gradient(circle_at_15%_78%,rgba(71,164,255,0.08),transparent_22%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,146,214,0.22),transparent_24%),radial-gradient(circle_at_82%_18%,rgba(176,118,255,0.16),transparent_21%),radial-gradient(circle_at_18%_72%,rgba(255,96,170,0.12),transparent_19%),radial-gradient(circle_at_58%_42%,rgba(255,210,240,0.06),transparent_26%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_42%,rgba(5,5,10,0.18)_72%,rgba(4,4,8,0.44)_100%)]" />
 
         <motion.div
           className="relative z-10 pt-24 pb-16 px-6"
@@ -114,7 +115,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
           variants={staggerContainer}
         >
           <motion.div
-            className="prose prose-invert prose-pink prose-headings:text-foreground max-w-none rounded-[1.75rem] bg-[rgba(9,10,18,0.82)] px-6 py-8 shadow-[0_28px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl md:px-10 md:py-10"
+            className="prose prose-invert prose-pink prose-headings:text-foreground max-w-none rounded-[1.75rem] bg-[linear-gradient(180deg,rgba(32,20,40,0.72),rgba(10,10,18,0.82))] px-6 py-8 shadow-[0_28px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl md:px-10 md:py-10"
             variants={fadeUpVariant}
           >
             <div
