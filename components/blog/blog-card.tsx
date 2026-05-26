@@ -41,7 +41,7 @@ export function BlogCard({
       whileTap={{ scale: 0.98 }}
       style={{ cursor: id ? "pointer" : "default" }}
     >
-      <Card className="group relative overflow-hidden bg-[rgba(23,18,31,0.34)] backdrop-blur-md border-white/10 hover:border-primary/45 transition-all duration-500 cursor-pointer shadow-[0_18px_46px_rgba(0,0,0,0.18)]">
+      <Card className="group relative overflow-hidden bg-[rgba(52,41,68,0.22)] backdrop-blur-md border-white/12 hover:border-primary/40 transition-all duration-500 cursor-pointer shadow-[0_18px_46px_rgba(0,0,0,0.14)]">
         {imageUrl && (
           <div className="aspect-video overflow-hidden">
             <img 
@@ -49,7 +49,7 @@ export function BlogCard({
               alt={title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(12,10,18,0.86)] via-[rgba(12,10,18,0.16)] to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(18,14,28,0.72)] via-[rgba(18,14,28,0.08)] to-transparent" />
           </div>
         )}
         
