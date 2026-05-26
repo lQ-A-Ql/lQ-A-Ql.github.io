@@ -6,14 +6,6 @@ import { siteConfig, categories } from "@/lib/blog-data"
 export function HeroSection() {
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('${siteConfig.heroBackground}')`
-        }}
-      />
-      
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/58 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/84 via-transparent to-background/76" />

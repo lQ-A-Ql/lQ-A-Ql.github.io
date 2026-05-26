@@ -16,7 +16,18 @@ import { blogPosts, siteConfig } from "@/lib/blog-data"
 export default function BlogPage() {
   return (
     <PageTransition>
-      <main className="min-h-screen bg-background overflow-hidden">
+      <main className="relative min-h-screen bg-background overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1200px] overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.78]"
+            style={{
+              backgroundImage: `url('${siteConfig.heroBackground}')`,
+              maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.94) 36%, rgba(0,0,0,0.72) 58%, rgba(0,0,0,0.26) 82%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.94) 36%, rgba(0,0,0,0.72) 58%, rgba(0,0,0,0.26) 82%, transparent 100%)",
+            }}
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,7,14,0.34),rgba(7,7,14,0.58)_48%,rgba(7,7,14,0.9)_100%)]" />
+        </div>
         <Header />
         <HeroSection />
         
