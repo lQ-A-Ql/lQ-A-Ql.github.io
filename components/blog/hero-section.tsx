@@ -5,29 +5,11 @@ import { siteConfig, categories } from "@/lib/blog-data"
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[76vh] md:min-h-[84vh] flex items-center justify-center overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('${siteConfig.heroBackground}')`,
-        }}
-      />
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_54%_12%,rgba(255,165,222,0.1),transparent_24%),radial-gradient(circle_at_80%_18%,rgba(173,122,255,0.06),transparent_22%)]" />
       <div className="pointer-events-none absolute inset-y-0 left-[14%] w-[36%] rotate-[15deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.07),rgba(255,227,242,0.03)_28%,rgba(153,209,255,0.025)_58%,transparent_84%)] opacity-40 blur-3xl" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.08)_0%,rgba(8,8,16,0.02)_24%,rgba(8,8,16,0.06)_62%,rgba(8,8,16,0.1)_100%)]" />
       <div className="absolute inset-0 bg-gradient-to-r from-[rgba(6,6,12,0.32)] via-transparent to-[rgba(6,6,12,0.28)]" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 overflow-hidden">
-        <div
-          className="absolute inset-0 scale-110 bg-cover bg-center bg-no-repeat blur-2xl opacity-95"
-          style={{
-            backgroundImage: `url('${siteConfig.heroBackground}')`,
-            backgroundPosition: "center bottom",
-            maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.14) 28%, rgba(0,0,0,0.52) 58%, rgba(0,0,0,0.94) 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.14) 28%, rgba(0,0,0,0.52) 58%, rgba(0,0,0,0.94) 100%)",
-          }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(35,18,33,0.08)_46%,rgba(56,24,48,0.18)_100%)]" />
-      </div>
       
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
