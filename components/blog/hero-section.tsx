@@ -70,8 +70,14 @@ export function HeroSection() {
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <div className="w-6 h-10 rounded-full border-2 border-primary/50 flex items-start justify-center p-2">
-          <div className="w-1 h-2 rounded-full bg-primary" />
+        <div className="relative h-10 w-11 flex items-center justify-center">
+          <div className="absolute left-[7px] top-[3px] h-4 w-4 rotate-[-18deg] rounded-tl-[3px] rounded-tr-[12px] rounded-br-[3px] border-t-2 border-l-2 border-primary/60" />
+          <div className="absolute right-[7px] top-[3px] h-4 w-4 rotate-[18deg] rounded-tl-[12px] rounded-tr-[3px] rounded-bl-[3px] border-t-2 border-r-2 border-primary/60" />
+          <div className="relative h-7 w-8 rounded-[999px] border-2 border-primary/55 bg-[rgba(255,122,169,0.05)]">
+            <div className="absolute left-[8px] top-[8px] h-[3px] w-[3px] rounded-full bg-primary/80" />
+            <div className="absolute right-[8px] top-[8px] h-[3px] w-[3px] rounded-full bg-primary/80" />
+            <div className="absolute left-1/2 top-[14px] h-[5px] w-[7px] -translate-x-1/2 rounded-b-[10px] rounded-t-[5px] border border-primary/70 bg-transparent" />
+          </div>
         </div>
       </motion.div>
     </section>
