@@ -37,7 +37,7 @@ export default function BlogPage() {
         {/* Blog Posts Section */}
         <section id="posts" className="relative z-10 overflow-hidden px-6 pt-24 pb-20 md:pt-28">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(68,32,58,0.84),rgba(56,24,48,0.92)_26%,rgba(35,16,30,0.96)_54%,rgba(12,8,16,0.99)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(68,32,58,0)_0%,rgba(68,32,58,0.18)_12%,rgba(60,28,52,0.52)_22%,rgba(48,22,42,0.92)_34%,rgba(22,12,24,0.98)_100%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,140,210,0.08),transparent_16%),radial-gradient(circle_at_82%_20%,rgba(151,115,255,0.07),transparent_18%),radial-gradient(circle_at_18%_78%,rgba(255,108,181,0.05),transparent_15%)]" />
             <div className="absolute left-[-4%] top-18 h-72 w-72 rounded-full bg-[rgba(255,127,196,0.06)] blur-[120px]" />
             <div className="absolute right-[-6%] top-16 h-80 w-80 rounded-full bg-[rgba(138,112,255,0.06)] blur-[140px]" />
