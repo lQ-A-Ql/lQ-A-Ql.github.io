@@ -7,10 +7,10 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/58 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/84 via-transparent to-background/76" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.22)_0%,rgba(8,8,16,0.08)_22%,rgba(8,8,16,0.16)_56%,rgba(8,8,16,0.2)_100%)]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(6,6,12,0.62)] via-transparent to-[rgba(6,6,12,0.54)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(255,150,214,0.22),transparent_22%),radial-gradient(circle_at_78%_18%,rgba(173,122,255,0.16),transparent_20%),radial-gradient(circle_at_18%_78%,rgba(255,96,170,0.1),transparent_18%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_38%,rgba(5,5,10,0.18)_72%,rgba(3,3,8,0.42)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_34%,rgba(5,5,10,0.1)_70%,rgba(3,3,8,0.2)_100%)]" />
       <div className="pointer-events-none absolute inset-y-0 left-[8%] w-1/2 rotate-[14deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.12),rgba(255,225,241,0.08)_24%,rgba(153,209,255,0.07)_54%,transparent_82%)] opacity-60 blur-3xl" />
       
       {/* Content */}
