@@ -8,7 +8,7 @@ import { Header } from "@/components/blog/header"
 import { Footer } from "@/components/blog/footer"
 import { PageTransition, fadeUpVariant, staggerContainer } from "@/components/blog/page-transition"
 import { Button } from "@/components/ui/button"
-import type { BlogPost } from "@/lib/blog-data"
+import { siteConfig, type BlogPost } from "@/lib/blog-data"
 
 interface PostPageClientProps {
   post: BlogPost
@@ -21,11 +21,23 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
 
   return (
     <PageTransition>
-      <main className="min-h-screen bg-background">
+      <main className="relative min-h-screen bg-background overflow-hidden">
         <Header />
 
+        <div
+          className="pointer-events-none absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `linear-gradient(rgba(10,10,18,0.42), rgba(10,10,18,0.8)), url('${siteConfig.heroBackground}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            backgroundAttachment: "fixed",
+          }}
+        />
+
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,122,169,0.18),transparent_34%),radial-gradient(circle_at_80%_20%,rgba(150,90,255,0.12),transparent_28%)]" />
+
         <motion.div
-          className="relative pt-24 pb-16 px-6"
+          className="relative z-10 pt-24 pb-16 px-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -108,13 +120,13 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
         </motion.div>
 
         <motion.article
-          className="max-w-4xl mx-auto px-6 pb-20"
+          className="relative z-10 max-w-4xl mx-auto px-6 pb-20"
           initial="initial"
           animate="animate"
           variants={staggerContainer}
         >
           <motion.div
-            className="prose prose-invert prose-pink prose-pre:bg-card/80 prose-code:text-foreground prose-headings:text-foreground max-w-none"
+            className="prose prose-invert prose-pink prose-headings:text-foreground max-w-none rounded-[1.75rem] border border-white/8 bg-[rgba(16,14,24,0.62)] px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-md md:px-10 md:py-10"
             variants={fadeUpVariant}
           >
             <div
