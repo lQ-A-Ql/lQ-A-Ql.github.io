@@ -15,8 +15,11 @@ export function HeroSection() {
       />
       
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/58 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/84 via-transparent to-background/76" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(255,150,214,0.22),transparent_22%),radial-gradient(circle_at_78%_18%,rgba(173,122,255,0.16),transparent_20%),radial-gradient(circle_at_18%_78%,rgba(255,96,170,0.1),transparent_18%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_38%,rgba(5,5,10,0.18)_72%,rgba(3,3,8,0.42)_100%)]" />
+      <div className="pointer-events-none absolute inset-y-0 left-[8%] w-1/2 rotate-[14deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.12),rgba(255,225,241,0.08)_24%,rgba(153,209,255,0.07)_54%,transparent_82%)] opacity-60 blur-3xl" />
       
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
