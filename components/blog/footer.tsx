@@ -22,7 +22,7 @@ export function Footer() {
               <span className="text-primary">{siteConfig.title.slice(0, 1)}</span>{siteConfig.title.slice(1)}
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              {siteConfig.description}
+              记录实战中的流量、取证、逆向与赛题分析，尽量把每篇内容压缩成可直接复用的经验片段。
             </p>
           </motion.div>
           
@@ -70,7 +70,7 @@ export function Footer() {
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <p>© 2026 {siteConfig.title}. Built with Next.js.</p>
+          <p>© 2026 {siteConfig.title}. Security notes, traffic traces, and incident writeups.</p>
         </motion.div>
       </motion.div>
     </footer>

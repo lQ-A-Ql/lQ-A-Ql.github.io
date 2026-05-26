@@ -11,7 +11,7 @@ import {
   fadeUpVariant,
   scaleUpVariant
 } from "@/components/blog/page-transition"
-import { blogPosts } from "@/lib/blog-data"
+import { blogPosts, siteConfig } from "@/lib/blog-data"
 
 export default function BlogPage() {
   return (
@@ -41,7 +41,7 @@ export default function BlogPage() {
                 className="text-muted-foreground max-w-2xl mx-auto"
                 variants={fadeUpVariant}
               >
-                旧博客文章已经迁入这个新模板，保留原来的正文、配图、头像和字体。
+                围绕威胁流量、入侵检测、应急取证与赛题复盘，持续整理实战里真正有用的方法和过程。
               </motion.p>
             </motion.div>
             
@@ -82,7 +82,7 @@ export default function BlogPage() {
                 whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(236, 72, 153, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
               >
-                查看全部文章
+                进入归档
               </motion.a>
             </motion.div>
           </div>
@@ -102,26 +102,20 @@ export default function BlogPage() {
               variants={scaleUpVariant}
               whileHover={{ scale: 1.1, borderColor: "rgba(236, 72, 153, 0.8)" }}
             >
-              <div 
-                className="w-full h-full bg-cover bg-center"
-                style={{
-                  backgroundImage: `url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB-%E5%8A%A8%E6%BC%AB%E5%B0%91%E5%A5%B3-SeYuvIewkyhMqBGqQyNGXNxAI3jIuh.png')`
-                }}
-              />
+              <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="w-full h-full object-cover" />
             </motion.div>
             <motion.h2 
               className="text-2xl font-bold text-foreground mb-4"
               variants={fadeUpVariant}
             >
-              关于作者
+              关于这个角落
             </motion.h2>
             <motion.p 
               className="text-muted-foreground leading-relaxed max-w-2xl mx-auto"
               variants={fadeUpVariant}
             >
-              一个热爱代码与文字的深夜创作者。白天是程序员，夜晚是思考者。
-              在键盘与咖啡之间，记录着生活的点滴与技术的探索。
-              相信每一行代码都有灵魂，每一篇文章都是与世界的对话。
+              {siteConfig.title} 主要记录流量分析、Windows 与 Linux 入侵排查、CTF 复盘，以及做安全工具时踩过的坑。
+              不追求铺陈完整背景，更偏向保留关键证据、解题路径和能复现结果的操作细节。
             </motion.p>
           </motion.div>
         </section>

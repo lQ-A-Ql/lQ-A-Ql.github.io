@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = {
   "githubUrl": "https://github.com/lQ-A-Ql",
   "avatarUrl": "/legacy/avatar.png",
   "ogImage": "/legacy/site-image.png",
-  "heroBackground": "/placeholder.jpg"
+  "heroBackground": "/hero-bg.png"
 } as const
 
 export const blogPosts: BlogPost[] = [
