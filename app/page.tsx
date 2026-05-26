@@ -14,14 +14,17 @@ import {
 import { blogPosts, siteConfig } from "@/lib/blog-data"
 
 const postBackdropParticles = [
-  { left: "8%", top: "62%", size: 6, color: "rgba(255, 214, 236, 0.28)", blur: "blur-sm", duration: 7.2, delay: 0.2 },
-  { left: "16%", top: "74%", size: 10, color: "rgba(255, 149, 208, 0.2)", blur: "blur-md", duration: 8.6, delay: 1.1 },
-  { left: "27%", top: "84%", size: 5, color: "rgba(186, 157, 255, 0.26)", blur: "blur-sm", duration: 6.8, delay: 0.8 },
-  { left: "41%", top: "70%", size: 8, color: "rgba(255, 228, 242, 0.22)", blur: "blur-md", duration: 8.8, delay: 1.6 },
-  { left: "55%", top: "82%", size: 7, color: "rgba(153, 214, 255, 0.18)", blur: "blur-sm", duration: 7.8, delay: 0.5 },
-  { left: "68%", top: "66%", size: 12, color: "rgba(255, 164, 220, 0.18)", blur: "blur-lg", duration: 9.4, delay: 1.2 },
-  { left: "81%", top: "78%", size: 6, color: "rgba(255, 238, 245, 0.26)", blur: "blur-sm", duration: 7.4, delay: 0.4 },
-  { left: "91%", top: "68%", size: 11, color: "rgba(170, 136, 255, 0.18)", blur: "blur-md", duration: 8.2, delay: 1.8 },
+  { left: "7%", top: "54%", size: 7, color: "rgba(255, 223, 241, 0.38)", blur: "blur-sm", duration: 7.2, delay: 0.2 },
+  { left: "12%", top: "66%", size: 14, color: "rgba(255, 146, 210, 0.34)", blur: "blur-md", duration: 8.6, delay: 1.1 },
+  { left: "18%", top: "82%", size: 6, color: "rgba(186, 157, 255, 0.36)", blur: "blur-sm", duration: 6.8, delay: 0.8 },
+  { left: "28%", top: "72%", size: 10, color: "rgba(255, 228, 242, 0.3)", blur: "blur-md", duration: 8.8, delay: 1.6 },
+  { left: "39%", top: "58%", size: 8, color: "rgba(255, 175, 228, 0.26)", blur: "blur-sm", duration: 7.4, delay: 0.3 },
+  { left: "49%", top: "84%", size: 9, color: "rgba(153, 214, 255, 0.26)", blur: "blur-sm", duration: 7.8, delay: 0.5 },
+  { left: "58%", top: "68%", size: 16, color: "rgba(255, 164, 220, 0.28)", blur: "blur-lg", duration: 9.4, delay: 1.2 },
+  { left: "67%", top: "56%", size: 7, color: "rgba(255, 238, 245, 0.34)", blur: "blur-sm", duration: 7.4, delay: 0.4 },
+  { left: "76%", top: "80%", size: 11, color: "rgba(170, 136, 255, 0.28)", blur: "blur-md", duration: 8.2, delay: 1.8 },
+  { left: "84%", top: "64%", size: 13, color: "rgba(255, 192, 232, 0.24)", blur: "blur-md", duration: 8.6, delay: 0.9 },
+  { left: "92%", top: "78%", size: 8, color: "rgba(210, 180, 255, 0.26)", blur: "blur-sm", duration: 7.1, delay: 1.5 },
 ]
 
 export default function BlogPage() {
@@ -45,11 +48,11 @@ export default function BlogPage() {
         {/* Blog Posts Section */}
         <section id="posts" className="relative z-10 -mt-28 overflow-hidden px-6 pt-32 pb-20 md:-mt-32 md:pt-36">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(35,18,33,0.16),rgba(47,23,42,0.34)_48%,rgba(63,28,53,0.72)_100%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_6%,rgba(255,140,210,0.04),transparent_16%),radial-gradient(circle_at_82%_22%,rgba(151,115,255,0.035),transparent_18%),radial-gradient(circle_at_16%_74%,rgba(255,108,181,0.03),transparent_15%)]" />
-            <div className="absolute left-[-6%] top-24 h-64 w-64 rounded-full bg-[rgba(255,127,196,0.03)] blur-[120px]" />
-            <div className="absolute right-[-8%] top-20 h-72 w-72 rounded-full bg-[rgba(138,112,255,0.03)] blur-[140px]" />
-            <div className="absolute inset-y-16 left-1/2 w-[50%] -translate-x-1/2 rotate-[12deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.02),rgba(255,210,234,0.018)_44%,rgba(152,214,255,0.015)_66%,transparent)] blur-3xl opacity-40" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(58,30,52,0.18),rgba(61,31,54,0.34)_34%,rgba(44,20,40,0.58)_62%,rgba(16,10,20,0.96)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,140,210,0.08),transparent_16%),radial-gradient(circle_at_82%_20%,rgba(151,115,255,0.07),transparent_18%),radial-gradient(circle_at_18%_78%,rgba(255,108,181,0.05),transparent_15%)]" />
+            <div className="absolute left-[-4%] top-18 h-72 w-72 rounded-full bg-[rgba(255,127,196,0.06)] blur-[120px]" />
+            <div className="absolute right-[-6%] top-16 h-80 w-80 rounded-full bg-[rgba(138,112,255,0.06)] blur-[140px]" />
+            <div className="absolute inset-y-10 left-1/2 w-[54%] -translate-x-1/2 rotate-[12deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.03),rgba(255,210,234,0.025)_44%,rgba(152,214,255,0.02)_66%,transparent)] blur-3xl opacity-55" />
             {postBackdropParticles.map((particle, index) => (
               <motion.span
                 key={index}
@@ -61,12 +64,12 @@ export default function BlogPage() {
                   height: `${particle.size}px`,
                   backgroundColor: particle.color,
                 }}
-                initial={{ opacity: 0.2, scale: 0.88 }}
+                initial={{ opacity: 0.28, scale: 0.82 }}
                 animate={{
-                  opacity: [0.2, 0.75, 0.24],
-                  scale: [0.88, 1.14, 0.92],
-                  y: [0, -10, 0],
-                  x: [0, 2, 0],
+                  opacity: [0.28, 0.95, 0.34],
+                  scale: [0.82, 1.22, 0.9],
+                  y: [0, -12, 0],
+                  x: [0, 4, 0],
                 }}
                 transition={{
                   duration: particle.duration,
