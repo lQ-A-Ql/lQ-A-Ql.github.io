@@ -1,8 +1,19 @@
 "use client"
 
 import DOMPurify from "isomorphic-dompurify"
+import hljs from "highlight.js/lib/core"
+import bash from "highlight.js/lib/languages/bash"
+import c from "highlight.js/lib/languages/c"
+import cpp from "highlight.js/lib/languages/cpp"
+import javascript from "highlight.js/lib/languages/javascript"
+import json from "highlight.js/lib/languages/json"
+import plaintext from "highlight.js/lib/languages/plaintext"
+import powershell from "highlight.js/lib/languages/powershell"
+import python from "highlight.js/lib/languages/python"
+import typescript from "highlight.js/lib/languages/typescript"
 import { motion } from "framer-motion"
 import { ArrowLeft, Calendar, Clock, Tag, Share2 } from "lucide-react"
+import { useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { Header } from "@/components/blog/header"
 import { Footer } from "@/components/blog/footer"
@@ -16,8 +27,50 @@ interface PostPageClientProps {
   next?: BlogPost
 }
 
+hljs.registerLanguage("bash", bash)
+hljs.registerLanguage("sh", bash)
+hljs.registerLanguage("shell", bash)
+hljs.registerLanguage("c", c)
+hljs.registerLanguage("cpp", cpp)
+hljs.registerLanguage("c++", cpp)
+hljs.registerLanguage("javascript", javascript)
+hljs.registerLanguage("js", javascript)
+hljs.registerLanguage("json", json)
+hljs.registerLanguage("plaintext", plaintext)
+hljs.registerLanguage("text", plaintext)
+hljs.registerLanguage("powershell", powershell)
+hljs.registerLanguage("ps1", powershell)
+hljs.registerLanguage("python", python)
+hljs.registerLanguage("py", python)
+hljs.registerLanguage("typescript", typescript)
+hljs.registerLanguage("ts", typescript)
+
 export function PostPageClient({ post, previous, next }: PostPageClientProps) {
   const router = useRouter()
+  const sanitizedContentHtml = useMemo(() => {
+    const highlighted = post.contentHtml.replace(
+      /<pre><code class="language-([^"]+)">([\s\S]*?)<\/code><\/pre>/gi,
+      (_match, language, code) => {
+        const normalizedLanguage = String(language).toLowerCase()
+        const decodedCode = code
+          .replace(/&amp;/g, "&")
+          .replace(/&lt;/g, "<")
+          .replace(/&gt;/g, ">")
+          .replace(/&quot;/g, '"')
+          .replace(/&#39;/g, "'")
+
+        const validLanguage = hljs.getLanguage(normalizedLanguage)
+          ? normalizedLanguage
+          : "plaintext"
+
+        const highlightedCode = hljs.highlight(decodedCode, { language: validLanguage }).value
+
+        return `<pre class="hljs-wrapper"><code class="hljs language-${validLanguage}">${highlightedCode}</code></pre>`
+      },
+    )
+
+    return DOMPurify.sanitize(highlighted)
+  }, [post.contentHtml])
 
   return (
     <PageTransition>
@@ -120,7 +173,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
           >
             <div
               className="text-foreground/90 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.contentHtml) }}
+              dangerouslySetInnerHTML={{ __html: sanitizedContentHtml }}
             />
           </motion.div>
 

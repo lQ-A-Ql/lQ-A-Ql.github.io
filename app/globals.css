@@ -201,6 +201,52 @@ img {
   white-space: pre;
 }
 
+.prose pre code.hljs {
+  color: #f7ebf7 !important;
+}
+
+.prose .hljs-keyword,
+.prose .hljs-selector-tag,
+.prose .hljs-literal,
+.prose .hljs-section,
+.prose .hljs-link {
+  color: #ff8fcb;
+}
+
+.prose .hljs-string,
+.prose .hljs-attr,
+.prose .hljs-meta .hljs-string,
+.prose .hljs-template-tag,
+.prose .hljs-template-variable {
+  color: #ffc2df;
+}
+
+.prose .hljs-number,
+.prose .hljs-symbol,
+.prose .hljs-bullet,
+.prose .hljs-variable,
+.prose .hljs-quote {
+  color: #9bd0ff;
+}
+
+.prose .hljs-title,
+.prose .hljs-function .hljs-title,
+.prose .hljs-title.function_ {
+  color: #cdb5ff;
+}
+
+.prose .hljs-comment,
+.prose .hljs-meta,
+.prose .hljs-code {
+  color: rgba(214, 203, 218, 0.52);
+}
+
+.prose .hljs-built_in,
+.prose .hljs-type,
+.prose .hljs-class .hljs-title {
+  color: #ffe08f;
+}
+
 .prose :not(pre) > code {
   border: 1px solid color-mix(in oklab, var(--color-primary) 18%, var(--color-border));
   border-radius: 0.55rem;
