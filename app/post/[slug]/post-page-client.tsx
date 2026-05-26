@@ -168,11 +168,18 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
           variants={staggerContainer}
         >
           <motion.div
-            className="prose prose-invert prose-pink prose-headings:text-foreground max-w-none rounded-[1.75rem] bg-[linear-gradient(180deg,rgba(32,20,40,0.72),rgba(10,10,18,0.82))] px-6 py-8 shadow-[0_28px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl md:px-10 md:py-10"
+            className="group relative prose prose-invert prose-pink prose-headings:text-foreground max-w-none overflow-hidden rounded-[1.75rem] bg-[rgba(94,74,122,0.12)] px-6 py-8 shadow-[0_30px_110px_rgba(0,0,0,0.34)] backdrop-blur-[22px] backdrop-saturate-150 md:px-10 md:py-10"
             variants={fadeUpVariant}
           >
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              <div className="absolute inset-y-0 -left-1/4 w-1/2 rotate-[16deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.2),rgba(255,255,255,0.08)_22%,rgba(255,194,230,0.1)_44%,rgba(150,210,255,0.08)_62%,transparent_84%)] opacity-80 blur-2xl" />
+              <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[rgba(255,202,233,0.09)] blur-3xl" />
+              <div className="absolute left-10 top-0 h-px w-[38%] bg-[linear-gradient(90deg,rgba(255,255,255,0.72),rgba(255,255,255,0.18),transparent)] opacity-80" />
+              <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.24),transparent)] opacity-70" />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),transparent_22%,rgba(255,255,255,0.02)_64%,rgba(0,0,0,0.08))]" />
+            </div>
             <div
-              className="text-foreground/90 leading-relaxed"
+              className="relative z-10 text-foreground/90 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: sanitizedContentHtml }}
             />
           </motion.div>
