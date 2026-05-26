@@ -34,11 +34,10 @@ export default function BlogPage() {
         {/* Blog Posts Section */}
         <section id="posts" className="relative z-10 -mt-28 overflow-hidden px-6 pt-32 pb-20 md:-mt-32 md:pt-36">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(8,8,14,0.06)_26%,rgba(8,8,14,0.16)_54%,rgba(8,8,14,0.42)_100%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,140,210,0.08),transparent_17%),radial-gradient(circle_at_82%_22%,rgba(151,115,255,0.07),transparent_18%),radial-gradient(circle_at_16%_74%,rgba(255,108,181,0.05),transparent_15%)]" />
-            <div className="absolute left-[-6%] top-20 h-72 w-72 rounded-full bg-[rgba(255,127,196,0.05)] blur-[110px]" />
-            <div className="absolute right-[-8%] top-16 h-80 w-80 rounded-full bg-[rgba(138,112,255,0.05)] blur-[130px]" />
-            <div className="absolute inset-y-10 left-1/2 w-[58%] -translate-x-1/2 rotate-[12deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.035),rgba(255,210,234,0.03)_44%,rgba(152,214,255,0.02)_66%,transparent)] blur-3xl opacity-55" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_6%,rgba(255,140,210,0.04),transparent_16%),radial-gradient(circle_at_82%_22%,rgba(151,115,255,0.035),transparent_18%),radial-gradient(circle_at_16%_74%,rgba(255,108,181,0.03),transparent_15%)]" />
+            <div className="absolute left-[-6%] top-24 h-64 w-64 rounded-full bg-[rgba(255,127,196,0.03)] blur-[120px]" />
+            <div className="absolute right-[-8%] top-20 h-72 w-72 rounded-full bg-[rgba(138,112,255,0.03)] blur-[140px]" />
+            <div className="absolute inset-y-16 left-1/2 w-[50%] -translate-x-1/2 rotate-[12deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.02),rgba(255,210,234,0.018)_44%,rgba(152,214,255,0.015)_66%,transparent)] blur-3xl opacity-40" />
           </div>
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
