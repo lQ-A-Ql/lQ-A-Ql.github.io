@@ -31,24 +31,13 @@ export default function BlogPage() {
   return (
     <PageTransition>
       <main className="relative min-h-screen bg-background overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1200px] overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.96]"
-            style={{
-              backgroundImage: `url('${siteConfig.heroBackground}')`,
-              maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 42%, rgba(0,0,0,0.82) 62%, rgba(0,0,0,0.46) 82%, rgba(0,0,0,0.12) 94%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 42%, rgba(0,0,0,0.82) 62%, rgba(0,0,0,0.46) 82%, rgba(0,0,0,0.12) 94%, transparent 100%)",
-            }}
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,7,14,0.08),rgba(7,7,14,0.14)_38%,rgba(7,7,14,0.34)_66%,rgba(7,7,14,0.72)_100%)]" />
-        </div>
         <Header />
         <HeroSection />
         
         {/* Blog Posts Section */}
-        <section id="posts" className="relative z-10 -mt-28 overflow-hidden px-6 pt-32 pb-20 md:-mt-32 md:pt-36">
+        <section id="posts" className="relative z-10 overflow-hidden px-6 pt-24 pb-20 md:pt-28">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(58,30,52,0.18),rgba(61,31,54,0.34)_34%,rgba(44,20,40,0.58)_62%,rgba(16,10,20,0.96)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(68,32,58,0.84),rgba(56,24,48,0.92)_26%,rgba(35,16,30,0.96)_54%,rgba(12,8,16,0.99)_100%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,140,210,0.08),transparent_16%),radial-gradient(circle_at_82%_20%,rgba(151,115,255,0.07),transparent_18%),radial-gradient(circle_at_18%_78%,rgba(255,108,181,0.05),transparent_15%)]" />
             <div className="absolute left-[-4%] top-18 h-72 w-72 rounded-full bg-[rgba(255,127,196,0.06)] blur-[120px]" />
             <div className="absolute right-[-6%] top-16 h-80 w-80 rounded-full bg-[rgba(138,112,255,0.06)] blur-[140px]" />
