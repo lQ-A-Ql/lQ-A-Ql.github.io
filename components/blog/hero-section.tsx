@@ -6,12 +6,8 @@ import { siteConfig, categories } from "@/lib/blog-data"
 export function HeroSection() {
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.1)_0%,rgba(8,8,16,0.02)_24%,rgba(8,8,16,0.08)_62%,rgba(8,8,16,0.12)_100%)]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(6,6,12,0.46)] via-transparent to-[rgba(6,6,12,0.4)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(255,150,214,0.18),transparent_22%),radial-gradient(circle_at_78%_18%,rgba(173,122,255,0.12),transparent_20%),radial-gradient(circle_at_18%_78%,rgba(255,96,170,0.08),transparent_18%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_42%,rgba(5,5,10,0.04)_74%,rgba(3,3,8,0.12)_100%)]" />
-      <div className="pointer-events-none absolute inset-y-0 left-[8%] w-1/2 rotate-[14deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.1),rgba(255,225,241,0.06)_24%,rgba(153,209,255,0.05)_54%,transparent_82%)] opacity-45 blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_54%_12%,rgba(255,165,222,0.1),transparent_24%),radial-gradient(circle_at_80%_18%,rgba(173,122,255,0.06),transparent_22%)]" />
+      <div className="pointer-events-none absolute inset-y-0 left-[14%] w-[36%] rotate-[15deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.07),rgba(255,227,242,0.03)_28%,rgba(153,209,255,0.025)_58%,transparent_84%)] opacity-40 blur-3xl" />
       
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
@@ -23,10 +19,10 @@ export function HeroSection() {
           <div className="mx-auto mb-6 h-28 w-28 overflow-hidden rounded-full border border-primary/40 shadow-[0_0_40px_rgba(255,122,169,0.25)]">
             <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-foreground tracking-[0.1em]">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-foreground tracking-[0.1em] [text-shadow:0_10px_26px_rgba(0,0,0,0.32)]">
             <span className="text-primary">{siteConfig.title.slice(0, 1)}</span>{siteConfig.title.slice(1)}
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed [text-shadow:0_6px_18px_rgba(0,0,0,0.22)]">
             {siteConfig.description}
           </p>
         </motion.div>

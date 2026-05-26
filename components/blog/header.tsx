@@ -54,9 +54,9 @@ export function Header() {
         damping: 20,
       }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/50" 
-          : "bg-transparent"
+        isScrolled
+          ? "bg-[rgba(8,9,16,0.86)] backdrop-blur-xl border-b border-white/8 shadow-[0_10px_36px_rgba(0,0,0,0.18)]"
+          : "bg-[rgba(8,9,16,0.72)] backdrop-blur-xl border-b border-white/6"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6">
