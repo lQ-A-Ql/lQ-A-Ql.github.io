@@ -21,11 +21,18 @@ export default function BlogPage() {
         <HeroSection />
         
         {/* Blog Posts Section */}
-        <section id="posts" className="py-20 px-6">
+        <section id="posts" className="relative overflow-hidden py-20 px-6">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,140,210,0.12),transparent_18%),radial-gradient(circle_at_82%_26%,rgba(151,115,255,0.1),transparent_18%),radial-gradient(circle_at_16%_72%,rgba(255,108,181,0.08),transparent_16%)]" />
+            <div className="absolute left-[-6%] top-24 h-72 w-72 rounded-full bg-[rgba(255,127,196,0.08)] blur-[110px]" />
+            <div className="absolute right-[-8%] top-12 h-80 w-80 rounded-full bg-[rgba(138,112,255,0.08)] blur-[130px]" />
+            <div className="absolute inset-y-16 left-1/2 w-[58%] -translate-x-1/2 rotate-[12deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.06),rgba(255,210,234,0.05)_44%,rgba(152,214,255,0.04)_66%,transparent)] blur-3xl opacity-70" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_46%,rgba(7,7,12,0.18)_72%,rgba(4,4,8,0.42)_100%)]" />
+          </div>
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
             <motion.div 
-              className="text-center mb-16"
+              className="relative z-10 text-center mb-16"
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, margin: "-100px" }}
@@ -47,7 +54,7 @@ export default function BlogPage() {
             
             {/* Posts Grid */}
             <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, margin: "-50px" }}
@@ -70,7 +77,7 @@ export default function BlogPage() {
             
             {/* Load More */}
             <motion.div 
-              className="text-center mt-12"
+              className="relative z-10 text-center mt-12"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
