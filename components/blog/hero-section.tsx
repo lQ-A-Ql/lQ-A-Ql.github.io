@@ -32,7 +32,7 @@ export function HeroSection() {
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-foreground tracking-[0.1em] [text-shadow:0_10px_26px_rgba(0,0,0,0.32)]">
             <span className="text-primary">{siteConfig.title.slice(0, 1)}</span>{siteConfig.title.slice(1)}
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed [text-shadow:0_6px_18px_rgba(0,0,0,0.22)]">
+          <p className="text-lg md:text-xl text-white/95 max-w-2xl mx-auto leading-relaxed [text-shadow:0_6px_18px_rgba(0,0,0,0.22)]">
             {siteConfig.description}
           </p>
         </motion.div>
