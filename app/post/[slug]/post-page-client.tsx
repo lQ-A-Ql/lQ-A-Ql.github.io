@@ -115,7 +115,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
           variants={staggerContainer}
         >
           <motion.div
-            className="prose prose-invert prose-pink prose-headings:text-foreground max-w-none rounded-[1.75rem] border border-white/10 bg-[rgba(9,10,18,0.82)] px-6 py-8 shadow-[0_28px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl md:px-10 md:py-10"
+            className="prose prose-invert prose-pink prose-headings:text-foreground max-w-none rounded-[1.75rem] bg-[rgba(9,10,18,0.82)] px-6 py-8 shadow-[0_28px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl md:px-10 md:py-10"
             variants={fadeUpVariant}
           >
             <div
