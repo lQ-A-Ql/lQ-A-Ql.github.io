@@ -6,7 +6,6 @@ import Link from "next/link"
 import { Menu, X, Search } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { usePageTransition } from "./transition-context"
 import { siteConfig } from "@/lib/blog-data"
 
 const navItems = [
@@ -18,7 +17,6 @@ const navItems = [
 
 export function Header() {
   const pathname = usePathname()
-  const { navigateTo } = usePageTransition()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -35,31 +33,15 @@ export function Header() {
     setIsMobileMenuOpen(false)
   }, [pathname])
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
-    
-    // 如果是锚点链接在当前页面，直接滚动
+  const handleNavClick = (href: string) => {
     if (href.startsWith("/#") && pathname === "/") {
       const id = href.replace("/#", "")
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
       setIsMobileMenuOpen(false)
       return
     }
-    
-    // 如果已经在当前页面，不做任何处理
-    if (href === pathname) {
-      setIsMobileMenuOpen(false)
-      return
-    }
-    
-    setIsMobileMenuOpen(false)
-    navigateTo(href)
-  }
 
-  const handleSearchClick = () => {
-    if (pathname !== "/search") {
-      navigateTo("/search")
-    }
+    setIsMobileMenuOpen(false)
   }
 
   return (
@@ -80,23 +62,28 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a 
-            href="/" 
-            onClick={(e) => handleNavClick(e, "/")}
+          <Link
+            href="/"
+            onClick={() => setIsMobileMenuOpen(false)}
             className="flex items-center gap-2"
           >
             <span className="text-xl font-bold tracking-[0.18em]">
               <span className="text-primary">{siteConfig.title.slice(0, 1)}</span>{siteConfig.title.slice(1)}
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
+                onClick={(e) => {
+                  if (item.href.startsWith("/#") && pathname === "/") {
+                    e.preventDefault()
+                  }
+                  handleNavClick(item.href)
+                }}
                 className={`text-sm transition-colors relative group ${
                   pathname === item.href 
                     ? "text-primary" 
@@ -113,19 +100,16 @@ export function Header() {
                   transition={{ duration: 0.2 }}
                 />
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary/50 transition-all group-hover:w-full" />
-              </a>
+              </Link>
             ))}
           </nav>
 
           {/* Actions */}
           <div className="flex items-center gap-4">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="text-muted-foreground hover:text-primary"
-              onClick={handleSearchClick}
-            >
-              <Search className="w-4 h-4" />
+            <Button asChild variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+              <Link href="/search" aria-label="搜索文章">
+                <Search className="w-4 h-4" />
+              </Link>
             </Button>
             <Link
               href={siteConfig.githubUrl}
@@ -180,9 +164,14 @@ export function Header() {
                     closed: { y: 20, opacity: 0 }
                   }}
                 >
-                  <a
+                  <Link
                     href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
+                    onClick={(e) => {
+                      if (item.href.startsWith("/#") && pathname === "/") {
+                        e.preventDefault()
+                      }
+                      handleNavClick(item.href)
+                    }}
                     className={`text-lg transition-colors block ${
                       pathname === item.href 
                         ? "text-primary" 
@@ -190,7 +179,7 @@ export function Header() {
                     }`}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </motion.div>
               ))}
             </motion.nav>

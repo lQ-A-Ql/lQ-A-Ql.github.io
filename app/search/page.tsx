@@ -135,7 +135,6 @@ export default function SearchPage() {
                 {filteredPosts.map((post, index) => (
                   <motion.div
                     key={post.id}
-                    onClick={() => router.push(`/post/${post.slug}`)}
                     variants={fadeUpVariant}
                   >
                     <BlogCard

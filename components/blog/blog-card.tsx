@@ -1,9 +1,9 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
 import { Card } from "@/components/ui/card"
-import { usePageTransition } from "./transition-context"
 
 interface BlogCardProps {
   id?: string
@@ -26,15 +26,7 @@ export function BlogCard({
   imageUrl,
   index 
 }: BlogCardProps) {
-  const { navigateTo } = usePageTransition()
-  
-  const handleClick = () => {
-    if (id) {
-      navigateTo(`/post/${id}`)
-    }
-  }
-  
-  return (
+  const content = (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -45,7 +37,6 @@ export function BlogCard({
         damping: 20,
         delay: index * 0.08
       }}
-      onClick={handleClick}
       whileHover={{ y: -5 }}
       whileTap={{ scale: 0.98 }}
       style={{ cursor: id ? "pointer" : "default" }}
@@ -103,5 +94,15 @@ export function BlogCard({
         </div>
       </Card>
     </motion.div>
+  )
+
+  if (!id) {
+    return content
+  }
+
+  return (
+    <Link href={`/post/${id}/`} className="block">
+      {content}
+    </Link>
   )
 }
