@@ -25,16 +25,18 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
         <Header />
 
         <div
-          className="pointer-events-none absolute inset-0 opacity-20"
+          className="pointer-events-none absolute inset-0 opacity-55"
           style={{
-            backgroundImage: `linear-gradient(rgba(10,10,18,0.42), rgba(10,10,18,0.8)), url('${siteConfig.heroBackground}')`,
+            backgroundImage: `linear-gradient(rgba(5,6,12,0.72), rgba(5,6,12,0.9)), url('${siteConfig.heroBackground}')`,
             backgroundSize: "cover",
             backgroundPosition: "center top",
             backgroundAttachment: "fixed",
           }}
         />
 
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,122,169,0.18),transparent_34%),radial-gradient(circle_at_80%_20%,rgba(150,90,255,0.12),transparent_28%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,122,169,0.16),transparent_28%),radial-gradient(circle_at_78%_18%,rgba(132,92,255,0.14),transparent_24%),radial-gradient(circle_at_15%_78%,rgba(71,164,255,0.08),transparent_22%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)", backgroundSize: "32px 32px", maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 88%)" }} />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_50%_0%,rgba(255,142,196,0.24),transparent_58%)]" />
 
         <motion.div
           className="relative z-10 pt-24 pb-16 px-6"
@@ -42,18 +44,6 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          {post.imageUrl && (
-            <motion.div
-              className="absolute inset-0 z-0"
-              initial={{ scale: 1.1, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <img src={post.imageUrl} alt={post.title} className="w-full h-full object-cover opacity-20" />
-              <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background" />
-            </motion.div>
-          )}
-
           <div className="max-w-4xl mx-auto relative z-10">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -126,7 +116,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
           variants={staggerContainer}
         >
           <motion.div
-            className="prose prose-invert prose-pink prose-headings:text-foreground max-w-none rounded-[1.75rem] border border-white/8 bg-[rgba(16,14,24,0.62)] px-6 py-8 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-md md:px-10 md:py-10"
+            className="prose prose-invert prose-pink prose-headings:text-foreground max-w-none rounded-[1.75rem] border border-white/10 bg-[rgba(9,10,18,0.82)] px-6 py-8 shadow-[0_28px_100px_rgba(0,0,0,0.42)] backdrop-blur-xl md:px-10 md:py-10"
             variants={fadeUpVariant}
           >
             <div
