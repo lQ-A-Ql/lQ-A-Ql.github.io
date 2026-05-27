@@ -15,6 +15,24 @@ import {
 } from "@/components/blog/page-transition"
 import { blogPosts, siteConfig } from "@/lib/blog-data"
 
+const postsParticles = [
+  { id: 1, left: "8%", top: "12%", size: 5, duration: 11, delay: 0.4, opacity: 0.38 },
+  { id: 2, left: "18%", top: "24%", size: 3, duration: 9, delay: 1.3, opacity: 0.28 },
+  { id: 3, left: "27%", top: "16%", size: 6, duration: 13, delay: 0.8, opacity: 0.34 },
+  { id: 4, left: "35%", top: "34%", size: 4, duration: 10, delay: 1.7, opacity: 0.24 },
+  { id: 5, left: "46%", top: "10%", size: 5, duration: 12, delay: 0.2, opacity: 0.32 },
+  { id: 6, left: "58%", top: "22%", size: 3, duration: 8, delay: 1.1, opacity: 0.3 },
+  { id: 7, left: "66%", top: "14%", size: 6, duration: 14, delay: 0.9, opacity: 0.26 },
+  { id: 8, left: "76%", top: "28%", size: 4, duration: 10, delay: 0.6, opacity: 0.3 },
+  { id: 9, left: "86%", top: "18%", size: 5, duration: 12, delay: 1.5, opacity: 0.34 },
+  { id: 10, left: "92%", top: "32%", size: 3, duration: 9, delay: 0.7, opacity: 0.26 },
+  { id: 11, left: "12%", top: "48%", size: 4, duration: 11, delay: 1.8, opacity: 0.22 },
+  { id: 12, left: "24%", top: "58%", size: 6, duration: 13, delay: 0.5, opacity: 0.28 },
+  { id: 13, left: "41%", top: "66%", size: 4, duration: 10, delay: 1.2, opacity: 0.22 },
+  { id: 14, left: "63%", top: "54%", size: 5, duration: 12, delay: 0.3, opacity: 0.3 },
+  { id: 15, left: "82%", top: "62%", size: 4, duration: 11, delay: 1.6, opacity: 0.24 },
+] as const
+
 export default function BlogPage() {
   return (
     <PageTransition>
@@ -37,8 +55,63 @@ export default function BlogPage() {
         <section id="posts" className="relative z-10 overflow-hidden px-6 pt-24 pb-20 md:pt-28 md:pb-24">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -top-4 left-0 right-0 h-16 bg-gradient-to-b from-background/82 to-transparent" />
-            <div className="absolute top-0 left-1/2 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/6 to-transparent blur-[100px]" />
-            <div className="absolute bottom-0 left-0 h-[300px] w-[600px] rounded-full bg-gradient-to-tr from-accent/5 to-transparent blur-[80px]" />
+            <div
+              className="absolute inset-0 opacity-95"
+              style={{
+                backgroundImage: `
+                  radial-gradient(circle at 8% 18%, rgba(255,255,255,0.95) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 16% 8%, rgba(255,204,241,0.72) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 22% 30%, rgba(255,255,255,0.75) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 31% 14%, rgba(215,199,255,0.64) 0 1.2px, transparent 2px),
+                  radial-gradient(circle at 39% 24%, rgba(255,255,255,0.9) 0 1px, transparent 1.9px),
+                  radial-gradient(circle at 48% 8%, rgba(255,188,232,0.68) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 57% 19%, rgba(255,255,255,0.78) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 64% 10%, rgba(201,228,255,0.56) 0 1.5px, transparent 2.2px),
+                  radial-gradient(circle at 72% 22%, rgba(255,255,255,0.85) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 82% 12%, rgba(255,204,241,0.72) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 90% 28%, rgba(255,255,255,0.75) 0 1px, transparent 1.9px),
+                  radial-gradient(circle at 12% 48%, rgba(255,255,255,0.74) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 24% 58%, rgba(220,214,255,0.56) 0 1.4px, transparent 2.1px),
+                  radial-gradient(circle at 37% 46%, rgba(255,255,255,0.65) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 52% 62%, rgba(255,204,241,0.52) 0 1.4px, transparent 2.2px),
+                  radial-gradient(circle at 68% 52%, rgba(255,255,255,0.68) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 78% 66%, rgba(201,228,255,0.5) 0 1.4px, transparent 2.2px),
+                  radial-gradient(circle at 90% 56%, rgba(255,255,255,0.62) 0 1px, transparent 1.8px)
+                `,
+              }}
+            />
+            <div className="absolute top-0 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/8 to-transparent blur-[100px]" />
+            <div className="absolute top-[18%] left-[8%] h-[220px] w-[220px] rounded-full bg-primary/8 blur-[90px]" />
+            <div className="absolute top-[28%] right-[6%] h-[260px] w-[260px] rounded-full bg-accent/6 blur-[110px]" />
+            <div className="absolute bottom-[14%] left-[22%] h-[180px] w-[180px] rounded-full bg-white/4 blur-[80px]" />
+            <div className="absolute bottom-0 left-0 h-[320px] w-[620px] rounded-full bg-gradient-to-tr from-accent/7 to-transparent blur-[90px]" />
+
+            {postsParticles.map((particle) => (
+              <motion.span
+                key={particle.id}
+                className="absolute rounded-full bg-white animate-twinkle-soft"
+                style={{
+                  left: particle.left,
+                  top: particle.top,
+                  width: particle.size,
+                  height: particle.size,
+                  opacity: particle.opacity,
+                  boxShadow: "0 0 12px rgba(255, 188, 232, 0.45), 0 0 28px rgba(123, 153, 255, 0.18)",
+                }}
+                animate={{
+                  y: [0, -14, 0],
+                  x: [0, 5, 0],
+                  opacity: [particle.opacity, particle.opacity + 0.18, particle.opacity],
+                  scale: [1, 1.16, 1],
+                }}
+                transition={{
+                  duration: particle.duration,
+                  delay: particle.delay,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
           </div>
 
           <div className="mx-auto max-w-6xl">
