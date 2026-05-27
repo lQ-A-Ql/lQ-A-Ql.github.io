@@ -71,10 +71,10 @@ export function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            <p className="text-base md:text-lg text-foreground/80 max-w-xl mx-auto leading-relaxed mb-1">
+            <p className="text-base md:text-lg text-white/90 max-w-xl mx-auto leading-relaxed mb-1">
               {siteConfig.description}
             </p>
-            <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+            <p className="text-sm text-white/70 max-w-xl mx-auto">
               {siteConfig.shortDescription}
             </p>
           </motion.div>
