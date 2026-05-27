@@ -49,9 +49,10 @@ export default function BlogPage() {
         <HeroSection />
         
         {/* Blog Posts Section */}
-        <section id="posts" className="relative z-10 overflow-hidden px-6 pt-24 pb-20 md:pt-28">
-          {/* Background decorations */}
+        <section id="posts" className="relative z-10 overflow-hidden px-6 pt-16 pb-16 md:pt-20 md:pb-20">
+          {/* Background decorations - smooth transition from hero */}
           <div className="pointer-events-none absolute inset-0">
+            <div className="absolute -top-20 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-primary/5 to-transparent rounded-full blur-[100px]" />
             <div className="absolute bottom-0 left-0 w-[600px] h-[300px] bg-gradient-to-tr from-accent/5 to-transparent rounded-full blur-[80px]" />
           </div>
@@ -59,7 +60,7 @@ export default function BlogPage() {
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
             <motion.div 
-              className="relative z-10 text-center mb-16"
+              className="relative z-10 text-center mb-12"
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, margin: "-100px" }}
@@ -132,8 +133,9 @@ export default function BlogPage() {
         </section>
         
         {/* About Section */}
-        <section id="about" className="relative py-24 px-6 overflow-hidden">
-          {/* Background */}
+        <section id="about" className="relative py-16 px-6 overflow-hidden">
+          {/* Background - smooth transition */}
+          <div className="absolute -top-20 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-card/50 to-background" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,122,169,0.05),transparent_50%)]" />
           
@@ -153,7 +155,7 @@ export default function BlogPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
-            <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
               {/* Left: Avatar and intro */}
               <motion.div variants={fadeUpVariant}>
                 <motion.div 

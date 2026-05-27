@@ -16,7 +16,7 @@ const floatingParticles = Array.from({ length: 20 }, (_, i) => ({
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
       {/* Animated gradient orbs */}
       <motion.div
         className="absolute inset-0"
@@ -88,15 +88,9 @@ export function HeroSection() {
             transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
           >
             <div className="absolute inset-0 -m-2 rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-spin-slow opacity-60 blur-sm" />
-            <div className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-background shadow-[0_0_60px_rgba(255,122,169,0.4)]">
+            <div className="relative h-28 w-28 overflow-hidden rounded-full border-2 border-background shadow-[0_0_60px_rgba(255,122,169,0.4)]">
               <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
             </div>
-            <motion.div
-              className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-green-500 border-2 border-background"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.8, type: "spring" }}
-            />
           </motion.div>
 
           {/* Title with gradient text */}
