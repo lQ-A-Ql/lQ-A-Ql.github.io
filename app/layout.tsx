@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import { Providers } from "@/components/providers"
+import { LiquidGlassDefs } from "@/components/ui/liquid-glass-defs"
 import { siteConfig } from "@/lib/blog-data"
 import "./globals.css"
 
@@ -39,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={`${displayFont.variable} ${monoFont.variable}`}>
       <body className="font-serif antialiased bg-background text-foreground">
+        <LiquidGlassDefs />
         <Providers>
           {children}
         </Providers>
