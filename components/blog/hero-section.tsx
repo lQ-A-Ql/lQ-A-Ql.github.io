@@ -35,30 +35,34 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Avatar */}
-          <motion.div
-            className="relative mx-auto mb-6"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-          >
-            <div className="absolute inset-0 -m-2 rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-spin-slow opacity-50 blur-sm" />
-            <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-background shadow-[0_0_50px_rgba(255,122,169,0.3)]">
-              <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
-            </div>
-          </motion.div>
+          {/* Title with Avatar */}
+          <div className="flex items-center justify-center gap-6 mb-4">
+            {/* Avatar */}
+            <motion.div
+              className="relative flex-shrink-0"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+              whileHover={{ scale: 1.1 }}
+            >
+              <div className="absolute inset-0 -m-2 rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-spin-slow opacity-50 blur-sm" />
+              <div className="relative h-32 w-32 overflow-hidden rounded-full shadow-[0_0_50px_rgba(255,122,169,0.3)] hover:shadow-[0_0_80px_rgba(255,122,169,0.5)] transition-shadow duration-300">
+                <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
+              </div>
+            </motion.div>
 
-          {/* Title with gradient text */}
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold mb-4 tracking-[0.15em]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
-              {siteConfig.title}
-            </span>
-          </motion.h1>
+            {/* Title */}
+            <motion.h1
+              className="text-5xl md:text-7xl font-bold tracking-[0.15em] text-left"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
+                {siteConfig.title}
+              </span>
+            </motion.h1>
+          </div>
 
           {/* Subtitle */}
           <motion.div
