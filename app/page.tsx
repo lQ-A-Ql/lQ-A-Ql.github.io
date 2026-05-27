@@ -36,6 +36,16 @@ const postsParticles = [
   { id: 18, left: "93%", top: "68%", size: 4, duration: 9, delay: 0.6, opacity: 0.34 },
 ] as const
 
+const postsSparkles = [
+  { id: 1, left: "10%", top: "14%", size: 18, duration: 8, delay: 0.3, rotate: 8, opacity: 0.62 },
+  { id: 2, left: "22%", top: "48%", size: 14, duration: 7, delay: 1.1, rotate: -6, opacity: 0.5 },
+  { id: 3, left: "36%", top: "18%", size: 20, duration: 9, delay: 0.7, rotate: 14, opacity: 0.58 },
+  { id: 4, left: "53%", top: "58%", size: 16, duration: 8, delay: 1.5, rotate: -10, opacity: 0.46 },
+  { id: 5, left: "68%", top: "26%", size: 18, duration: 10, delay: 0.2, rotate: 6, opacity: 0.56 },
+  { id: 6, left: "82%", top: "16%", size: 15, duration: 7, delay: 1.3, rotate: -12, opacity: 0.5 },
+  { id: 7, left: "88%", top: "52%", size: 20, duration: 9, delay: 0.8, rotate: 10, opacity: 0.48 },
+] as const
+
 export default function BlogPage() {
   return (
     <PageTransition>
@@ -103,6 +113,21 @@ export default function BlogPage() {
             <div className="absolute inset-x-[12%] top-[56%] h-px bg-[linear-gradient(90deg,transparent,rgba(255,204,241,0.16),transparent)] opacity-60" />
             <div className="absolute left-[16%] top-[24%] h-24 w-24 rounded-full border border-white/8 opacity-40" />
             <div className="absolute right-[14%] top-[42%] h-20 w-20 rounded-full border border-primary/10 opacity-30" />
+            <motion.div
+              className="absolute left-[-4%] top-[28%] h-40 w-72 rounded-full border border-dashed border-white/10"
+              animate={{ x: [0, 12, 0], rotate: [0, 4, 0], opacity: [0.18, 0.3, 0.18] }}
+              transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute right-[-6%] top-[48%] h-52 w-80 rounded-full border border-dashed border-primary/10"
+              animate={{ x: [0, -10, 0], rotate: [0, -5, 0], opacity: [0.14, 0.24, 0.14] }}
+              transition={{ duration: 16, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute left-[36%] bottom-[8%] h-28 w-56 rounded-full border border-white/8"
+              animate={{ y: [0, -8, 0], opacity: [0.14, 0.24, 0.14] }}
+              transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            />
 
             {postsParticles.map((particle) => (
               <motion.span
@@ -125,6 +150,33 @@ export default function BlogPage() {
                 transition={{
                   duration: particle.duration,
                   delay: particle.delay,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+
+            {postsSparkles.map((sparkle) => (
+              <motion.span
+                key={sparkle.id}
+                className="posts-sparkle absolute"
+                style={{
+                  left: sparkle.left,
+                  top: sparkle.top,
+                  width: sparkle.size,
+                  height: sparkle.size,
+                  opacity: sparkle.opacity,
+                  rotate: `${sparkle.rotate}deg`,
+                }}
+                animate={{
+                  y: [0, -10, 0],
+                  opacity: [sparkle.opacity, sparkle.opacity + 0.22, sparkle.opacity],
+                  scale: [1, 1.14, 1],
+                  rotate: [`${sparkle.rotate}deg`, `${sparkle.rotate + 16}deg`, `${sparkle.rotate}deg`],
+                }}
+                transition={{
+                  duration: sparkle.duration,
+                  delay: sparkle.delay,
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
                 }}

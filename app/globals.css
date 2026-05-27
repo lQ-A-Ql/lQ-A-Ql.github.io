@@ -218,6 +218,33 @@
   animation: twinkle-soft 4.6s ease-in-out infinite;
 }
 
+.posts-sparkle {
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.45) 34%, rgba(255, 255, 255, 0) 76%);
+  filter: drop-shadow(0 0 10px rgba(255, 207, 238, 0.45));
+}
+
+.posts-sparkle::before,
+.posts-sparkle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+  transform: translate(-50%, -50%);
+}
+
+.posts-sparkle::before {
+  width: 240%;
+  height: 1px;
+}
+
+.posts-sparkle::after {
+  width: 1px;
+  height: 240%;
+}
+
 /* Selection color */
 ::selection {
   background-color: rgba(236, 72, 153, 0.3);
