@@ -2,65 +2,190 @@
 
 import { motion } from "framer-motion"
 import { siteConfig, categories } from "@/lib/blog-data"
+import { ChevronDown } from "lucide-react"
+
+const floatingParticles = Array.from({ length: 20 }, (_, i) => ({
+  id: i,
+  left: `${Math.random() * 100}%`,
+  top: `${Math.random() * 100}%`,
+  size: Math.random() * 4 + 2,
+  duration: Math.random() * 10 + 15,
+  delay: Math.random() * 5,
+  opacity: Math.random() * 0.5 + 0.2,
+}))
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_54%_12%,rgba(255,165,222,0.1),transparent_24%),radial-gradient(circle_at_80%_18%,rgba(173,122,255,0.06),transparent_22%)]" />
-      <div className="pointer-events-none absolute inset-y-0 left-[14%] w-[36%] rotate-[15deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.07),rgba(255,227,242,0.03)_28%,rgba(153,209,255,0.025)_58%,transparent_84%)] opacity-40 blur-3xl" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.08)_0%,rgba(8,8,16,0.02)_24%,rgba(8,8,16,0.06)_62%,rgba(8,8,16,0.1)_100%)]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(6,6,12,0.32)] via-transparent to-[rgba(6,6,12,0.28)]" />
-      
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+      {/* Animated gradient orbs */}
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+      >
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-[100px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-gradient-to-tl from-accent/15 to-transparent blur-[80px] animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-r from-primary/5 via-accent/10 to-primary/5 blur-[120px] animate-pulse delay-500" />
+      </motion.div>
+
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}
+      />
+
+      {/* Floating particles */}
+      {floatingParticles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-primary/30"
+          style={{
+            left: particle.left,
+            top: particle.top,
+            width: `${particle.size}px`,
+            height: `${particle.size}px`,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            opacity: [particle.opacity, particle.opacity * 1.5, particle.opacity],
+          }}
+          transition={{
+            duration: particle.duration,
+            delay: particle.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {/* Radial gradients */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,165,222,0.15),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(173,122,255,0.1),transparent_40%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(255,122,169,0.08),transparent_40%)]" />
+
+      {/* Diagonal light beams */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[2px] h-full bg-gradient-to-b from-transparent via-primary/20 to-transparent rotate-[15deg] origin-top" />
+        <div className="absolute top-0 right-1/3 w-[1px] h-full bg-gradient-to-b from-transparent via-accent/15 to-transparent -rotate-[10deg] origin-top" />
+      </div>
+
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="mx-auto mb-6 h-28 w-28 overflow-hidden rounded-full border border-primary/40 shadow-[0_0_40px_rgba(255,122,169,0.25)]">
-            <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-foreground tracking-[0.1em] [text-shadow:0_10px_26px_rgba(0,0,0,0.32)]">
-            <span className="text-primary">{siteConfig.title.slice(0, 1)}</span>{siteConfig.title.slice(1)}
-          </h1>
-          <p className="text-lg md:text-xl text-white/95 max-w-2xl mx-auto leading-relaxed [text-shadow:0_6px_18px_rgba(0,0,0,0.22)]">
-            {siteConfig.description}
-          </p>
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="mt-12"
-        >
-          <div className="flex items-center justify-center gap-6 text-sm text-white/88 [text-shadow:0_4px_14px_rgba(0,0,0,0.2)]">
-            {categories.filter((item) => item !== "全部").slice(0, 3).map((category, index, array) => (
-              <div key={category} className="contents">
-                <span>{category}</span>
-                {index < array.length - 1 && <span className="w-1 h-1 rounded-full bg-white/70" />}
-              </div>
+          {/* Avatar with glow ring */}
+          <motion.div
+            className="relative mx-auto mb-8"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+          >
+            <div className="absolute inset-0 -m-2 rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-spin-slow opacity-60 blur-sm" />
+            <div className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-background shadow-[0_0_60px_rgba(255,122,169,0.4)]">
+              <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
+            </div>
+            <motion.div
+              className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-green-500 border-2 border-background"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.8, type: "spring" }}
+            />
+          </motion.div>
+
+          {/* Title with gradient text */}
+          <motion.h1
+            className="text-6xl md:text-8xl font-bold mb-6 tracking-[0.15em]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+          >
+            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
+              {siteConfig.title}
+            </span>
+          </motion.h1>
+
+          {/* Typing effect subtitle */}
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+          >
+            <p className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto leading-relaxed mb-2">
+              {siteConfig.description}
+            </p>
+            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+              {siteConfig.shortDescription}
+            </p>
+          </motion.div>
+
+          {/* Category tags */}
+          <motion.div
+            className="mt-10 flex flex-wrap items-center justify-center gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+          >
+            {categories.filter((item) => item !== "全部").map((category, index) => (
+              <motion.span
+                key={category}
+                className="px-4 py-1.5 text-sm rounded-full border border-primary/30 bg-primary/5 text-primary/80 hover:bg-primary/10 hover:border-primary/50 transition-all cursor-default"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1 + index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+              >
+                {category}
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            className="mt-12 flex items-center justify-center gap-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
+            <div className="text-center">
+              <div className="text-2xl font-bold text-foreground">8+</div>
+              <div className="text-xs text-muted-foreground">文章</div>
+            </div>
+            <div className="w-px h-8 bg-border" />
+            <div className="text-center">
+              <div className="text-2xl font-bold text-foreground">2</div>
+              <div className="text-xs text-muted-foreground">分类</div>
+            </div>
+            <div className="w-px h-8 bg-border" />
+            <div className="text-center">
+              <div className="text-2xl font-bold text-foreground">∞</div>
+              <div className="text-xs text-muted-foreground">学习</div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
-      
+
       {/* Scroll Indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.6 }}
       >
-        <div className="relative h-10 w-11 flex items-center justify-center">
-          <div className="absolute left-[7px] top-[3px] h-4 w-4 rotate-[-18deg] rounded-tl-[3px] rounded-tr-[12px] rounded-br-[3px] border-t-2 border-l-2 border-primary/60" />
-          <div className="absolute right-[7px] top-[3px] h-4 w-4 rotate-[18deg] rounded-tl-[12px] rounded-tr-[3px] rounded-bl-[3px] border-t-2 border-r-2 border-primary/60" />
-          <div className="relative h-7 w-8 rounded-[999px] border-2 border-primary/55 bg-[rgba(255,122,169,0.05)]">
-            <div className="absolute left-[8px] top-[8px] h-[3px] w-[3px] rounded-full bg-primary/80" />
-            <div className="absolute right-[8px] top-[8px] h-[3px] w-[3px] rounded-full bg-primary/80" />
-            <div className="absolute left-1/2 top-[14px] h-[5px] w-[7px] -translate-x-1/2 rounded-b-[10px] rounded-t-[5px] border border-primary/70 bg-transparent" />
-          </div>
-        </div>
+        <span className="text-xs text-muted-foreground">向下滚动</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <ChevronDown className="w-5 h-5 text-primary/60" />
+        </motion.div>
       </motion.div>
     </section>
   )

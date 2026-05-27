@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Calendar, Clock, ArrowRight } from "lucide-react"
+import { Calendar, Clock, ArrowRight, Eye } from "lucide-react"
 import { Card } from "@/components/ui/card"
 
 interface BlogCardProps {
@@ -28,43 +28,65 @@ export function BlogCard({
 }: BlogCardProps) {
   const content = (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ 
         type: "spring",
-        stiffness: 260,
-        damping: 20,
-        delay: index * 0.08
+        stiffness: 200,
+        damping: 25,
+        delay: index * 0.1
       }}
-      whileHover={{ y: -5 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ y: -8 }}
       style={{ cursor: id ? "pointer" : "default" }}
     >
-      <Card className="group relative overflow-hidden bg-[rgba(116,96,145,0.11)] backdrop-blur-xl backdrop-saturate-150 border-white/16 hover:border-primary/42 transition-all duration-500 cursor-pointer shadow-[0_18px_40px_rgba(0,0,0,0.12)]">
+      <Card className="group relative overflow-hidden bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl border-white/10 hover:border-primary/30 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-primary/10">
+        {/* Image section */}
         {imageUrl && (
-          <div className="aspect-video overflow-hidden">
+          <div className="relative aspect-video overflow-hidden">
             <img 
               src={imageUrl} 
               alt={title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(22,18,34,0.58)] via-[rgba(22,18,34,0.04)] to-transparent" />
+            {/* Image overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+            
+            {/* Category badge on image */}
+            <div className="absolute top-4 left-4">
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-background/80 backdrop-blur-sm text-primary border border-primary/20">
+                {category}
+              </span>
+            </div>
+
+            {/* Quick view button */}
+            <motion.div
+              className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              initial={false}
+            >
+              <div className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
+                <Eye className="w-4 h-4" />
+              </div>
+            </motion.div>
           </div>
         )}
 
+        {/* Decorative elements */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute inset-y-0 -left-1/3 w-2/3 rotate-[18deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.24),rgba(255,255,255,0.12)_18%,rgba(255,196,234,0.14)_42%,rgba(146,211,255,0.12)_62%,transparent_82%)] opacity-70 blur-2xl transition-transform duration-700 group-hover:translate-x-8" />
-          <div className="absolute -right-10 top-8 h-28 w-28 rounded-full bg-[rgba(255,196,237,0.12)] blur-3xl transition-transform duration-700 group-hover:-translate-y-2" />
-          <div className="absolute left-6 top-5 h-px w-[42%] bg-[linear-gradient(90deg,rgba(255,255,255,0.68),rgba(255,255,255,0.18),transparent)] opacity-70" />
-          <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)] opacity-60" />
+          {/* Top shine */}
+          <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {/* Corner accent */}
+          <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-primary/5 blur-3xl transition-transform duration-700 group-hover:translate-x-10 group-hover:-translate-y-10" />
+          <div className="absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-accent/5 blur-2xl transition-transform duration-700 group-hover:-translate-x-5 group-hover:translate-y-5" />
         </div>
         
+        {/* Content */}
         <div className="p-6 relative">
-          {/* Category Tag */}
-          <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 mb-4">
-            {category}
-          </span>
+          {!imageUrl && (
+            <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 mb-4">
+              {category}
+            </span>
+          )}
           
           {/* Title */}
           <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
@@ -72,33 +94,38 @@ export function BlogCard({
           </h3>
           
           {/* Excerpt */}
-          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 mb-4">
+          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 mb-5">
             {excerpt}
           </p>
           
           {/* Meta Info */}
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              {date}
-            </span>
-            <span className="flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              {readTime}
-            </span>
-          </div>
-          
-          {/* Read More */}
-          <div className="mt-4 flex items-center gap-2 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <span>阅读更多</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-primary/60" />
+                {date}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-primary/60" />
+                {readTime}
+              </span>
+            </div>
+            
+            {/* Read More arrow */}
+            <motion.div 
+              className="flex items-center gap-1 text-primary text-sm font-medium"
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">阅读</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </motion.div>
           </div>
         </div>
-        
-        {/* Hover Glow Effect */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,143,203,0.12),transparent_40%,rgba(161,121,255,0.12)_72%,transparent)]" />
-        </div>
+
+        {/* Bottom gradient line */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-accent to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
       </Card>
     </motion.div>
   )
