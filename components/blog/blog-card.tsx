@@ -43,14 +43,15 @@ export function BlogCard({
       whileHover={{ y: -8 }}
       style={{ cursor: id ? "pointer" : "default" }}
     >
-      <Card className="group relative h-full cursor-pointer overflow-hidden rounded-[1.9rem] border border-white/8 bg-[linear-gradient(180deg,rgba(25,16,38,0.98),rgba(15,10,24,0.94))] py-0 shadow-[0_20px_44px_rgba(0,0,0,0.32)] transition-all duration-500 hover:border-primary/26 hover:shadow-[0_0_42px_rgba(235,99,197,0.12),0_20px_54px_rgba(0,0,0,0.36)]">
-        <div className="pointer-events-none absolute inset-[-1px] rounded-[1.95rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.25),rgba(255,255,255,0.04)_16%,rgba(255,255,255,0)_38%)] opacity-75" />
-        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.16),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.14),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.03),transparent_35%)] opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
+      <Card className="group relative h-full cursor-pointer overflow-hidden rounded-[1.9rem] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.03)_18%,rgba(22,14,34,0.56)_48%,rgba(13,9,21,0.72)_100%)] py-0 shadow-[0_18px_44px_rgba(0,0,0,0.26)] backdrop-blur-[14px] transition-all duration-500 hover:border-primary/24 hover:shadow-[0_0_40px_rgba(235,99,197,0.12),0_18px_52px_rgba(0,0,0,0.32)]">
+        <div className="pointer-events-none absolute inset-[-1px] rounded-[1.95rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.34),rgba(255,255,255,0.06)_16%,rgba(255,255,255,0)_38%)] opacity-80" />
+        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.16),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.14),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_35%)] opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="pointer-events-none absolute -inset-[140%] z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           <div className="absolute left-1/2 top-1/2 h-[150%] w-16 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.58)_42%,rgba(193,106,243,0.58)_58%,rgba(255,255,255,0)_100%)] blur-[14px] animate-spin-slow" />
         </div>
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.01)_62%,transparent)] opacity-90" />
-        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-18px_40px_rgba(0,0,0,0.12)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.015)_62%,transparent)] opacity-95" />
+        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/8 shadow-[inset_0_1px_0_rgba(255,255,255,0.14),inset_0_-14px_36px_rgba(0,0,0,0.08)]" />
+        <div className="pointer-events-none absolute inset-[1px] rounded-[1.85rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.015)_40%,transparent_68%)] opacity-70" />
 
         {imageUrl && (
           <div className="relative aspect-video overflow-hidden">
@@ -59,7 +60,7 @@ export function BlogCard({
             <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),transparent)]" />
 
             <div className="absolute top-4 left-4">
-              <span className="rounded-full border border-primary/24 bg-background/68 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary backdrop-blur-sm">
+              <span className="rounded-full border border-primary/24 bg-background/52 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary backdrop-blur-md">
                 {category}
               </span>
             </div>
@@ -69,8 +70,8 @@ export function BlogCard({
 
         <div className="relative flex h-full flex-col p-6">
           {!imageUrl && (
-            <div className="mb-5 flex items-center justify-between gap-3 border-b border-white/8 pb-4">
-              <span className="inline-flex rounded-full border border-primary/22 bg-primary/8 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary shadow-[0_0_18px_rgba(235,99,197,0.08)]">
+            <div className="mb-5 flex items-center justify-between gap-3 border-b border-white/10 pb-4">
+              <span className="inline-flex rounded-full border border-primary/22 bg-primary/8 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary shadow-[0_0_18px_rgba(235,99,197,0.08)] backdrop-blur-md">
                 {category}
               </span>
               <span className="text-[11px] uppercase tracking-[0.24em] text-white/42">{entryCode}</span>
@@ -81,7 +82,7 @@ export function BlogCard({
             {title}
           </h3>
 
-          <p className="mb-6 line-clamp-4 text-sm leading-7 text-white/64">{excerpt}</p>
+          <p className="mb-6 line-clamp-4 text-sm leading-7 text-white/68">{excerpt}</p>
 
           <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/8 pt-4">
             <div className="space-y-2 text-xs text-muted-foreground">
