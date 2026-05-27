@@ -53,7 +53,7 @@ export function Header() {
       className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         isScrolled
           ? "border-white/10 bg-[rgba(12,9,20,0.9)] shadow-[0_10px_28px_rgba(0,0,0,0.18)] backdrop-blur-md"
-          : "border-white/6 bg-[rgba(12,9,20,0.72)] backdrop-blur-sm"
+          : "border-white/8 bg-[linear-gradient(180deg,rgba(24,18,38,0.34),rgba(12,9,20,0.2))] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-[10px]"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
