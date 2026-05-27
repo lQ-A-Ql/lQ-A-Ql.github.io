@@ -60,7 +60,7 @@ export function Header() {
       <div className="mx-auto max-w-6xl">
         <LiquidGlass
           variant={isScrolled || isMobileMenuOpen ? "strong" : "soft"}
-          className="rounded-[2rem] transition-all duration-300"
+          className="rounded-full transition-all duration-300"
           contentClassName="flex h-16 items-center justify-between gap-4 px-4 md:px-6"
         >
           <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
@@ -72,7 +72,8 @@ export function Header() {
           </Link>
 
           <nav className="hidden min-w-0 flex-1 items-center justify-center md:flex">
-            <div className="relative flex items-center gap-1 rounded-full border border-white/8 bg-white/[0.03] px-2 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
+            <div className="nav-liquid-body rounded-full px-2 py-1">
+              <div className="relative flex items-center gap-1 rounded-full">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
@@ -99,6 +100,7 @@ export function Header() {
                   />
                 </Link>
               ))}
+              </div>
             </div>
           </nav>
 

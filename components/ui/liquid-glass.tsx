@@ -22,7 +22,7 @@ export function LiquidGlass({
   return (
     <div
       className={cn(
-        "liquid-shell relative isolate overflow-hidden",
+        "liquid-shell liquid-shell-pill relative isolate overflow-hidden",
         isStrong ? "liquid-shell-strong" : "liquid-shell-soft",
         className,
       )}
