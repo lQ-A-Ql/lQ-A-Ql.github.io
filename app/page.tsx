@@ -19,16 +19,16 @@ export default function BlogPage() {
   return (
     <PageTransition>
       <main className="relative min-h-screen overflow-hidden bg-background">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[92vh] overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[104vh] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: `url('${siteConfig.heroBackground}')`,
-              backgroundPosition: "center 24%",
+              backgroundPosition: "center 18%",
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.04)_0%,rgba(8,8,16,0.14)_18%,rgba(8,8,16,0.32)_46%,rgba(8,8,16,0.82)_84%,rgba(8,8,16,1)_100%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,132,190,0.18),transparent_26%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.01)_0%,rgba(8,8,16,0.08)_22%,rgba(8,8,16,0.18)_48%,rgba(8,8,16,0.54)_82%,rgba(8,8,16,0.86)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,132,190,0.12),transparent_28%)]" />
         </div>
 
         <Header />
@@ -36,7 +36,7 @@ export default function BlogPage() {
 
         <section id="posts" className="relative z-10 overflow-hidden px-6 pt-12 pb-20 md:pt-16 md:pb-24">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-20 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent" />
+            <div className="absolute -top-12 left-0 right-0 h-28 bg-gradient-to-b from-background/75 to-transparent" />
             <div className="absolute top-0 left-1/2 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/6 to-transparent blur-[100px]" />
             <div className="absolute bottom-0 left-0 h-[300px] w-[600px] rounded-full bg-gradient-to-tr from-accent/5 to-transparent blur-[80px]" />
           </div>

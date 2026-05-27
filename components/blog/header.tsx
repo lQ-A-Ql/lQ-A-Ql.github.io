@@ -57,10 +57,10 @@ export function Header() {
       className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 transition-all duration-300 md:px-6"
     >
       <div
-        className={`mx-auto max-w-6xl rounded-[1.8rem] border shadow-[0_12px_44px_rgba(0,0,0,0.14)] transition-all duration-300 ${
+        className={`liquid-glass mx-auto max-w-6xl rounded-[1.8rem] transition-all duration-300 ${
           isScrolled || isMobileMenuOpen
-            ? "border-white/10 bg-[rgba(11,8,18,0.84)] backdrop-blur-2xl"
-            : "border-white/8 bg-[rgba(11,8,18,0.34)] backdrop-blur-xl"
+            ? "liquid-glass-strong border-white/16"
+            : "border-white/10 bg-[rgba(11,8,18,0.08)]"
         }`}
       >
         <div className="flex h-16 items-center justify-between px-4 md:px-6">
@@ -72,7 +72,7 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-2 rounded-full border border-white/6 bg-background/15 px-3 py-2 md:flex">
+          <nav className="liquid-outline hidden items-center gap-2 rounded-full px-3 py-2 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.label}
@@ -107,7 +107,7 @@ export function Header() {
               asChild
               variant="ghost"
               size="icon"
-              className="rounded-full border border-white/6 bg-background/20 text-muted-foreground hover:border-primary/20 hover:text-primary"
+              className="liquid-outline rounded-full text-muted-foreground hover:border-primary/20 hover:text-primary"
             >
               <Link href="/search" aria-label="搜索文章">
                 <Search className="w-4 h-4" />
@@ -117,7 +117,7 @@ export function Header() {
               href={siteConfig.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="hidden rounded-full border border-white/6 bg-background/20 px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/18 hover:text-primary md:inline-block"
+              className="liquid-outline hidden rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/18 hover:text-primary md:inline-block"
             >
               GitHub
             </Link>
@@ -125,7 +125,7 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full border border-white/6 bg-background/20 text-muted-foreground md:hidden"
+              className="liquid-outline rounded-full text-muted-foreground md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "关闭菜单" : "打开菜单"}
             >
@@ -141,7 +141,7 @@ export function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="overflow-hidden rounded-b-[1.8rem] border-t border-white/8 bg-[rgba(11,8,18,0.94)] backdrop-blur-2xl md:hidden"
+              className="liquid-glass overflow-hidden rounded-b-[1.8rem] border-t border-white/10 bg-[rgba(11,8,18,0.12)] md:hidden"
             >
               <motion.div
                 className="space-y-6 p-5"
@@ -161,7 +161,7 @@ export function Header() {
                     open: { y: 0, opacity: 1 },
                     closed: { y: 20, opacity: 0 },
                   }}
-                  className="rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-4"
+                  className="liquid-glass rounded-[1.4rem] p-4"
                 >
                   <p className="text-xs uppercase tracking-[0.28em] text-white/45">Quick Access</p>
                   <p className="mt-2 text-sm leading-relaxed text-white/75">{siteConfig.description}</p>
@@ -184,10 +184,10 @@ export function Header() {
                           }
                           handleNavClick(item.href)
                         }}
-                        className={`block rounded-[1.2rem] border px-4 py-3 text-base transition-colors ${
+                        className={`block rounded-[1.2rem] px-4 py-3 text-base transition-colors ${
                           isActive(item.href)
-                            ? "border-primary/24 bg-primary/10 text-primary"
-                            : "border-white/8 bg-white/[0.03] text-muted-foreground hover:text-primary"
+                            ? "liquid-glass border-primary/24 text-primary"
+                            : "liquid-outline text-muted-foreground hover:text-primary"
                         }`}
                       >
                         {item.label}
@@ -205,7 +205,7 @@ export function Header() {
                 >
                   <Link
                     href="/search"
-                    className="flex-1 rounded-full border border-primary/24 bg-primary/12 px-4 py-3 text-center text-sm text-primary"
+                    className="liquid-glass flex-1 rounded-full border-primary/24 px-4 py-3 text-center text-sm text-primary"
                   >
                     搜索文章
                   </Link>
@@ -213,7 +213,7 @@ export function Header() {
                     href={siteConfig.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 rounded-full border border-white/8 bg-white/[0.03] px-4 py-3 text-center text-sm text-white/80"
+                    className="liquid-outline flex-1 rounded-full px-4 py-3 text-center text-sm text-white/80"
                   >
                     GitHub
                   </Link>

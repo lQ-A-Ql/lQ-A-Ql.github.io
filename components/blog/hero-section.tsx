@@ -21,7 +21,7 @@ const floatingParticles = [
 export function HeroSection() {
   return (
     <section className="relative flex min-h-[82vh] items-center justify-center overflow-hidden pt-24 pb-14 md:min-h-[88vh] md:pt-28 md:pb-20">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,136,191,0.2),transparent_34%),linear-gradient(180deg,rgba(12,8,18,0.1)_0%,rgba(12,8,18,0.38)_48%,rgba(12,8,18,0.84)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,136,191,0.14),transparent_32%),linear-gradient(180deg,rgba(12,8,18,0.02)_0%,rgba(12,8,18,0.14)_38%,rgba(12,8,18,0.46)_76%,rgba(12,8,18,0.8)_100%)]" />
 
       {floatingParticles.map((particle) => (
         <motion.span
@@ -46,19 +46,15 @@ export function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
       >
-        <div className="absolute top-[14%] left-[14%] h-[420px] w-[420px] rounded-full bg-gradient-to-br from-primary/18 to-transparent blur-[100px] animate-pulse" />
-        <div className="absolute right-[10%] bottom-[18%] h-[340px] w-[340px] rounded-full bg-gradient-to-tl from-accent/14 to-transparent blur-[90px] animate-pulse delay-1000" />
+        <div className="absolute top-[14%] left-[14%] h-[420px] w-[420px] rounded-full bg-gradient-to-br from-primary/14 to-transparent blur-[100px] animate-pulse" />
+        <div className="absolute right-[10%] bottom-[18%] h-[340px] w-[340px] rounded-full bg-gradient-to-tl from-accent/12 to-transparent blur-[90px] animate-pulse delay-1000" />
       </motion.div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(18,10,29,0.38),rgba(18,10,29,0.16))] px-6 py-8 text-center shadow-[0_24px_90px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md sm:px-8 md:px-12 md:py-12"
-        >
+        <div className="pointer-events-none absolute inset-x-[16%] top-[18%] h-[320px] rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.14),rgba(255,145,205,0.03)_38%,transparent_72%)] blur-[48px]" />
+        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} className="relative text-center">
           <motion.div
-            className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-background/35 px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] text-white/65 backdrop-blur-sm"
+            className="liquid-glass mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-white/68"
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, duration: 0.7 }}
@@ -67,7 +63,7 @@ export function HeroSection() {
             Security Notes / Traffic Traces
           </motion.div>
 
-          <div className="mb-4 flex flex-col items-center justify-center gap-5 md:flex-row md:gap-7">
+          <div className="mb-5 flex flex-col items-center justify-center gap-5 md:flex-row md:gap-7">
             <motion.div
               className="relative flex-shrink-0"
               initial={{ scale: 0.8, opacity: 0 }}
@@ -80,25 +76,27 @@ export function HeroSection() {
                 className="absolute inset-0 -m-5 rounded-full bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 animate-spin-slow opacity-35 blur-md"
                 style={{ animationDirection: "reverse", animationDuration: "12s" }}
               />
-              <div className="relative h-28 w-28 overflow-hidden rounded-full border border-white/12 shadow-[0_0_60px_rgba(235,99,197,0.35),0_0_110px_rgba(235,99,197,0.1)] transition-shadow duration-500 hover:shadow-[0_0_86px_rgba(235,99,197,0.56),0_0_160px_rgba(235,99,197,0.18)] md:h-32 md:w-32">
-                <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
+              <div className="liquid-glass relative rounded-[2rem] p-3 md:p-4">
+                <div className="relative h-24 w-24 overflow-hidden rounded-[1.4rem] border border-white/10 shadow-[0_0_60px_rgba(235,99,197,0.25),0_0_110px_rgba(235,99,197,0.08)] transition-shadow duration-500 hover:shadow-[0_0_86px_rgba(235,99,197,0.46),0_0_160px_rgba(235,99,197,0.16)] md:h-28 md:w-28">
+                  <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
+                </div>
               </div>
             </motion.div>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
               <motion.h1
                 className="text-center text-5xl font-bold tracking-[0.12em] md:text-left md:text-7xl"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
-                style={{ textShadow: "0 0 28px rgba(235,99,197,0.22), 0 0 80px rgba(235,99,197,0.08)" }}
+                style={{ textShadow: "0 0 22px rgba(235,99,197,0.18), 0 0 72px rgba(235,99,197,0.06)" }}
               >
                 <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
                   {siteConfig.title}
                 </span>
               </motion.h1>
               <motion.p
-                className="mx-auto max-w-md text-sm leading-relaxed text-white/60 md:mx-0 md:text-left"
+                className="liquid-glass mx-auto inline-flex max-w-md rounded-full px-4 py-2 text-sm leading-relaxed text-white/68 md:mx-0 md:text-left"
                 initial={{ opacity: 0, x: 12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.42, duration: 0.75 }}
@@ -109,13 +107,15 @@ export function HeroSection() {
           </div>
 
           <motion.div
-            className="relative mx-auto max-w-2xl"
+            className="relative mx-auto max-w-2xl space-y-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            <p className="mb-2 text-base leading-relaxed text-white/90 md:text-lg">{siteConfig.description}</p>
-            <p className="text-sm text-white/68 md:text-[15px]">{siteConfig.shortDescription}</p>
+            <div className="liquid-glass mx-auto inline-flex max-w-fit rounded-[1.5rem] px-5 py-3">
+              <p className="text-base leading-relaxed text-white/90 md:text-lg">{siteConfig.description}</p>
+            </div>
+            <p className="text-sm text-white/72 md:text-[15px]">{siteConfig.shortDescription}</p>
           </motion.div>
 
           <motion.div
@@ -127,7 +127,7 @@ export function HeroSection() {
             {categories.filter((item) => item !== "全部").map((category, index) => (
               <motion.span
                 key={category}
-                className="rounded-full border border-primary/26 bg-background/28 px-3.5 py-1.5 text-xs text-primary/82 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all hover:border-primary/45 hover:bg-primary/10"
+                className="liquid-glass rounded-full px-3.5 py-1.5 text-xs text-primary/82 transition-all hover:border-primary/45 hover:bg-primary/10"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1 + index * 0.1 }}
@@ -146,14 +146,14 @@ export function HeroSection() {
           >
             <a
               href="#posts"
-              className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/16 px-5 py-3 text-sm text-white shadow-[0_0_28px_rgba(235,99,197,0.18)] transition-all hover:border-primary/55 hover:bg-primary/24"
+              className="liquid-glass liquid-glass-strong inline-flex items-center gap-2 rounded-full border-primary/30 px-5 py-3 text-sm text-white transition-all hover:border-primary/55"
             >
               查看文章
               <ArrowRight className="h-4 w-4" />
             </a>
             <Link
               href="/search"
-              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-background/25 px-5 py-3 text-sm text-white/82 transition-all hover:border-primary/28 hover:text-primary"
+              className="liquid-glass inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm text-white/82 transition-all hover:border-primary/28 hover:text-primary"
             >
               <Search className="h-4 w-4" />
               进入搜索
