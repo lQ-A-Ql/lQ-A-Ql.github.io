@@ -51,7 +51,7 @@ export function HeroSection() {
       </motion.div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-6">
-        <div className="pointer-events-none absolute inset-x-[16%] top-[18%] h-[320px] rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.14),rgba(255,145,205,0.03)_38%,transparent_72%)] blur-[48px]" />
+        <div className="pointer-events-none absolute inset-x-[18%] top-[20%] h-[260px] rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.12),rgba(255,145,205,0.02)_42%,transparent_72%)] blur-[42px]" />
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} className="relative text-center">
           <motion.div
             className="liquid-glass mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-white/68"
@@ -63,7 +63,7 @@ export function HeroSection() {
             Security Notes / Traffic Traces
           </motion.div>
 
-          <div className="mb-5 flex flex-col items-center justify-center gap-5 md:flex-row md:gap-7">
+          <div className="mb-5 flex flex-col items-center justify-center gap-5 md:flex-row md:gap-8">
             <motion.div
               className="relative flex-shrink-0"
               initial={{ scale: 0.8, opacity: 0 }}
@@ -76,8 +76,8 @@ export function HeroSection() {
                 className="absolute inset-0 -m-5 rounded-full bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 animate-spin-slow opacity-35 blur-md"
                 style={{ animationDirection: "reverse", animationDuration: "12s" }}
               />
-              <div className="liquid-glass relative rounded-[2rem] p-3 md:p-4">
-                <div className="relative h-24 w-24 overflow-hidden rounded-[1.4rem] border border-white/10 shadow-[0_0_60px_rgba(235,99,197,0.25),0_0_110px_rgba(235,99,197,0.08)] transition-shadow duration-500 hover:shadow-[0_0_86px_rgba(235,99,197,0.46),0_0_160px_rgba(235,99,197,0.16)] md:h-28 md:w-28">
+              <div className="liquid-glass relative rounded-[2.1rem] p-3 md:p-4">
+                <div className="relative h-24 w-24 overflow-hidden rounded-[1.55rem] border border-white/10 shadow-[0_0_60px_rgba(235,99,197,0.25),0_0_110px_rgba(235,99,197,0.08)] transition-shadow duration-500 hover:shadow-[0_0_86px_rgba(235,99,197,0.46),0_0_160px_rgba(235,99,197,0.16)] md:h-28 md:w-28">
                   <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
                 </div>
               </div>
@@ -112,7 +112,7 @@ export function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            <div className="liquid-glass mx-auto inline-flex max-w-fit rounded-[1.5rem] px-5 py-3">
+            <div className="liquid-glass mx-auto inline-flex max-w-fit rounded-[1.6rem] px-5 py-3">
               <p className="text-base leading-relaxed text-white/90 md:text-lg">{siteConfig.description}</p>
             </div>
             <p className="text-sm text-white/72 md:text-[15px]">{siteConfig.shortDescription}</p>

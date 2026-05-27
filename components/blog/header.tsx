@@ -57,10 +57,10 @@ export function Header() {
       className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 transition-all duration-300 md:px-6"
     >
       <div
-        className={`liquid-glass mx-auto max-w-6xl rounded-[1.8rem] transition-all duration-300 ${
+        className={`liquid-glass mx-auto max-w-6xl rounded-[1.9rem] transition-all duration-300 ${
           isScrolled || isMobileMenuOpen
             ? "liquid-glass-strong border-white/16"
-            : "border-white/10 bg-[rgba(11,8,18,0.08)]"
+            : "border-white/12 bg-[rgba(11,8,18,0.03)]"
         }`}
       >
         <div className="flex h-16 items-center justify-between px-4 md:px-6">
@@ -96,7 +96,7 @@ export function Header() {
                 />
                 <span
                   className="absolute inset-0 rounded-full border border-primary/0 transition-all group-hover:border-primary/15"
-                  style={{ boxShadow: isActive(item.href) ? "inset 0 0 18px rgba(235,99,197,0.12)" : undefined }}
+                  style={{ boxShadow: isActive(item.href) ? "inset 0 1px 0 rgba(255,255,255,0.16), inset 0 0 18px rgba(235,99,197,0.1)" : undefined }}
                 />
               </Link>
             ))}
@@ -141,7 +141,7 @@ export function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="liquid-glass overflow-hidden rounded-b-[1.8rem] border-t border-white/10 bg-[rgba(11,8,18,0.12)] md:hidden"
+              className="liquid-glass overflow-hidden rounded-b-[1.9rem] border-t border-white/10 bg-[rgba(11,8,18,0.08)] md:hidden"
             >
               <motion.div
                 className="space-y-6 p-5"
