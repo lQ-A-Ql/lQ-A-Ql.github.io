@@ -51,14 +51,14 @@ export function HeroSection() {
       </motion.div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-6">
-        <div className="pointer-events-none absolute top-[16%] right-[14%] h-[260px] w-[360px] rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.12),rgba(255,145,205,0.015)_44%,transparent_72%)] blur-[44px]" />
+        <div className="pointer-events-none absolute left-1/2 top-[14%] h-[280px] w-[360px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.12),rgba(255,145,205,0.015)_44%,transparent_72%)] blur-[44px]" />
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto max-w-xl text-center md:mx-0 md:ml-[14%] md:max-w-[34rem] md:text-left"
+          className="relative mx-auto max-w-2xl text-center"
         >
-          <div className="mb-6 flex flex-col items-center justify-center gap-4 md:flex-row md:items-start md:justify-start md:gap-6">
+          <div className="mb-6 flex flex-col items-center justify-center gap-4">
             <motion.div
               className="relative flex-shrink-0"
               initial={{ scale: 0.8, opacity: 0 }}
@@ -76,9 +76,9 @@ export function HeroSection() {
               </div>
             </motion.div>
 
-            <div className="space-y-3 md:pt-1">
+            <div className="space-y-3">
               <motion.h1
-                className="text-center text-5xl font-bold tracking-[0.1em] md:text-left md:text-[5.2rem] md:leading-none"
+                className="text-center text-5xl font-bold tracking-[0.1em] md:text-[5.2rem] md:leading-none"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
@@ -88,7 +88,7 @@ export function HeroSection() {
                 <span className="text-white">AQ</span>
               </motion.h1>
               <motion.p
-                className="mx-auto max-w-md text-sm leading-relaxed text-white/72 md:mx-0 md:max-w-none md:text-left"
+                className="mx-auto max-w-md text-sm leading-relaxed text-white/72"
                 initial={{ opacity: 0, x: 12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.42, duration: 0.75 }}
@@ -99,19 +99,19 @@ export function HeroSection() {
           </div>
 
           <motion.div
-            className="relative mx-auto max-w-xl md:mx-0"
+            className="relative mx-auto max-w-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            <p className="text-balance text-lg leading-relaxed text-white/92 md:max-w-[32rem] md:text-[1.55rem] md:leading-[1.55]">
+            <p className="text-balance text-lg leading-relaxed text-white/92 md:text-[1.55rem] md:leading-[1.55]">
               {siteConfig.description}
             </p>
             <p className="mt-3 text-sm text-white/70 md:text-[15px]">{siteConfig.shortDescription}</p>
           </motion.div>
 
           <motion.div
-            className="mt-7 flex flex-wrap items-center justify-center gap-2.5 md:justify-start"
+            className="mt-7 flex flex-wrap items-center justify-center gap-2.5"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
@@ -131,7 +131,7 @@ export function HeroSection() {
           </motion.div>
 
           <motion.div
-            className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row md:justify-start"
+            className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 0.65 }}
