@@ -58,7 +58,6 @@ export default function BlogPage() {
         <section id="posts" className="relative z-10 overflow-hidden px-6 pt-24 pb-20 md:pt-28 md:pb-24">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -top-4 left-0 right-0 h-16 bg-gradient-to-b from-background/82 to-transparent" />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,28,56,0.46)_0%,rgba(15,26,50,0.52)_28%,rgba(18,15,32,0.78)_72%,rgba(12,8,18,0.94)_100%)]" />
             <div
               className="absolute inset-0 opacity-100"
               style={{
@@ -94,12 +93,12 @@ export default function BlogPage() {
                 `,
               }}
             />
-            <div className="absolute top-0 left-1/2 h-[480px] w-[920px] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/14 via-accent/6 to-transparent blur-[110px]" />
-            <div className="absolute top-[10%] left-[4%] h-[260px] w-[260px] rounded-full bg-primary/14 blur-[95px]" />
-            <div className="absolute top-[18%] right-[2%] h-[320px] w-[320px] rounded-full bg-accent/10 blur-[120px]" />
-            <div className="absolute bottom-[12%] left-[18%] h-[220px] w-[220px] rounded-full bg-white/6 blur-[90px]" />
-            <div className="absolute bottom-[18%] right-[22%] h-[180px] w-[180px] rounded-full bg-primary/8 blur-[80px]" />
-            <div className="absolute bottom-0 left-0 h-[360px] w-[700px] rounded-full bg-gradient-to-tr from-accent/12 to-transparent blur-[100px]" />
+            <div className="absolute top-0 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/8 via-accent/4 to-transparent blur-[100px]" />
+            <div className="absolute top-[12%] left-[6%] h-[220px] w-[220px] rounded-full bg-primary/8 blur-[85px]" />
+            <div className="absolute top-[22%] right-[4%] h-[260px] w-[260px] rounded-full bg-accent/6 blur-[105px]" />
+            <div className="absolute bottom-[14%] left-[20%] h-[180px] w-[180px] rounded-full bg-white/4 blur-[80px]" />
+            <div className="absolute bottom-[18%] right-[24%] h-[160px] w-[160px] rounded-full bg-primary/5 blur-[72px]" />
+            <div className="absolute bottom-0 left-0 h-[320px] w-[620px] rounded-full bg-gradient-to-tr from-accent/7 to-transparent blur-[90px]" />
             <div className="absolute inset-x-0 top-[22%] h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)] opacity-70" />
             <div className="absolute inset-x-[12%] top-[56%] h-px bg-[linear-gradient(90deg,transparent,rgba(255,204,241,0.16),transparent)] opacity-60" />
             <div className="absolute left-[16%] top-[24%] h-24 w-24 rounded-full border border-white/8 opacity-40" />
