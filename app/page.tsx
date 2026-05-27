@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, Archive, Github, Search, ShieldCheck } from "lucide-react"
+import { ArrowRight, Archive, Github, Search } from "lucide-react"
 import { Header } from "@/components/blog/header"
 import { HeroSection } from "@/components/blog/hero-section"
 import { BlogCard } from "@/components/blog/blog-card"
@@ -34,9 +34,9 @@ export default function BlogPage() {
         <Header />
         <HeroSection />
 
-        <section id="posts" className="relative z-10 overflow-hidden px-6 pt-12 pb-20 md:pt-16 md:pb-24">
+        <section id="posts" className="relative z-10 overflow-hidden px-6 pt-24 pb-20 md:pt-28 md:pb-24">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-12 left-0 right-0 h-28 bg-gradient-to-b from-background/75 to-transparent" />
+            <div className="absolute -top-4 left-0 right-0 h-16 bg-gradient-to-b from-background/82 to-transparent" />
             <div className="absolute top-0 left-1/2 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/6 to-transparent blur-[100px]" />
             <div className="absolute bottom-0 left-0 h-[300px] w-[600px] rounded-full bg-gradient-to-tr from-accent/5 to-transparent blur-[80px]" />
           </div>
@@ -49,13 +49,6 @@ export default function BlogPage() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div
-                className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/18 bg-background/30 px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] text-white/50"
-                variants={fadeUpVariant}
-              >
-                <ShieldCheck className="h-3.5 w-3.5 text-primary/70" />
-                Latest Notes
-              </motion.div>
               <motion.h2
                 className="mb-4 text-4xl font-bold text-foreground md:text-5xl"
                 variants={fadeUpVariant}
