@@ -28,7 +28,7 @@ export default function BlogPage() {
               backgroundPosition: "center 30%",
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.05)_0%,rgba(8,8,16,0.15)_40%,rgba(8,8,16,0.5)_70%,rgba(8,8,16,0.85)_90%,rgba(8,8,16,1)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.02)_0%,rgba(8,8,16,0.08)_30%,rgba(8,8,16,0.3)_60%,rgba(8,8,16,0.7)_85%,rgba(8,8,16,1)_100%)]" />
         </div>
         <Header />
         <HeroSection />
@@ -54,6 +54,7 @@ export default function BlogPage() {
               <motion.h2 
                 className="text-4xl md:text-5xl font-bold text-foreground mb-4"
                 variants={fadeUpVariant}
+                style={{ textShadow: "0 0 30px rgba(235,99,197,0.15)" }}
               >
                 最新文章
               </motion.h2>
@@ -125,15 +126,19 @@ export default function BlogPage() {
             variants={staggerContainer}
           >
             <motion.div 
-              className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-6 shadow-lg shadow-primary/10"
+              className="relative w-24 h-24 mx-auto mb-6"
               variants={scaleUpVariant}
               whileHover={{ scale: 1.1 }}
             >
-              <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 -m-2 rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-spin-slow opacity-50 blur-sm" />
+              <div className="relative w-24 h-24 rounded-full overflow-hidden shadow-[0_0_40px_rgba(235,99,197,0.25)]">
+                <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="w-full h-full object-cover" />
+              </div>
             </motion.div>
             <motion.h2 
               className="text-3xl font-bold text-foreground mb-4"
               variants={fadeUpVariant}
+              style={{ textShadow: "0 0 20px rgba(235,99,197,0.12)" }}
             >
               关于这个角落
             </motion.h2>

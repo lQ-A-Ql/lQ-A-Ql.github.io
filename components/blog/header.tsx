@@ -99,7 +99,7 @@ export function Header() {
                   }}
                   transition={{ duration: 0.2 }}
                 />
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary/50 transition-all group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary/60 transition-all group-hover:w-full" style={{ boxShadow: "0 0 8px rgba(235,99,197,0.3)" }} />
               </Link>
             ))}
           </nav>

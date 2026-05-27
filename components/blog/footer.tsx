@@ -19,7 +19,7 @@ export function Footer() {
           {/* Brand */}
           <motion.div variants={fadeUpVariant}>
             <h3 className="text-xl font-bold mb-4">
-              <span className="text-primary">{siteConfig.title.slice(0, 1)}</span>{siteConfig.title.slice(1)}
+              <span className="text-primary" style={{ textShadow: "0 0 12px rgba(235,99,197,0.25)" }}>{siteConfig.title.slice(0, 1)}</span>{siteConfig.title.slice(1)}
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               记录实战中的流量、取证、逆向与赛题分析，尽量把每篇内容压缩成可直接复用的经验片段。

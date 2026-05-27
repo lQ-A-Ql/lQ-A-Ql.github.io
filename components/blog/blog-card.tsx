@@ -40,7 +40,7 @@ export function BlogCard({
       whileHover={{ y: -8 }}
       style={{ cursor: id ? "pointer" : "default" }}
     >
-      <Card className="group relative overflow-hidden bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl border-white/10 hover:border-primary/30 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-primary/10">
+      <Card className="group relative overflow-hidden bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl border-white/10 hover:border-primary/40 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-[0_0_30px_rgba(235,99,197,0.12),0_8px_32px_rgba(0,0,0,0.3)]">
         {/* Image section */}
         {imageUrl && (
           <div className="relative aspect-video overflow-hidden">
@@ -74,7 +74,7 @@ export function BlogCard({
         {/* Decorative elements */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {/* Top shine */}
-          <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           {/* Corner accent */}
           <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-primary/5 blur-3xl transition-transform duration-700 group-hover:translate-x-10 group-hover:-translate-y-10" />
           <div className="absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-accent/5 blur-2xl transition-transform duration-700 group-hover:-translate-x-5 group-hover:translate-y-5" />
@@ -125,7 +125,7 @@ export function BlogCard({
         </div>
 
         {/* Bottom gradient line */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-accent to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
       </Card>
     </motion.div>
   )
