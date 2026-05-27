@@ -25,25 +25,16 @@ export default function BlogPage() {
   return (
     <PageTransition>
       <main className="relative min-h-screen bg-background overflow-hidden">
-        {/* Hero Background Image */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1120px] overflow-hidden">
+        {/* Hero Background Image - only in hero area */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[80vh] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: `url('${siteConfig.heroBackground}')`,
-              backgroundPosition: "center top",
+              backgroundPosition: "center 30%",
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.05)_0%,rgba(8,8,16,0.08)_38%,rgba(8,8,16,0.18)_62%,rgba(8,8,16,0.42)_82%,rgba(8,8,16,0.72)_100%)]" />
-          <div
-            className="absolute inset-x-0 bottom-0 h-[220px] scale-110 bg-cover bg-center bg-no-repeat blur-3xl opacity-95"
-            style={{
-              backgroundImage: `url('${siteConfig.heroBackground}')`,
-              backgroundPosition: "center bottom",
-              maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.08) 18%, rgba(0,0,0,0.3) 42%, rgba(0,0,0,0.68) 72%, rgba(0,0,0,1) 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.08) 18%, rgba(0,0,0,0.3) 42%, rgba(0,0,0,0.68) 72%, rgba(0,0,0,1) 100%)",
-            }}
-          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.05)_0%,rgba(8,8,16,0.15)_40%,rgba(8,8,16,0.5)_70%,rgba(8,8,16,0.85)_90%,rgba(8,8,16,1)_100%)]" />
         </div>
         <Header />
         <HeroSection />
