@@ -286,6 +286,16 @@
   100% { transform: translateX(100%); }
 }
 
+@keyframes liquid-sheen {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.72; }
+  50% { transform: translate3d(1.25%, -1.5%, 0); opacity: 0.92; }
+}
+
+@keyframes liquid-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-1.5%, 1.25%, 0) scale(1.025); }
+}
+
 .animate-spin-slow {
   animation: spin-slow 8s linear infinite;
 }
@@ -301,6 +311,14 @@
 
 .animate-shimmer {
   animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-liquid-sheen {
+  animation: liquid-sheen 10s ease-in-out infinite;
+}
+
+.animate-liquid-drift {
+  animation: liquid-drift 16s ease-in-out infinite;
 }
 
 /* Selection color */

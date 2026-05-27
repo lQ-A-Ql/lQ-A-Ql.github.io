@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Menu, X, Search } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { LiquidGlass } from "@/components/ui/liquid-glass"
 import { siteConfig } from "@/lib/blog-data"
 
 const navItems = [
@@ -56,14 +57,11 @@ export function Header() {
       }}
       className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 transition-all duration-300 md:px-6"
     >
-      <div
-        className={`liquid-glass mx-auto max-w-6xl rounded-[1.9rem] transition-all duration-300 ${
-          isScrolled || isMobileMenuOpen
-            ? "liquid-glass-strong border-white/16"
-            : "border-white/12 bg-[rgba(11,8,18,0.03)]"
-        }`}
+      <LiquidGlass
+        variant={isScrolled || isMobileMenuOpen ? "strong" : "soft"}
+        className="mx-auto max-w-6xl rounded-[1.9rem] transition-all duration-300"
+        contentClassName="flex h-16 items-center justify-between px-4 md:px-6"
       >
-        <div className="flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
             <span className="inline-flex h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(235,99,197,0.6)]" />
             <span className="text-lg font-bold tracking-[0.22em] text-white md:text-xl">
@@ -72,55 +70,58 @@ export function Header() {
             </span>
           </Link>
 
-          <nav className="liquid-outline hidden items-center gap-2 rounded-full px-3 py-2 md:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={(e) => {
-                  if (item.href.startsWith("/#") && pathname === "/") {
-                    e.preventDefault()
-                  }
-                  handleNavClick(item.href)
-                }}
-                className={`group relative rounded-full px-4 py-1.5 text-sm transition-colors ${
-                  isActive(item.href) ? "text-primary" : "text-muted-foreground hover:text-primary"
-                }`}
-              >
-                {item.label}
-                <motion.span
-                  className="absolute inset-x-3 -bottom-[2px] h-px bg-primary"
-                  initial={false}
-                  animate={{ width: isActive(item.href) ? "calc(100% - 24px)" : "0%" }}
-                  transition={{ duration: 0.2 }}
-                />
-                <span
-                  className="absolute inset-0 rounded-full border border-primary/0 transition-all group-hover:border-primary/15"
-                  style={{ boxShadow: isActive(item.href) ? "inset 0 1px 0 rgba(255,255,255,0.16), inset 0 0 18px rgba(235,99,197,0.1)" : undefined }}
-                />
-              </Link>
-            ))}
-          </nav>
+          <LiquidGlass className="hidden rounded-full md:block" contentClassName="flex items-center gap-2 px-3 py-2">
+            <nav className="flex items-center gap-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    if (item.href.startsWith("/#") && pathname === "/") {
+                      e.preventDefault()
+                    }
+                    handleNavClick(item.href)
+                  }}
+                  className={`group relative rounded-full px-4 py-1.5 text-sm transition-colors ${
+                    isActive(item.href) ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  {item.label}
+                  <motion.span
+                    className="absolute inset-x-3 -bottom-[2px] h-px bg-primary"
+                    initial={false}
+                    animate={{ width: isActive(item.href) ? "calc(100% - 24px)" : "0%" }}
+                    transition={{ duration: 0.2 }}
+                  />
+                  <span
+                    className="absolute inset-0 rounded-full border border-primary/0 transition-all group-hover:border-primary/15"
+                    style={{ boxShadow: isActive(item.href) ? "inset 0 1px 0 rgba(255,255,255,0.16), inset 0 0 18px rgba(235,99,197,0.1)" : undefined }}
+                  />
+                </Link>
+              ))}
+            </nav>
+          </LiquidGlass>
 
           <div className="flex items-center gap-2 md:gap-3">
-            <Button
-              asChild
-              variant="ghost"
-              size="icon"
-              className="liquid-outline rounded-full text-muted-foreground hover:border-primary/20 hover:text-primary"
-            >
-              <Link href="/search" aria-label="搜索文章">
+            <LiquidGlass className="rounded-full" contentClassName="flex">
+              <Link
+                href="/search"
+                aria-label="搜索文章"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-primary"
+              >
                 <Search className="w-4 h-4" />
               </Link>
-            </Button>
-            <Link
-              href={siteConfig.githubUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="liquid-outline hidden rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/18 hover:text-primary md:inline-block"
-            >
-              GitHub
-            </Link>
+            </LiquidGlass>
+            <LiquidGlass className="hidden rounded-full md:block" contentClassName="flex">
+              <Link
+                href={siteConfig.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+              >
+                GitHub
+              </Link>
+            </LiquidGlass>
 
             <Button
               variant="ghost"
@@ -132,7 +133,7 @@ export function Header() {
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
-        </div>
+      </LiquidGlass>
 
         <AnimatePresence>
           {isMobileMenuOpen && (
