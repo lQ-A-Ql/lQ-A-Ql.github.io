@@ -57,11 +57,12 @@ export function Header() {
       }}
       className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 transition-all duration-300 md:px-6"
     >
-      <LiquidGlass
-        variant={isScrolled || isMobileMenuOpen ? "strong" : "soft"}
-        className="mx-auto max-w-6xl rounded-[1.9rem] transition-all duration-300"
-        contentClassName="flex h-16 items-center justify-between px-4 md:px-6"
-      >
+      <div className="mx-auto max-w-6xl">
+        <LiquidGlass
+          variant={isScrolled || isMobileMenuOpen ? "strong" : "soft"}
+          className="rounded-[1.9rem] transition-all duration-300"
+          contentClassName="flex h-16 items-center justify-between px-4 md:px-6"
+        >
           <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
             <span className="inline-flex h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(235,99,197,0.6)]" />
             <span className="text-lg font-bold tracking-[0.22em] text-white md:text-xl">
@@ -133,7 +134,7 @@ export function Header() {
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
-      </LiquidGlass>
+        </LiquidGlass>
 
         <AnimatePresence>
           {isMobileMenuOpen && (
