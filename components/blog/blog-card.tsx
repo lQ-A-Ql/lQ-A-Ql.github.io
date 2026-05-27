@@ -43,17 +43,17 @@ export function BlogCard({
       whileHover={{ y: -8 }}
       style={{ cursor: id ? "pointer" : "default" }}
     >
-      <Card className="group relative h-full cursor-pointer overflow-hidden rounded-[1.9rem] border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.015)_18%,rgba(255,255,255,0.00)_44%,rgba(255,255,255,0.00)_100%)] py-0 shadow-[0_14px_34px_rgba(0,0,0,0.16)] backdrop-blur-[20px] transition-all duration-500 hover:border-primary/24 hover:shadow-[0_0_40px_rgba(235,99,197,0.12),0_14px_42px_rgba(0,0,0,0.22)]">
-        <div className="pointer-events-none absolute inset-[-1px] rounded-[1.95rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.58),rgba(255,255,255,0.14)_14%,rgba(255,255,255,0)_34%)] opacity-95" />
-        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.14),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.12),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.08),transparent_35%)] opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
-        <div className="pointer-events-none absolute inset-x-[12%] top-0 h-[42%] rounded-b-[50%] bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.36),rgba(255,255,255,0.08)_46%,transparent_76%)] opacity-100" />
-        <div className="pointer-events-none absolute inset-x-[16%] bottom-[-10%] h-[32%] rounded-t-[50%] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.07),transparent_72%)] opacity-70" />
+      <Card className="group relative h-full cursor-pointer overflow-hidden rounded-[1.9rem] border border-white/14 bg-transparent py-0 shadow-[0_10px_26px_rgba(0,0,0,0.12)] backdrop-blur-[22px] transition-all duration-500 hover:border-primary/22 hover:shadow-[0_0_38px_rgba(235,99,197,0.12),0_12px_36px_rgba(0,0,0,0.18)]">
+        <div className="pointer-events-none absolute inset-[-1px] rounded-[1.95rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.62),rgba(255,255,255,0.10)_14%,rgba(255,255,255,0)_34%)] opacity-95" />
+        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.10),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.10),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06),transparent_35%)] opacity-84 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="pointer-events-none absolute inset-x-[12%] top-0 h-[42%] rounded-b-[50%] bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.34),rgba(255,255,255,0.06)_46%,transparent_76%)] opacity-100" />
+        <div className="pointer-events-none absolute inset-x-[16%] bottom-[-10%] h-[32%] rounded-t-[50%] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.05),transparent_72%)] opacity-58" />
         <div className="pointer-events-none absolute -inset-[140%] z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           <div className="absolute left-1/2 top-1/2 h-[150%] w-16 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.58)_42%,rgba(193,106,243,0.58)_58%,rgba(255,255,255,0)_100%)] blur-[14px] animate-spin-slow" />
         </div>
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0.02)_62%,transparent)] opacity-100" />
-        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/14 shadow-[inset_0_1px_0_rgba(255,255,255,0.24),inset_0_-8px_22px_rgba(0,0,0,0.02)]" />
-        <div className="pointer-events-none absolute inset-[1px] rounded-[1.85rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.16),rgba(255,255,255,0.02)_42%,transparent_70%)] opacity-84" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0.012)_62%,transparent)] opacity-100" />
+        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.22),inset_0_-6px_18px_rgba(0,0,0,0.01)]" />
+        <div className="pointer-events-none absolute inset-[1px] rounded-[1.85rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.01)_42%,transparent_70%)] opacity-72" />
 
         {imageUrl && (
           <div className="relative aspect-video overflow-hidden">
@@ -62,7 +62,7 @@ export function BlogCard({
             <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),transparent)]" />
 
             <div className="absolute top-4 left-4">
-              <span className="rounded-full border border-primary/24 bg-background/18 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary backdrop-blur-md">
+              <span className="rounded-full border border-primary/24 bg-background/12 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary backdrop-blur-md">
                 {category}
               </span>
             </div>
@@ -73,7 +73,7 @@ export function BlogCard({
         <div className="relative flex h-full flex-col p-6">
           {!imageUrl && (
             <div className="mb-5 flex items-center justify-between gap-3 border-b border-white/10 pb-4">
-              <span className="inline-flex rounded-full border border-primary/22 bg-primary/6 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary shadow-[0_0_18px_rgba(235,99,197,0.08)] backdrop-blur-md">
+              <span className="inline-flex rounded-full border border-primary/22 bg-primary/5 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary shadow-[0_0_18px_rgba(235,99,197,0.08)] backdrop-blur-md">
                 {category}
               </span>
               <span className="text-[11px] uppercase tracking-[0.24em] text-white/42">{entryCode}</span>
@@ -86,7 +86,7 @@ export function BlogCard({
 
           <p className="mb-6 line-clamp-4 text-sm leading-7 text-white/76">{excerpt}</p>
 
-          <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/8 pt-4">
+          <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/6 pt-4">
             <div className="space-y-2 text-xs text-muted-foreground">
               <span className="flex items-center gap-2">
                 <CalendarDays className="h-3.5 w-3.5 text-primary/62" />
