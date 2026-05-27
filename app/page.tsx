@@ -19,7 +19,7 @@ export default function BlogPage() {
   return (
     <PageTransition>
       <main className="relative min-h-screen overflow-hidden bg-background">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[104vh] overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[88vh] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
@@ -27,7 +27,7 @@ export default function BlogPage() {
               backgroundPosition: "center 18%",
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.01)_0%,rgba(8,8,16,0.08)_22%,rgba(8,8,16,0.18)_48%,rgba(8,8,16,0.54)_82%,rgba(8,8,16,0.86)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.01)_0%,rgba(8,8,16,0.08)_24%,rgba(8,8,16,0.2)_52%,rgba(8,8,16,0.76)_86%,rgba(8,8,16,0.96)_100%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,132,190,0.12),transparent_28%)]" />
         </div>
 
