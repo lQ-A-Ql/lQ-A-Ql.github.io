@@ -91,7 +91,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_42%,rgba(5,5,10,0.18)_72%,rgba(4,4,8,0.44)_100%)]" />
 
         <motion.div
-          className="relative z-10 pt-24 pb-16 px-6"
+          className="relative z-10 px-4 pt-24 pb-12 sm:px-6 sm:pb-16"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -104,7 +104,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
             >
               <Button
                 variant="ghost"
-                className="mb-8 text-muted-foreground hover:text-primary"
+                className="mb-6 px-0 text-muted-foreground hover:text-primary sm:mb-8"
                 onClick={() => router.back()}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -113,7 +113,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
             </motion.div>
 
             <motion.span
-              className="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20 mb-6"
+              className="mb-5 inline-block rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25, delay: 0.15 }}
@@ -122,7 +122,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
             </motion.span>
 
             <motion.h1
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight"
+              className="mb-5 text-2xl leading-tight font-bold text-foreground sm:text-3xl md:mb-6 md:text-4xl lg:text-5xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25, delay: 0.2 }}
@@ -131,7 +131,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
             </motion.h1>
 
             <motion.div
-              className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground"
+              className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-muted-foreground"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 25, delay: 0.25 }}
@@ -162,13 +162,13 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
         </motion.div>
 
         <motion.article
-          className="relative z-10 max-w-4xl mx-auto px-6 pb-20"
+          className="relative z-10 mx-auto max-w-4xl px-4 pb-20 sm:px-6"
           initial="initial"
           animate="animate"
           variants={staggerContainer}
         >
           <motion.div
-            className="group relative prose prose-invert prose-pink prose-headings:text-foreground max-w-none overflow-hidden rounded-[1.75rem] bg-[rgba(94,74,122,0.12)] px-6 py-8 shadow-[0_30px_110px_rgba(0,0,0,0.34)] backdrop-blur-[22px] backdrop-saturate-150 md:px-10 md:py-10"
+            className="group relative max-w-none overflow-hidden rounded-[1.4rem] bg-[rgba(94,74,122,0.12)] px-4 py-6 shadow-[0_30px_110px_rgba(0,0,0,0.34)] backdrop-blur-[22px] backdrop-saturate-150 prose prose-invert prose-pink prose-headings:text-foreground sm:rounded-[1.75rem] sm:px-6 sm:py-8 md:px-10 md:py-10"
             variants={fadeUpVariant}
           >
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
