@@ -123,8 +123,10 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      linear-gradient(rgba(12, 10, 19, 0.35), rgba(12, 10, 19, 0.72)),
-      radial-gradient(circle at top, rgba(255, 138, 173, 0.15), transparent 32%);
+      linear-gradient(rgba(10, 8, 18, 0.3), rgba(10, 8, 18, 0.78)),
+      radial-gradient(circle at top, rgba(255, 138, 173, 0.16), transparent 28%),
+      radial-gradient(circle at 18% 12%, rgba(142, 98, 255, 0.08), transparent 24%),
+      radial-gradient(circle at 82% 8%, rgba(255, 122, 169, 0.1), transparent 20%);
     background-attachment: fixed;
     position: relative;
   }
@@ -154,6 +156,12 @@
   /* 页面切换时防止闪烁 */
   body {
     overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }
 

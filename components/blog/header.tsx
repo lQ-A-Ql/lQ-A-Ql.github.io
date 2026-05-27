@@ -22,13 +22,12 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 24)
     }
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // 关闭移动菜单当路径变化
   useEffect(() => {
     setIsMobileMenuOpen(false)
   }, [pathname])
@@ -44,36 +43,36 @@ export function Header() {
     setIsMobileMenuOpen(false)
   }
 
+  const isActive = (href: string) => pathname === href
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ 
+      transition={{
         type: "spring",
         stiffness: 260,
         damping: 20,
       }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-[rgba(8,9,16,0.86)] backdrop-blur-xl border-b border-white/8 shadow-[0_10px_36px_rgba(0,0,0,0.18)]"
-          : "bg-transparent backdrop-blur-none border-b border-transparent shadow-none"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 transition-all duration-300 md:px-6"
     >
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link
-            href="/"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-2"
-          >
-            <span className="text-xl font-bold tracking-[0.18em]">
-              <span className="text-primary">{siteConfig.title.slice(0, 1)}</span>{siteConfig.title.slice(1)}
+      <div
+        className={`mx-auto max-w-6xl rounded-[1.8rem] border shadow-[0_12px_44px_rgba(0,0,0,0.14)] transition-all duration-300 ${
+          isScrolled || isMobileMenuOpen
+            ? "border-white/10 bg-[rgba(11,8,18,0.84)] backdrop-blur-2xl"
+            : "border-white/8 bg-[rgba(11,8,18,0.34)] backdrop-blur-xl"
+        }`}
+      >
+        <div className="flex h-16 items-center justify-between px-4 md:px-6">
+          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3">
+            <span className="inline-flex h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(235,99,197,0.6)]" />
+            <span className="text-lg font-bold tracking-[0.22em] text-white md:text-xl">
+              <span className="text-primary">{siteConfig.title.slice(0, 1)}</span>
+              {siteConfig.title.slice(1)}
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden items-center gap-2 rounded-full border border-white/6 bg-background/15 px-3 py-2 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.label}
@@ -84,29 +83,32 @@ export function Header() {
                   }
                   handleNavClick(item.href)
                 }}
-                className={`text-sm transition-colors relative group ${
-                  pathname === item.href 
-                    ? "text-primary" 
-                    : "text-muted-foreground hover:text-primary"
+                className={`group relative rounded-full px-4 py-1.5 text-sm transition-colors ${
+                  isActive(item.href) ? "text-primary" : "text-muted-foreground hover:text-primary"
                 }`}
               >
                 {item.label}
-                <motion.span 
-                  className="absolute -bottom-1 left-0 h-0.5 bg-primary"
+                <motion.span
+                  className="absolute inset-x-3 -bottom-[2px] h-px bg-primary"
                   initial={false}
-                  animate={{ 
-                    width: pathname === item.href ? "100%" : "0%"
-                  }}
+                  animate={{ width: isActive(item.href) ? "calc(100% - 24px)" : "0%" }}
                   transition={{ duration: 0.2 }}
                 />
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary/60 transition-all group-hover:w-full" style={{ boxShadow: "0 0 8px rgba(235,99,197,0.3)" }} />
+                <span
+                  className="absolute inset-0 rounded-full border border-primary/0 transition-all group-hover:border-primary/15"
+                  style={{ boxShadow: isActive(item.href) ? "inset 0 0 18px rgba(235,99,197,0.12)" : undefined }}
+                />
               </Link>
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-4">
-            <Button asChild variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+          <div className="flex items-center gap-2 md:gap-3">
+            <Button
+              asChild
+              variant="ghost"
+              size="icon"
+              className="rounded-full border border-white/6 bg-background/20 text-muted-foreground hover:border-primary/20 hover:text-primary"
+            >
               <Link href="/search" aria-label="搜索文章">
                 <Search className="w-4 h-4" />
               </Link>
@@ -115,77 +117,112 @@ export function Header() {
               href={siteConfig.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="hidden md:inline-block text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="hidden rounded-full border border-white/6 bg-background/20 px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/18 hover:text-primary md:inline-block"
             >
               GitHub
             </Link>
-            
-            {/* Mobile Menu Button */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="md:hidden text-muted-foreground"
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full border border-white/6 bg-background/20 text-muted-foreground md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "关闭菜单" : "打开菜单"}
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
-          >
-            <motion.nav 
-              className="flex flex-col p-6 gap-4"
-              initial="closed"
-              animate="open"
-              variants={{
-                open: {
-                  transition: { staggerChildren: 0.07, delayChildren: 0.1 }
-                },
-                closed: {
-                  transition: { staggerChildren: 0.05, staggerDirection: -1 }
-                }
-              }}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="overflow-hidden rounded-b-[1.8rem] border-t border-white/8 bg-[rgba(11,8,18,0.94)] backdrop-blur-2xl md:hidden"
             >
-              {navItems.map((item) => (
+              <motion.div
+                className="space-y-6 p-5"
+                initial="closed"
+                animate="open"
+                variants={{
+                  open: {
+                    transition: { staggerChildren: 0.07, delayChildren: 0.1 },
+                  },
+                  closed: {
+                    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+                  },
+                }}
+              >
                 <motion.div
-                  key={item.label}
                   variants={{
                     open: { y: 0, opacity: 1 },
-                    closed: { y: 20, opacity: 0 }
+                    closed: { y: 20, opacity: 0 },
                   }}
+                  className="rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-4"
+                >
+                  <p className="text-xs uppercase tracking-[0.28em] text-white/45">Quick Access</p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/75">{siteConfig.description}</p>
+                </motion.div>
+
+                <motion.nav className="flex flex-col gap-3">
+                  {navItems.map((item) => (
+                    <motion.div
+                      key={item.label}
+                      variants={{
+                        open: { y: 0, opacity: 1 },
+                        closed: { y: 20, opacity: 0 },
+                      }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={(e) => {
+                          if (item.href.startsWith("/#") && pathname === "/") {
+                            e.preventDefault()
+                          }
+                          handleNavClick(item.href)
+                        }}
+                        className={`block rounded-[1.2rem] border px-4 py-3 text-base transition-colors ${
+                          isActive(item.href)
+                            ? "border-primary/24 bg-primary/10 text-primary"
+                            : "border-white/8 bg-white/[0.03] text-muted-foreground hover:text-primary"
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </motion.nav>
+
+                <motion.div
+                  variants={{
+                    open: { y: 0, opacity: 1 },
+                    closed: { y: 20, opacity: 0 },
+                  }}
+                  className="flex items-center gap-3"
                 >
                   <Link
-                    href={item.href}
-                    onClick={(e) => {
-                      if (item.href.startsWith("/#") && pathname === "/") {
-                        e.preventDefault()
-                      }
-                      handleNavClick(item.href)
-                    }}
-                    className={`text-lg transition-colors block ${
-                      pathname === item.href 
-                        ? "text-primary" 
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
+                    href="/search"
+                    className="flex-1 rounded-full border border-primary/24 bg-primary/12 px-4 py-3 text-center text-sm text-primary"
                   >
-                    {item.label}
+                    搜索文章
+                  </Link>
+                  <Link
+                    href={siteConfig.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex-1 rounded-full border border-white/8 bg-white/[0.03] px-4 py-3 text-center text-sm text-white/80"
+                  >
+                    GitHub
                   </Link>
                 </motion.div>
-              ))}
-            </motion.nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.header>
   )
 }
