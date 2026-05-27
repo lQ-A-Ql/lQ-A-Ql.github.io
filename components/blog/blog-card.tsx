@@ -43,17 +43,15 @@ export function BlogCard({
       whileHover={{ y: -8 }}
       style={{ cursor: id ? "pointer" : "default" }}
     >
-      <Card className="group relative h-full cursor-pointer overflow-hidden rounded-[1.9rem] border border-white/12 bg-transparent py-0 shadow-[0_8px_20px_rgba(0,0,0,0.08)] backdrop-blur-[24px] transition-all duration-500 hover:border-primary/20 hover:shadow-[0_0_32px_rgba(235,99,197,0.1),0_10px_28px_rgba(0,0,0,0.14)]">
-        <div className="pointer-events-none absolute inset-[-1px] rounded-[1.95rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.52),rgba(255,255,255,0.08)_14%,rgba(255,255,255,0)_34%)] opacity-92" />
-        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.08),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.08),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.04),transparent_35%)] opacity-72 transition-opacity duration-500 group-hover:opacity-92" />
-        <div className="pointer-events-none absolute inset-x-[12%] top-0 h-[40%] rounded-b-[50%] bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.26),rgba(255,255,255,0.04)_46%,transparent_76%)] opacity-92" />
-        <div className="pointer-events-none absolute inset-x-[16%] bottom-[-10%] h-[28%] rounded-t-[50%] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03),transparent_72%)] opacity-42" />
+      <Card className="group relative h-full cursor-pointer overflow-hidden rounded-[1.9rem] border border-white/9 bg-transparent py-0 shadow-[0_4px_12px_rgba(0,0,0,0.04)] backdrop-blur-[24px] transition-all duration-500 hover:border-primary/16 hover:shadow-[0_0_22px_rgba(235,99,197,0.06),0_6px_18px_rgba(0,0,0,0.08)]">
+        <div className="pointer-events-none absolute inset-[-1px] rounded-[1.95rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.24),rgba(255,255,255,0.02)_12%,rgba(255,255,255,0)_24%)] opacity-72" />
+        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.03),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.03),transparent_28%)] opacity-36 transition-opacity duration-500 group-hover:opacity-54" />
         <div className="pointer-events-none absolute -inset-[140%] z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           <div className="absolute left-1/2 top-1/2 h-[150%] w-16 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.58)_42%,rgba(193,106,243,0.58)_58%,rgba(255,255,255,0)_100%)] blur-[14px] animate-spin-slow" />
         </div>
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0.01)_62%,transparent)] opacity-100" />
-        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),inset_0_-4px_12px_rgba(0,0,0,0.0)]" />
-        <div className="pointer-events-none absolute inset-[1px] rounded-[1.85rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.10),rgba(255,255,255,0.008)_42%,transparent_70%)] opacity-58" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-10 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.006)_62%,transparent)] opacity-72" />
+        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/8 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]" />
+        <div className="pointer-events-none absolute inset-[1px] rounded-[1.85rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.003)_42%,transparent_70%)] opacity-26" />
 
         {imageUrl && (
           <div className="relative aspect-video overflow-hidden">
@@ -62,7 +60,7 @@ export function BlogCard({
             <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),transparent)]" />
 
             <div className="absolute top-4 left-4">
-              <span className="rounded-full border border-primary/24 bg-background/8 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary backdrop-blur-md">
+              <span className="rounded-full border border-primary/24 bg-background/4 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary backdrop-blur-md">
                 {category}
               </span>
             </div>
@@ -73,7 +71,7 @@ export function BlogCard({
         <div className="relative flex h-full flex-col p-6">
           {!imageUrl && (
             <div className="mb-5 flex items-center justify-between gap-3 border-b border-white/10 pb-4">
-              <span className="inline-flex rounded-full border border-primary/22 bg-primary/4 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary shadow-[0_0_18px_rgba(235,99,197,0.08)] backdrop-blur-md">
+              <span className="inline-flex rounded-full border border-primary/22 bg-primary/2 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary shadow-[0_0_18px_rgba(235,99,197,0.08)] backdrop-blur-md">
                 {category}
               </span>
               <span className="text-[11px] uppercase tracking-[0.24em] text-white/42">{entryCode}</span>
@@ -86,7 +84,7 @@ export function BlogCard({
 
           <p className="mb-6 line-clamp-4 text-sm leading-7 text-white/76">{excerpt}</p>
 
-          <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/5 pt-4">
+          <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/4 pt-4">
             <div className="space-y-2 text-xs text-muted-foreground">
               <span className="flex items-center gap-2">
                 <CalendarDays className="h-3.5 w-3.5 text-primary/62" />
