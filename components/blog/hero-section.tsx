@@ -51,19 +51,9 @@ export function HeroSection() {
       </motion.div>
 
       <div className="relative z-10 mx-auto max-w-5xl px-6">
-        <div className="pointer-events-none absolute inset-x-[18%] top-[20%] h-[260px] rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.12),rgba(255,145,205,0.02)_42%,transparent_72%)] blur-[42px]" />
+        <div className="pointer-events-none absolute inset-x-[22%] top-[24%] h-[220px] rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.1),rgba(255,145,205,0.015)_44%,transparent_72%)] blur-[40px]" />
         <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }} className="relative text-center">
-          <motion.div
-            className="liquid-glass mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.28em] text-white/68"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.7 }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(235,99,197,0.55)]" />
-            Security Notes / Traffic Traces
-          </motion.div>
-
-          <div className="mb-5 flex flex-col items-center justify-center gap-5 md:flex-row md:gap-8">
+          <div className="mb-6 flex flex-col items-center justify-center gap-4 md:flex-row md:gap-7">
             <motion.div
               className="relative flex-shrink-0"
               initial={{ scale: 0.8, opacity: 0 }}
@@ -76,14 +66,12 @@ export function HeroSection() {
                 className="absolute inset-0 -m-5 rounded-full bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 animate-spin-slow opacity-35 blur-md"
                 style={{ animationDirection: "reverse", animationDuration: "12s" }}
               />
-              <div className="liquid-glass relative rounded-[2.1rem] p-3 md:p-4">
-                <div className="relative h-24 w-24 overflow-hidden rounded-[1.55rem] border border-white/10 shadow-[0_0_60px_rgba(235,99,197,0.25),0_0_110px_rgba(235,99,197,0.08)] transition-shadow duration-500 hover:shadow-[0_0_86px_rgba(235,99,197,0.46),0_0_160px_rgba(235,99,197,0.16)] md:h-28 md:w-28">
-                  <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
-                </div>
+              <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/12 shadow-[0_0_60px_rgba(235,99,197,0.28),0_0_110px_rgba(235,99,197,0.08)] transition-shadow duration-500 hover:shadow-[0_0_86px_rgba(235,99,197,0.46),0_0_160px_rgba(235,99,197,0.16)] md:h-28 md:w-28">
+                <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
               </div>
             </motion.div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <motion.h1
                 className="text-center text-5xl font-bold tracking-[0.12em] md:text-left md:text-7xl"
                 initial={{ opacity: 0, x: 20 }}
@@ -91,12 +79,11 @@ export function HeroSection() {
                 transition={{ delay: 0.3, duration: 0.8 }}
                 style={{ textShadow: "0 0 22px rgba(235,99,197,0.18), 0 0 72px rgba(235,99,197,0.06)" }}
               >
-                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
-                  {siteConfig.title}
-                </span>
+                <span className="text-primary">Q</span>
+                <span className="text-white">AQ</span>
               </motion.h1>
               <motion.p
-                className="liquid-glass mx-auto inline-flex max-w-md rounded-full px-4 py-2 text-sm leading-relaxed text-white/68 md:mx-0 md:text-left"
+                className="mx-auto max-w-md text-sm leading-relaxed text-white/72 md:mx-0 md:text-left"
                 initial={{ opacity: 0, x: 12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.42, duration: 0.75 }}
@@ -107,15 +94,13 @@ export function HeroSection() {
           </div>
 
           <motion.div
-            className="relative mx-auto max-w-2xl space-y-2"
+            className="relative mx-auto max-w-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            <div className="liquid-glass mx-auto inline-flex max-w-fit rounded-[1.6rem] px-5 py-3">
-              <p className="text-base leading-relaxed text-white/90 md:text-lg">{siteConfig.description}</p>
-            </div>
-            <p className="text-sm text-white/72 md:text-[15px]">{siteConfig.shortDescription}</p>
+            <p className="text-balance text-lg leading-relaxed text-white/92 md:text-[1.45rem]">{siteConfig.description}</p>
+            <p className="mt-3 text-sm text-white/70 md:text-[15px]">{siteConfig.shortDescription}</p>
           </motion.div>
 
           <motion.div
@@ -127,7 +112,7 @@ export function HeroSection() {
             {categories.filter((item) => item !== "全部").map((category, index) => (
               <motion.span
                 key={category}
-                className="liquid-glass rounded-full px-3.5 py-1.5 text-xs text-primary/82 transition-all hover:border-primary/45 hover:bg-primary/10"
+                className="rounded-full border border-white/12 bg-white/[0.04] px-3.5 py-1.5 text-xs text-primary/82 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-[8px] transition-all hover:border-primary/30 hover:bg-primary/8"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1 + index * 0.1 }}
