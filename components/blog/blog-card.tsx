@@ -43,11 +43,14 @@ export function BlogCard({
       whileHover={{ y: -8 }}
       style={{ cursor: id ? "pointer" : "default" }}
     >
-      <Card className="group relative h-full cursor-pointer overflow-hidden rounded-[1.9rem] border-white/10 bg-[linear-gradient(180deg,rgba(28,18,40,0.96),rgba(17,10,26,0.9))] py-0 shadow-[0_18px_42px_rgba(0,0,0,0.3)] transition-all duration-500 hover:border-primary/28 hover:shadow-[0_0_38px_rgba(235,99,197,0.12),0_18px_50px_rgba(0,0,0,0.34)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.14),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.12),transparent_28%)] opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.01)_62%,transparent)] opacity-90" />
-        <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-primary/42 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
-        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]" />
+      <Card className="group relative h-full cursor-pointer overflow-hidden rounded-[1.9rem] border border-white/8 bg-[linear-gradient(180deg,rgba(25,16,38,0.98),rgba(15,10,24,0.94))] py-0 shadow-[0_20px_44px_rgba(0,0,0,0.32)] transition-all duration-500 hover:border-primary/26 hover:shadow-[0_0_42px_rgba(235,99,197,0.12),0_20px_54px_rgba(0,0,0,0.36)]">
+        <div className="pointer-events-none absolute inset-[-1px] rounded-[1.95rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.25),rgba(255,255,255,0.04)_16%,rgba(255,255,255,0)_38%)] opacity-75" />
+        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.16),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.14),transparent_28%),radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.03),transparent_35%)] opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="pointer-events-none absolute -inset-[140%] z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+          <div className="absolute left-1/2 top-1/2 h-[150%] w-16 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.58)_42%,rgba(193,106,243,0.58)_58%,rgba(255,255,255,0)_100%)] blur-[14px] animate-spin-slow" />
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.01)_62%,transparent)] opacity-90" />
+        <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-18px_40px_rgba(0,0,0,0.12)]" />
 
         {imageUrl && (
           <div className="relative aspect-video overflow-hidden">
@@ -67,7 +70,7 @@ export function BlogCard({
         <div className="relative flex h-full flex-col p-6">
           {!imageUrl && (
             <div className="mb-5 flex items-center justify-between gap-3 border-b border-white/8 pb-4">
-              <span className="inline-flex rounded-full border border-primary/22 bg-primary/8 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary">
+              <span className="inline-flex rounded-full border border-primary/22 bg-primary/8 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-primary shadow-[0_0_18px_rgba(235,99,197,0.08)]">
                 {category}
               </span>
               <span className="text-[11px] uppercase tracking-[0.24em] text-white/42">{entryCode}</span>
