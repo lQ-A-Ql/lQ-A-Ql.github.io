@@ -286,12 +286,7 @@ export default function BlogPage() {
                       whileHover={{ y: -3 }}
                     >
                       <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/6 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-0" />
-                      <div className="mb-3 flex items-center gap-2.5">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary/70">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                        </div>
-                        <p className="text-xs uppercase tracking-[0.24em] text-white/50">Write Style</p>
-                      </div>
+                      <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Write Style</p>
                       <p className="text-sm leading-7 text-white/74">
                         尽量保留关键证据、核心思路和可复现步骤，不把有效信息埋进长篇背景里。
                       </p>
@@ -302,12 +297,7 @@ export default function BlogPage() {
                       whileHover={{ y: -3 }}
                     >
                       <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/6 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-0" />
-                      <div className="mb-3 flex items-center gap-2.5">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary/70">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                        </div>
-                        <p className="text-xs uppercase tracking-[0.24em] text-white/50">Focus Area</p>
-                      </div>
+                      <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Focus Area</p>
                       <p className="text-sm leading-7 text-white/74">
                         威胁流量、Windows / Linux 入侵排查、取证片段、赛题复盘，以及安全工具开发记录。
                       </p>
