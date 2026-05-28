@@ -279,7 +279,7 @@ export default function BlogPage() {
                     关于这个角落
                   </h2>
                   <p className="max-w-2xl leading-8 text-muted-foreground">
-                    流量分析、入侵排查、CTF 复盘、安全工具开发——只记关键路径，不写废话。
+                    偶尔搞搞流量分析、入侵排查、CTF 复盘和安全工具，踩过的坑都记在这里啦 >w<
                   </p>
 
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -291,7 +291,7 @@ export default function BlogPage() {
                       <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-20 transition-opacity duration-300 group-hover/sub:opacity-40" />
                       <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Write Style</p>
                       <p className="text-sm leading-7 text-white/74">
-                        保留关键证据和可复现步骤，不堆背景废话。
+                        只留能复现的干货，背景故事什么的才不写呢 OwO
                       </p>
                       <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover/sub:scale-x-100" />
                     </motion.div>
@@ -303,7 +303,7 @@ export default function BlogPage() {
                       <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-20 transition-opacity duration-300 group-hover/sub:opacity-40" />
                       <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Focus Area</p>
                       <p className="text-sm leading-7 text-white/74">
-                        威胁流量 · 入侵排查 · 取证 · CTF · 工具开发
+                        威胁流量 / 入侵排查 / 取证 / CTF / 安全工具，什么都碰一点点喵~
                       </p>
                       <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover/sub:scale-x-100" />
                     </motion.div>
