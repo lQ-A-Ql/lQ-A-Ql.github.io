@@ -272,10 +272,6 @@ export default function BlogPage() {
                 </div>
 
                 <div className="relative z-10">
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/18 bg-background/30 px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] text-white/50">
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(235,99,197,0.55)]" />
-                    About This Corner
-                  </div>
                   <h2
                     className="mb-4 text-3xl font-bold text-foreground md:text-4xl"
                     style={{ textShadow: "0 0 20px rgba(235,99,197,0.12)" }}
