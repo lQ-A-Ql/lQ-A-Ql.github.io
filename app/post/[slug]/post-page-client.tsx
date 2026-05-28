@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import DOMPurify from "isomorphic-dompurify"
 import hljs from "highlight.js/lib/core"
@@ -78,12 +78,11 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
         <Header />
 
         <div
-          className="pointer-events-none absolute inset-0 opacity-65"
+          className="pointer-events-none fixed inset-0 z-0 opacity-65"
           style={{
             backgroundImage: `linear-gradient(rgba(10,8,18,0.64), rgba(7,7,14,0.88)), url('${siteConfig.heroBackground}')`,
             backgroundSize: "cover",
             backgroundPosition: "center top",
-            backgroundAttachment: "fixed",
           }}
         />
 

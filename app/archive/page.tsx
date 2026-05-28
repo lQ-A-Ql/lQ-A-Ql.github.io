@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -58,12 +58,11 @@ export default function ArchivePage() {
         <Header />
 
         <div
-          className="pointer-events-none absolute inset-0 opacity-65"
+          className="pointer-events-none fixed inset-0 z-0 opacity-65"
           style={{
             backgroundImage: `linear-gradient(rgba(10,8,18,0.68), rgba(7,7,14,0.9)), url('${siteConfig.heroBackground}')`,
             backgroundSize: "cover",
             backgroundPosition: "center top",
-            backgroundAttachment: "fixed",
           }}
         />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,146,214,0.18),transparent_24%),radial-gradient(circle_at_82%_18%,rgba(176,118,255,0.14),transparent_21%),radial-gradient(circle_at_18%_72%,rgba(255,96,170,0.1),transparent_19%),radial-gradient(circle_at_58%_42%,rgba(255,210,240,0.05),transparent_26%)]" />
