@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Markdown 装饰预览 - 3 套精致风格</title>
+  <style>
+    :root {
+      --color-foreground: #f7eef7;
+      --color-card: rgba(255,255,255,0.06);
+      --color-border: rgba(255,255,255,0.10);
+      --color-primary: #f472b6;
+      --font-mono: "Cascadia Code", "Consolas", monospace;
+    }
+    body { margin: 0; min-height: 100vh; background: #0b0b12; color: var(--color-foreground); font-family: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; line-height: 1.8; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 26px 22px 64px; }
+    .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    h1 { font-size: 22px; margin: 0 0 6px; }
+    .sub { margin: 0 0 18px; font-size: 14px; opacity: 0.82; }
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; }
+    .controls button { padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.06); color: #fff; cursor: pointer; font-size: 14px; }
+    .controls button.active { background: rgba(244,114,182,0.18); border-color: rgba(244,114,182,0.55); }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .panel { position: relative; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 18px; background: rgba(255,255,255,0.02); overflow: hidden; }
+    .panel::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(circle at top right, rgba(255,255,255,0.03), transparent 40%); }
+    .label { font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.72; margin-bottom: 12px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid rgba(255,255,255,0.10); padding: 9px 11px; text-align: left; vertical-align: top; }
+    th { background: rgba(255,255,255,0.06); font-weight: 600; }
+    hr { border: 0; border-top: 1px solid rgba(255,255,255,0.10); margin: 24px 0; }
+    .footer { margin-top: 24px; font-size: 13px; opacity: 0.78; }
+
+    .theme blockquote, .theme pre, .theme code, .theme :not(pre) > code, .theme .mini-card { transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease; }
+    .theme blockquote { position: relative; margin: 14px 0; border-radius: 13px; padding: 14px 16px 14px 18px; }
+    .theme blockquote p { margin: 0; }
+    .theme pre { position: relative; overflow: auto; border-radius: 16px; padding: 18px 20px; margin: 14px 0; }
+    .theme pre::before { position: absolute; right: 14px; top: 12px; font-size: 11px; padding: 3px 10px; border-radius: 999px; pointer-events: none; }
+    .theme code, .theme pre code { font-family: var(--font-mono); }
+    .theme :not(pre) > code { padding: 2px 8px; border-radius: 8px; font-size: 0.95em; }
+    .theme .mini-card { border-radius: 14px; padding: 14px; }
+    .theme .hint { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.78); }
+    .theme .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 10px; border-radius: 999px; }
+
+    .t-candy { background: radial-gradient(circle at top left, rgba(244,114,182,0.18), transparent 28%), radial-gradient(circle at bottom right, rgba(139,92,246,0.18), transparent 28%), #0b0b12; }
+    .t-candy blockquote { border-left: 3px solid transparent; border-image: linear-gradient(180deg, var(--color-primary), rgba(255,255,255,0.14)) 1; background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 10px 30px rgba(0,0,0,0.18); }
+    .t-candy blockquote::before { content: "❝"; position: absolute; left: 0.85rem; top: 0.68rem; font-size: 1.4rem; opacity: 0.22; }
+    .t-candy pre { background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02) 20%, rgba(10,10,18,0.88)); border: 1px solid color-mix(in oklab, var(--color-primary) 18%, rgba(255,255,255,0.08)); box-shadow: 0 18px 60px rgba(0,0,0,0.28); }
+    .t-candy pre:hover { box-shadow: 0 0 0 1px rgba(244,114,182,0.22), 0 18px 70px rgba(0,0,0,0.34); }
+    .t-candy pre::before { content: attr(data-lang); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.86); }
+    .t-candy :not(pre) > code { border: 1px solid rgba(255,255,255,0.16); background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); color: #ffd0ea; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03); }
+    .t-candy .mini-card { border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); }
+    .t-candy .badge { border: 1px solid rgba(244,114,182,0.35); background: rgba(244,114,182,0.14); color: #fff; }
+
+    .t-notebook { background: linear-gradient(180deg, #0c0e16, #0b0d14); }
+    .t-notebook blockquote { border-left: 3px solid #6ea8fe; background: linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04); }
+    .t-notebook blockquote::before { content: "NOTE"; position: absolute; left: 0.72rem; top: 0.55rem; font-size: 0.68rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.28); }
+    .t-notebook pre { background: #0f121a; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 16px 46px rgba(0,0,0,0.28); }
+    .t-notebook pre:hover { box-shadow: 0 0 0 1px rgba(110,168,254,0.22), 0 18px 56px rgba(0,0,0,0.34); }
+    .t-notebook pre::before { content: attr(data-lang); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10); color: rgba(255,255,255,0.80); }
+    .t-notebook :not(pre) > code { border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); color: #a5d8ff; }
+    .t-notebook .mini-card { border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)); }
+    .t-notebook .badge { border: 1px solid rgba(110,168,254,0.35); background: rgba(110,168,254,0.14); color: #fff; }
+
+    .t-cyber { background: radial-gradient(circle at top left, rgba(244,114,182,0.16), transparent 30%), radial-gradient(circle at bottom right, rgba(124,58,237,0.18), transparent 30%), #080810; }
+    .t-cyber blockquote { border-left: 3px solid rgba(255,255,255,0.12); background: linear-gradient(135deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 10px 30px rgba(0,0,0,0.28); }
+    .t-cyber blockquote::before { content: "💡"; position: absolute; left: 0.85rem; top: 0.72rem; font-size: 1.0rem; opacity: 0.90; }
+    .t-cyber pre { background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02) 18%, rgba(10,10,18,0.92)); border: 1px solid color-mix(in oklab, var(--color-primary) 16%, rgba(255,255,255,0.08)); box-shadow: 0 0 0 1px rgba(244,114,182,0.10), 0 18px 70px rgba(0,0,0,0.40); }
+    .t-cyber pre:hover { box-shadow: 0 0 0 1px rgba(244,114,182,0.28), 0 18px 80px rgba(0,0,0,0.46); }
+    .t-cyber pre::before { content: attr(data-lang); background: rgba(244,114,182,0.14); border: 1px solid rgba(244,114,182,0.34); color: #fff; }
+    .t-cyber pre::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(6px 6px at 14px 14px, rgba(255,255,255,0.16), transparent), radial-gradient(6px 6px at calc(100% - 14px) 14px, rgba(255,255,255,0.16), transparent); }
+    .t-cyber :not(pre) > code { border: 1px solid rgba(244,114,182,0.28); background: rgba(244,114,182,0.12); color: #fff; }
+    .t-cyber .mini-card { border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03); }
+    .t-cyber .badge { border: 1px solid rgba(124,58,237,0.35); background: rgba(124,58,237,0.14); color: #fff; }
+  </style>
+</head>
+<body class="t-candy">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h1>Markdown 装饰预览</h1>
+        <p class="sub">三套风格同屏对比，偏“精致版”：更柔和的卡片感、更完整的阴影层次、更适合长文阅读。</p>
+      </div>
+      <div class="controls">
+        <button class="active" data-theme="t-candy">Theme 1 · 甜系玻璃</button>
+        <button data-theme="t-notebook">Theme 2 · 安全笔记</button>
+        <button data-theme="t-cyber">Theme 3 · 赛博 cute</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="panel theme">
+        <div class="label">blockquote</div>
+        <blockquote><p>先记录时间线，再收集关键样本，避免二次污染。</p></blockquote>
+        <blockquote><p><strong>提示：</strong>在应急响应中，优先保存易失性证据，再做镜像和复查。</p></blockquote>
+        <div class="hint">适合：结论提示、风险提醒、命令说明、步骤补充。</div>
+      </div>
+
+      <div class="panel theme">
+        <div class="label">code block</div>
+        <pre data-lang="bash"><code># 示例命令
+ls -la
+cat /var/log/auth.log | grep "Failed password"</code></pre>
+        <pre data-lang="python"><code>import re
+
+text = "GET /login HTTP/1.1 200"
+pattern = r"(GET|POST) ([^ ]+) HTTP/\d\.\d (\d+)"
+print(re.findall(pattern, text))</code></pre>
+        <div class="hint">右上角显示语言标签，整体偏阅读友好，适合命令和脚本混排。</div>
+      </div>
+
+      <div class="panel theme">
+        <div class="label">inline code + table</div>
+        <p>使用 <code>Wireshark</code> 过滤 <code>ip.addr == 10.0.0.1</code>，或者直接搜索 <code>401</code> / <code>500</code> 状态码。</p>
+        <table>
+          <thead><tr><th>类型</th><th>作用</th><th>示例</th></tr></thead>
+          <tbody>
+            <tr><td>blockquote</td><td>强调提示</td><td><code>NOTE</code> / <code>WARNING</code></td></tr>
+            <tr><td>pre</td><td>展示命令或代码</td><td><code>bash</code> / <code>python</code></td></tr>
+            <tr><td>inline code</td><td>突出关键词</td><td><code>flag</code> / <code>token</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel theme">
+        <div class="label">混合内容</div>
+        <p>先看命令：</p>
+        <pre data-lang="bash"><code>cd /tmp
+grep -R "password" .</code></pre>
+        <p>然后解释结论。</p>
+        <blockquote><p>如果登录接口无限流，就可能成为暴力破解前置条件。</p></blockquote>
+        <div class="mini-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+            <div>正文预览卡片，方便对照容器风格</div>
+            <span class="badge">推荐组合</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <div class="footer">
+      提示：这是静态预览。你选定一套后，我可以直接落到博客的 <code>globals.css</code>、文章页代码块组件、以及 <code>blockquote</code> 样式里。
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll(".controls button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.body.className = btn.dataset.theme;
+        document.querySelectorAll(".controls button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { useEffect, useMemo, useState } from "react"
 import { motion } from "framer-motion"
@@ -31,6 +31,7 @@ export default function SearchPage() {
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.contentHtml.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (post.contentMarkdown || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
       
       const matchesCategory = selectedCategory === "全部" || post.category === selectedCategory
@@ -180,3 +181,4 @@ export default function SearchPage() {
     </PageTransition>
   )
 }
+

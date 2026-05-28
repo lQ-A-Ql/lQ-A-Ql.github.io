@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import DOMPurify from "isomorphic-dompurify"
 import hljs from "highlight.js/lib/core"
@@ -13,13 +13,14 @@ import python from "highlight.js/lib/languages/python"
 import typescript from "highlight.js/lib/languages/typescript"
 import { motion } from "framer-motion"
 import { ArrowLeft, Calendar, Clock, Tag, Share2 } from "lucide-react"
-import { useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Header } from "@/components/blog/header"
 import { Footer } from "@/components/blog/footer"
 import { PageTransition, fadeUpVariant, staggerContainer } from "@/components/blog/page-transition"
 import { Button } from "@/components/ui/button"
 import { siteConfig, type BlogPost } from "@/lib/blog-data"
+import { compileMarkdown } from "@/lib/markdown"
 
 interface PostPageClientProps {
   post: BlogPost
@@ -45,32 +46,59 @@ hljs.registerLanguage("py", python)
 hljs.registerLanguage("typescript", typescript)
 hljs.registerLanguage("ts", typescript)
 
+const highlightHtml = (html: string) =>
+  html.replace(
+    /<pre><code class="language-([^"]+)">([\s\S]*?)<\/code><\/pre>/gi,
+    (_match, language, code) => {
+      const normalizedLanguage = String(language).toLowerCase()
+      const decodedCode = code
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+
+      const validLanguage = hljs.getLanguage(normalizedLanguage)
+        ? normalizedLanguage
+        : "plaintext"
+
+      const highlightedCode = hljs.highlight(decodedCode, { language: validLanguage }).value
+
+      return `<pre class="hljs-wrapper"><code class="hljs language-${validLanguage}">${highlightedCode}</code></pre>`
+    },
+  )
+
 export function PostPageClient({ post, previous, next }: PostPageClientProps) {
   const router = useRouter()
-  const sanitizedContentHtml = useMemo(() => {
-    const highlighted = post.contentHtml.replace(
-      /<pre><code class="language-([^"]+)">([\s\S]*?)<\/code><\/pre>/gi,
-      (_match, language, code) => {
-        const normalizedLanguage = String(language).toLowerCase()
-        const decodedCode = code
-          .replace(/&amp;/g, "&")
-          .replace(/&lt;/g, "<")
-          .replace(/&gt;/g, ">")
-          .replace(/&quot;/g, '"')
-          .replace(/&#39;/g, "'")
+  const legacySanitizedHtml = useMemo(
+    () => DOMPurify.sanitize(highlightHtml(post.contentHtml)),
+    [post.contentHtml],
+  )
+  const [sanitizedContentHtml, setSanitizedContentHtml] = useState(legacySanitizedHtml)
 
-        const validLanguage = hljs.getLanguage(normalizedLanguage)
-          ? normalizedLanguage
-          : "plaintext"
+  useEffect(() => {
+    let cancelled = false
 
-        const highlightedCode = hljs.highlight(decodedCode, { language: validLanguage }).value
+    const run = async () => {
+      if (!post.contentMarkdown) {
+        setSanitizedContentHtml(legacySanitizedHtml)
+        return
+      }
 
-        return `<pre class="hljs-wrapper"><code class="hljs language-${validLanguage}">${highlightedCode}</code></pre>`
-      },
-    )
+      const parsedHtml = await compileMarkdown(post.contentMarkdown)
+      if (cancelled) {
+        return
+      }
 
-    return DOMPurify.sanitize(highlighted)
-  }, [post.contentHtml])
+      setSanitizedContentHtml(DOMPurify.sanitize(highlightHtml(parsedHtml)))
+    }
+
+    run()
+
+    return () => {
+      cancelled = true
+    }
+  }, [legacySanitizedHtml, post.contentMarkdown])
 
   return (
     <PageTransition>
