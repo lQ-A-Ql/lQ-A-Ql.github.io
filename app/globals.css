@@ -455,6 +455,63 @@ img {
   margin: 2rem 0;
 }
 
+/* Typography - headings */
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-primary) 18%, var(--color-border));
+  color: var(--color-foreground);
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-foreground);
+}
+
+.prose h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-foreground);
+}
+
+.prose h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: color-mix(in oklab, var(--color-foreground) 85%, transparent);
+}
+
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+  color: color-mix(in oklab, var(--color-foreground) 88%, transparent);
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.35rem;
+  line-height: 1.7;
+  color: color-mix(in oklab, var(--color-foreground) 88%, transparent);
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
 /* Shooting star / meteor animation */
 @keyframes meteor {
   0% {
