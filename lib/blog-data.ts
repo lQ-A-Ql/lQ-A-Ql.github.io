@@ -37,6 +37,23 @@ export const siteConfig: SiteConfig = {
 
 export const blogPosts: BlogPost[] = [
   {
+    "id": "markdown-showcase",
+    "slug": "markdown-showcase",
+    "title": "Markdown 组件速查",
+    "excerpt": "## 一、基本排版 这是一篇**测试文章**，主要用来检查你博客里的 Markdown 组件表现：标题、引用、代码块、表格、列表、图片，以及一些混合排版。 > 如果这篇看起来顺眼，就说明正文渲染链路基本没问题了。 ## 二、引用块 ### 2.1 单层引用 > 这是第一层引用。 > 适合放结论、提示、风险说明、命令备注。 ### 2.2 多行引用 > 应急响",
+    "contentHtml": "",
+    "contentMarkdown": "## 一、基本排版\n\n这是一篇**测试文章**，主要用来检查你博客里的 Markdown 组件表现：标题、引用、代码块、表格、列表、图片，以及一些混合排版。\n\n> 如果这篇看起来顺眼，就说明正文渲染链路基本没问题了。\n\n## 二、引用块\n\n### 2.1 单层引用\n\n> 这是第一层引用。\n> 适合放结论、提示、风险说明、命令备注。\n\n### 2.2 多行引用\n\n> 应急响应里，先稳定现场，再判断影响面。\n> 优先保日志、保时间线、保关键样本。\n> 不要着急清理，先把证据留下。\n\n### 2.3 带强调的引用\n\n> **注意：** 不要在还没备份的情况下直接删马。\n\n## 三、列表\n\n### 3.1 无序列表\n\n- 流量分析\n- 入侵排查\n- CTF 复盘\n- 安全工具记录\n\n### 3.2 有序列表\n\n1. 收集现象\n2. 确认范围\n3. 抓关键样本\n4. 推演攻击路径\n5. 复盘改进\n\n### 3.3 嵌套列表\n\n- 入侵排查\n  - Windows\n    - 事件日志\n    - 计划任务\n    - 启动项\n  - Linux\n    - crontab\n    - SSH 配置\n    - 历史命令\n\n## 四、行内代码\n\n可以先用 `Wireshark` 看流量，再用 `Suricata` 做规则检测。\n\n如果要筛选目标主机，可以直接试：\n\n- `ip.addr == 10.0.0.1`\n- `http.request.method == POST`\n- `tcp.port == 445`\n\n## 五、代码块\n\n### 5.1 Bash\n\n```bash\nwhoami\nid\nuname -a\nls -la /tmp\n```\n\n### 5.2 Python\n\n```python\nimport re\n\ntext = \"POST /login HTTP/1.1 200\"\npattern = r\"(GET|POST) ([^ ]+) HTTP/\\d\\.\\d (\\d+)\"\nprint(re.findall(pattern, text))\n```\n\n### 5.3 PowerShell\n\n```powershell\nGet-Process | Where-Object { $_.ProcessName -like '*edge*' }\nGet-ChildItem -Force \"$env:USERPROFILE\\Desktop\"\n```\n\n### 5.4 JSON\n\n```json\n{\n  \"slug\": \"markdown-showcase\",\n  \"tags\": [\"demo\", \"md\"],\n  \"visible\": true\n}\n```\n\n## 六、表格\n\n| 类型 | 作用 | 典型用途 |\n|---|---|---|\n| 引用块 | 强调结论 | 提示、备注、告警 |\n| 行内代码 | 突出关键词 | 命令、字段、工具名 |\n| 代码块 | 展示命令/脚本 | 复现步骤、样例代码 |\n| 表格 | 结构化展示 | 对比、分类、特征说明 |\n\n## 七、混合排版\n\n### 7.1 命令 + 解释\n\n先执行：\n\n```bash\ncat /var/log/auth.log | grep \"Failed password\"\n```\n\n如果命中大量失败登录，就要考虑是否存在暴力破解。\n\n### 7.2 引用 + 列表\n\n> 做恶意流量分析时，优先关注：\n> - 协议特征\n> - 请求频率\n> - 目标路径\n> - 加密/编码层\n\n### 7.3 小段落 + 强调\n\n这类文章的目标不是“写得很全”，而是**能复现、能排查、能沉淀**。\n\n## 八、长一点的正文区\n\n安全笔记通常会很长，所以这里补一段正文，看看阅读节奏、行高、段距、引用块、代码块混在一起时是否舒服。\n\n比如在一次应急排查里，你可能先看到异常登录，然后发现可疑进程，接着追到持久化项，再顺着流量确认外联。这些步骤往往会交替出现：日志、命令、截图、结论、再命令、再结论。  \n如果排版太紧，阅读体验会很差；如果层次太散，又不好复现。  \n所以这里主要就是检查正文容器在长内容下的舒适度。\n\n## 九、结束\n\n这篇测试文章就到这里。  \n如果你看到这篇整体还行，就说明 `Markdown 解析 + 正文容器 + 代码高亮 + 引用样式` 基本打通了。",
+    "date": "2026年05月28日",
+    "isoDate": "2026-05-28T14:36:44.000Z",
+    "readTime": "3分钟",
+    "category": "安全研究",
+    "tags": [
+      "demo",
+      "md",
+      "ui"
+    ]
+  },
+  {
     "id": "malware-traffic",
     "slug": "malware-traffic",
     "title": "malware-traffic",
@@ -167,7 +184,7 @@ export const archives = [
     "months": [
       {
         "month": "5月",
-        "count": 1
+        "count": 2
       },
       {
         "month": "4月",
