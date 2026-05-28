@@ -109,7 +109,37 @@ export default function BlogPage() {
             <div className="absolute bottom-[14%] left-[20%] h-[180px] w-[180px] rounded-full bg-white/4 blur-[80px]" />
             <div className="absolute bottom-[18%] right-[24%] h-[160px] w-[160px] rounded-full bg-primary/5 blur-[72px]" />
             <div className="absolute bottom-0 left-0 h-[320px] w-[620px] rounded-full bg-gradient-to-tr from-accent/7 to-transparent blur-[90px]" />
-            <div className="absolute inset-x-0 top-[22%] h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)] opacity-70" />
+            <div className="absolute inset-x-0 top-[22%] h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent,
+                  radial-gradient(circle at 3% 36%, rgba(255,255,255,0.64) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 16% 68%, rgba(255,215,245,0.58) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 32% 78%, rgba(214,226,255,0.54) 0 1.2px, transparent 1.9px),
+                  radial-gradient(circle at 48% 72%, rgba(255,255,255,0.66) 0 0.9px, transparent 1.7px),
+                  radial-gradient(circle at 58% 82%, rgba(255,204,241,0.52) 0 1.4px, transparent 2.1px),
+                  radial-gradient(circle at 73% 74%, rgba(255,255,255,0.6) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 85% 80%, rgba(201,228,255,0.48) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 95% 70%, rgba(255,188,232,0.5) 0 1.1px, transparent 1.9px),
+                  radial-gradient(circle at 7% 88%, rgba(255,255,255,0.52) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 22% 92%, rgba(220,214,255,0.44) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 41% 86%, rgba(255,255,255,0.56) 0 0.8px, transparent 1.5px),
+                  radial-gradient(circle at 63% 90%, rgba(255,204,241,0.44) 0 1.2px, transparent 1.9px),
+                  radial-gradient(circle at 80% 88%, rgba(255,255,255,0.5) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 92% 94%, rgba(214,226,255,0.4) 0 1.1px, transparent 1.8px),
+                  radial-gradient(circle at 5% 60%, rgba(255,255,255,0.58) 0 0.8px, transparent 1.5px),
+                  radial-gradient(circle at 50% 38%, rgba(255,188,232,0.5) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 75% 34%, rgba(220,214,255,0.48) 0 1.1px, transparent 1.8px),
+                  radial-gradient(circle at 30% 32%, rgba(255,255,255,0.62) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 65% 44%, rgba(255,204,241,0.46) 0 1.2px, transparent 1.9px),
+                  radial-gradient(circle at 88% 40%, rgba(255,255,255,0.54) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 12% 30%, rgba(201,228,255,0.52) 0 0.8px, transparent 1.5px),
+                  radial-gradient(circle at 46% 56%, rgba(255,188,232,0.48) 0 1.1px, transparent 1.8px),
+                  radial-gradient(circle at 70% 66%, rgba(255,255,255,0.56) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 38% 46%, rgba(220,214,255,0.5) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 82% 56%, rgba(255,204,241,0.44) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 55% 28%, rgba(255,255,255,0.6) 0 0.8px, transparent 1.5px),
+                  radial-gradient(circle at 25% 40%, rgba(201,228,255,0.46) 0 1.1px, transparent 1.8px),
+                  radial-gradient(circle at 67% 16%, rgba(255,188,232,0.54) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 42% 62%, rgba(255,255,255,0.52) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 78% 28%, rgba(220,214,255,0.42) 0 1.2px, transparent 1.9px))] opacity-70" />
             <div className="absolute inset-x-[12%] top-[56%] h-px bg-[linear-gradient(90deg,transparent,rgba(255,204,241,0.16),transparent)] opacity-60" />
             <div className="absolute left-[16%] top-[24%] h-24 w-24 rounded-full border border-white/8 opacity-40" />
             <div className="absolute right-[14%] top-[42%] h-20 w-20 rounded-full border border-primary/10 opacity-30" />
@@ -251,6 +281,41 @@ export default function BlogPage() {
           <div className="absolute -top-20 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-card/50 to-background" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,122,169,0.05),transparent_50%)]" />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-100"
+            style={{
+              backgroundImage: `radial-gradient(circle at 6% 15%, rgba(255,255,255,0.88) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 15% 28%, rgba(255,215,245,0.72) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 25% 10%, rgba(214,226,255,0.64) 0 1.2px, transparent 1.9px),
+                  radial-gradient(circle at 35% 22%, rgba(255,255,255,0.76) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 48% 14%, rgba(255,204,241,0.66) 0 1.4px, transparent 2.1px),
+                  radial-gradient(circle at 58% 26%, rgba(255,255,255,0.7) 0 1px, transparent 1.8px),
+                  radial-gradient(circle at 70% 12%, rgba(201,228,255,0.6) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 82% 20%, rgba(255,188,232,0.62) 0 1.1px, transparent 1.9px),
+                  radial-gradient(circle at 92% 10%, rgba(255,255,255,0.72) 0 0.8px, transparent 1.5px),
+                  radial-gradient(circle at 12% 50%, rgba(255,255,255,0.68) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 28% 62%, rgba(220,214,255,0.52) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 42% 54%, rgba(255,255,255,0.62) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 56% 66%, rgba(255,204,241,0.52) 0 1.2px, transparent 1.9px),
+                  radial-gradient(circle at 72% 52%, rgba(255,255,255,0.64) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 86% 64%, rgba(201,228,255,0.48) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 8% 78%, rgba(255,255,255,0.6) 0 0.8px, transparent 1.5px),
+                  radial-gradient(circle at 22% 84%, rgba(255,188,232,0.48) 0 1.2px, transparent 1.9px),
+                  radial-gradient(circle at 38% 76%, rgba(255,255,255,0.56) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 54% 88%, rgba(220,214,255,0.44) 0 1.1px, transparent 1.8px),
+                  radial-gradient(circle at 68% 80%, rgba(255,255,255,0.58) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 84% 90%, rgba(255,204,241,0.42) 0 1.3px, transparent 2px),
+                  radial-gradient(circle at 95% 76%, rgba(255,255,255,0.52) 0 0.8px, transparent 1.5px),
+                  radial-gradient(circle at 18% 40%, rgba(201,228,255,0.5) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 50% 36%, rgba(255,188,232,0.56) 0 0.9px, transparent 1.6px),
+                  radial-gradient(circle at 76% 44%, rgba(255,255,255,0.6) 0 1.1px, transparent 1.8px),
+                  radial-gradient(circle at 32% 34%, rgba(220,214,255,0.46) 0 1.2px, transparent 1.9px),
+                  radial-gradient(circle at 62% 48%, rgba(255,204,241,0.44) 0 1px, transparent 1.7px),
+                  radial-gradient(circle at 88% 38%, rgba(255,255,255,0.54) 0 0.8px, transparent 1.5px),
+                  radial-gradient(circle at 45% 82%, rgba(201,228,255,0.4) 0 1.1px, transparent 1.8px),
+                  radial-gradient(circle at 78% 68%, rgba(255,188,232,0.46) 0 1px, transparent 1.7px)`,
+            }}
+          />
 
           <motion.div
             className="relative mx-auto max-w-6xl"
