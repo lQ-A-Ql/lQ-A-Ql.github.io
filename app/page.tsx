@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -261,47 +261,79 @@ export default function BlogPage() {
           >
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.8fr)]">
               <motion.div
-                className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(22,14,34,0.84),rgba(16,10,25,0.72))] p-7 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-9"
+                className="group/main relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(22,14,34,0.84),rgba(16,10,25,0.72))] p-7 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl transition-all duration-500 hover:border-white/14 hover:shadow-[0_18px_60px_rgba(0,0,0,0.28),0_0_40px_rgba(235,99,197,0.04)] md:p-9"
                 variants={fadeUpVariant}
               >
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/18 bg-background/30 px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] text-white/50">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(235,99,197,0.55)]" />
-                  About This Corner
-                </div>
-                <h2
-                  className="mb-4 text-3xl font-bold text-foreground md:text-4xl"
-                  style={{ textShadow: "0 0 20px rgba(235,99,197,0.12)" }}
-                >
-                  关于这个角落
-                </h2>
-                <p className="max-w-2xl leading-8 text-muted-foreground">
-                  {siteConfig.title} 主要记录流量分析、Windows 与 Linux 入侵排查、CTF 复盘，以及做安全工具时踩过的坑。
-                  不追求铺陈完整背景，更偏向保留关键证据、解题路径和能复现结果的操作细节。
-                </p>
+                <div className="relative z-10">
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/18 bg-background/30 px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] text-white/50">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(235,99,197,0.55)]" />
+                    About This Corner
+                  </div>
+                  <h2
+                    className="mb-4 text-3xl font-bold text-foreground md:text-4xl"
+                    style={{ textShadow: "0 0 20px rgba(235,99,197,0.12)" }}
+                  >
+                    关于这个角落
+                  </h2>
+                  <p className="max-w-2xl leading-8 text-muted-foreground">
+                    {siteConfig.title} 主要记录流量分析、Windows 与 Linux 入侵排查、CTF 复盘，以及做安全工具时踩过的坑。
+                    不追求铺陈完整背景，更偏向保留关键证据、解题路径和能复现结果的操作细节。
+                  </p>
 
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-5">
-                    <p className="text-xs uppercase tracking-[0.24em] text-white/42">Write Style</p>
-                    <p className="mt-2 text-sm leading-7 text-white/74">
-                      尽量保留关键证据、核心思路和可复现步骤，不把有效信息埋进长篇背景里。
-                    </p>
-                  </div>
-                  <div className="rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-5">
-                    <p className="text-xs uppercase tracking-[0.24em] text-white/42">Focus Area</p>
-                    <p className="mt-2 text-sm leading-7 text-white/74">
-                      威胁流量、Windows / Linux 入侵排查、取证片段、赛题复盘，以及安全工具开发记录。
-                    </p>
+                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                    <motion.div
+                      className="group relative overflow-hidden rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-5 transition-all duration-300 hover:border-primary/24 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(235,99,197,0.08)]"
+                      whileHover={{ y: -3 }}
+                    >
+                      <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/6 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-0" />
+                      <div className="mb-3 flex items-center gap-2.5">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary/70">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                        </div>
+                        <p className="text-xs uppercase tracking-[0.24em] text-white/50">Write Style</p>
+                      </div>
+                      <p className="text-sm leading-7 text-white/74">
+                        尽量保留关键证据、核心思路和可复现步骤，不把有效信息埋进长篇背景里。
+                      </p>
+                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 bg-gradient-to-r from-primary/50 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+                    </motion.div>
+                    <motion.div
+                      className="group relative overflow-hidden rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-5 transition-all duration-300 hover:border-primary/24 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(235,99,197,0.08)]"
+                      whileHover={{ y: -3 }}
+                    >
+                      <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/6 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-0" />
+                      <div className="mb-3 flex items-center gap-2.5">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary/70">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        </div>
+                        <p className="text-xs uppercase tracking-[0.24em] text-white/50">Focus Area</p>
+                      </div>
+                      <p className="text-sm leading-7 text-white/74">
+                        威胁流量、Windows / Linux 入侵排查、取证片段、赛题复盘，以及安全工具开发记录。
+                      </p>
+                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 bg-gradient-to-r from-primary/50 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+                    </motion.div>
                   </div>
                 </div>
+
+                <div className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-primary/5 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-16 -left-16 h-36 w-36 rounded-full bg-accent/5 blur-3xl" />
+                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.06)_0%,transparent_40%,transparent_60%,rgba(255,255,255,0.02)_100%)]" />
               </motion.div>
 
               <motion.aside
-                className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,12,30,0.82),rgba(12,9,20,0.72))] p-7 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+                className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,12,30,0.82),rgba(12,9,20,0.72))] p-7 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl"
                 variants={scaleUpVariant}
               >
-                <div className="mb-6 flex items-center gap-4">
-                  <div className="relative h-16 w-16 overflow-hidden rounded-full border border-white/12 shadow-[0_0_36px_rgba(235,99,197,0.2)]">
-                    <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
+                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.06)_0%,transparent_40%)]" />
+                <div className="pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/5 blur-3xl" />
+
+                <div className="relative z-10 mb-6 flex items-center gap-4">
+                  <div className="relative">
+                    <div className="absolute inset-0 -m-1 rounded-full bg-gradient-to-br from-primary/30 to-accent/20 blur-sm" />
+                    <div className="relative h-16 w-16 overflow-hidden rounded-full border border-white/12 shadow-[0_0_36px_rgba(235,99,197,0.2)]">
+                      <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
+                    </div>
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-[0.24em] text-white/42">Author</p>
@@ -309,38 +341,38 @@ export default function BlogPage() {
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="relative z-10 space-y-3">
                   <Link
                     href="/archive"
-                    className="flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-colors hover:border-primary/18 hover:text-primary"
+                    className="group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
                   >
                     <span className="inline-flex items-center gap-2">
-                      <Archive className="h-4 w-4" />
+                      <Archive className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                       进入归档
                     </span>
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Link>
                   <Link
                     href="/search"
-                    className="flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-colors hover:border-primary/18 hover:text-primary"
+                    className="group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
                   >
                     <span className="inline-flex items-center gap-2">
-                      <Search className="h-4 w-4" />
+                      <Search className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                       搜索文章
                     </span>
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Link>
                   <Link
                     href={siteConfig.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-colors hover:border-primary/18 hover:text-primary"
+                    className="group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
                   >
                     <span className="inline-flex items-center gap-2">
-                      <Github className="h-4 w-4" />
+                      <Github className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                       GitHub
                     </span>
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Link>
                 </div>
               </motion.aside>
