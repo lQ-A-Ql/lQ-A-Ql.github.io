@@ -279,8 +279,7 @@ export default function BlogPage() {
                     关于这个角落
                   </h2>
                   <p className="max-w-2xl leading-8 text-muted-foreground">
-                    {siteConfig.title} 主要记录流量分析、Windows 与 Linux 入侵排查、CTF 复盘，以及做安全工具时踩过的坑。
-                    不追求铺陈完整背景，更偏向保留关键证据、解题路径和能复现结果的操作细节。
+                    流量分析、入侵排查、CTF 复盘、安全工具开发——只记关键路径，不写废话。
                   </p>
 
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -292,7 +291,7 @@ export default function BlogPage() {
                       <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-20 transition-opacity duration-300 group-hover/sub:opacity-40" />
                       <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Write Style</p>
                       <p className="text-sm leading-7 text-white/74">
-                        尽量保留关键证据、核心思路和可复现步骤，不把有效信息埋进长篇背景里。
+                        保留关键证据和可复现步骤，不堆背景废话。
                       </p>
                       <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover/sub:scale-x-100" />
                     </motion.div>
@@ -304,7 +303,7 @@ export default function BlogPage() {
                       <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-20 transition-opacity duration-300 group-hover/sub:opacity-40" />
                       <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Focus Area</p>
                       <p className="text-sm leading-7 text-white/74">
-                        威胁流量、Windows / Linux 入侵排查、取证片段、赛题复盘，以及安全工具开发记录。
+                        威胁流量 · 入侵排查 · 取证 · CTF · 工具开发
                       </p>
                       <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover/sub:scale-x-100" />
                     </motion.div>
