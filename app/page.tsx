@@ -306,17 +306,26 @@ export default function BlogPage() {
                   </div>
                 </div>
 
-                <div className="pointer-events-none absolute -top-20 -right-20 h-44 w-44 rounded-full bg-primary/5 blur-3xl" />
-                <div className="pointer-events-none absolute -bottom-16 -left-16 h-36 w-36 rounded-full bg-accent/5 blur-3xl" />
-                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.06)_0%,transparent_40%,transparent_60%,rgba(255,255,255,0.02)_100%)]" />
+                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem]">
+                  <div className="absolute inset-y-0 -left-1/4 w-1/2 rotate-[16deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.16),rgba(255,255,255,0.06)_22%,rgba(255,194,230,0.08)_44%,rgba(150,210,255,0.06)_62%,transparent_84%)] opacity-80 blur-2xl" />
+                  <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[rgba(255,202,233,0.08)] blur-3xl" />
+                  <div className="absolute left-10 top-0 h-px w-[38%] bg-[linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,255,255,0.14),transparent)] opacity-70" />
+                  <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)] opacity-60" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_22%,rgba(255,255,255,0.015)_64%,rgba(0,0,0,0.06))]" />
+                </div>
               </motion.div>
 
               <motion.aside
                 className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,12,30,0.82),rgba(12,9,20,0.72))] p-7 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl"
                 variants={scaleUpVariant}
               >
-                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[linear-gradient(135deg,rgba(255,255,255,0.06)_0%,transparent_40%)]" />
-                <div className="pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/5 blur-3xl" />
+                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem]">
+                  <div className="absolute inset-y-0 -left-1/4 w-1/2 rotate-[16deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.14),rgba(255,255,255,0.05)_22%,rgba(255,194,230,0.07)_44%,transparent_72%)] opacity-70 blur-2xl" />
+                  <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[rgba(255,202,233,0.07)] blur-3xl" />
+                  <div className="absolute left-8 top-0 h-px w-[32%] bg-[linear-gradient(90deg,rgba(255,255,255,0.5),rgba(255,255,255,0.1),transparent)] opacity-60" />
+                  <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)] opacity-50" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent_22%,rgba(255,255,255,0.01)_64%,rgba(0,0,0,0.05))]" />
+                </div>
 
                 <div className="relative z-10 mb-6 flex items-center gap-4">
                   <div className="relative">
