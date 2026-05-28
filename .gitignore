@@ -15,3 +15,4 @@ node_modules
 out/
 .migration-backup/
 .DS_Store
+node_modules/
