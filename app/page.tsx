@@ -5,7 +5,13 @@ import { motion } from "framer-motion"
 import { ArrowRight, Archive, Github, Search } from "lucide-react"
 import { Header } from "@/components/blog/header"
 import { HeroSection } from "@/components/blog/hero-section"
-import { BlogCard } from "@/components/blog/blog-card"
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              <div className="meteor meteor-1" />
+              <div className="meteor meteor-2" />
+              <div className="meteor meteor-3" />
+              <div className="meteor meteor-4" />
+              <div className="meteor meteor-5" />
+            </div>import { BlogCard } from "@/components/blog/blog-card"
 import { Footer } from "@/components/blog/footer"
 import {
   PageTransition,
@@ -316,7 +322,13 @@ export default function BlogPage() {
                   radial-gradient(circle at 78% 68%, rgba(255,188,232,0.46) 0 1px, transparent 1.7px)`,
             }}
           />
-
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="meteor meteor-1" />
+            <div className="meteor meteor-2" />
+            <div className="meteor meteor-3" />
+            <div className="meteor meteor-4" />
+            <div className="meteor meteor-5" />
+          </div>
           <motion.div
             className="relative mx-auto max-w-6xl"
             initial="initial"

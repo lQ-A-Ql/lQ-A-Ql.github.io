@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+﻿@import 'tailwindcss';
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
@@ -454,6 +454,57 @@ img {
   border-color: color-mix(in oklab, var(--color-primary) 18%, var(--color-border));
   margin: 2rem 0;
 }
+
+/* Shooting star / meteor animation */
+@keyframes meteor {
+  0% {
+    transform: translate(0, 0) rotate(-45deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 1;
+  }
+  30% {
+    transform: translate(-120vw, 120vh) rotate(-45deg);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-120vw, 120vh) rotate(-45deg);
+  }
+}
+
+.meteor {
+  position: absolute;
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,194,230,0.4), transparent);
+  border-radius: 999px;
+  pointer-events: none;
+  animation: meteor linear infinite;
+  opacity: 0;
+}
+
+.meteor::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 6px rgba(255,194,230,0.6);
+}
+
+.meteor-1 { top: 8%; right: -10%; animation-duration: 8s; animation-delay: 1s; width: 100px; }
+.meteor-2 { top: 15%; right: -5%; animation-duration: 10s; animation-delay: 5s; width: 140px; }
+.meteor-3 { top: 5%; right: 10%; animation-duration: 9s; animation-delay: 9s; width: 80px; }
+.meteor-4 { top: 20%; right: -15%; animation-duration: 11s; animation-delay: 14s; width: 120px; }
+.meteor-5 { top: 3%; right: 20%; animation-duration: 8.5s; animation-delay: 19s; width: 90px; }
 
 /* 自定义滚动条 */
 ::-webkit-scrollbar {
