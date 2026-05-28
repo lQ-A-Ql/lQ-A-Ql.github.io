@@ -11,6 +11,19 @@
     },
     "items": [
         {
+            "id": "https://lq-a-ql.github.io/malware-traffic.html",
+            "url": "https://lq-a-ql.github.io/malware-traffic.html",
+            "title": "恶意流量分析入门——从协议到攻击手法",
+            "summary": "做流量嘛，总是绕不过去TCP/IP四层的。这篇文章从wireshark出发，梳理恶意流量的常见形式：外层的漏洞利用和持久化工具（蚁剑/冰蝎/哥斯拉/CS），内层的横向移动手法（PTH/PTT/PSExec/WMIExec），以及几个流量特征明显的CVE。",
+            "content_html": "<h2>TCP/IP 四层协议</h2>\n<p>做流量嘛，总是绕不过去这四层的，但这里就不讲理论了，直接从<code>wireshark</code>里来看</p>\n<p>一个<code>http</code>包最普通的协议分级</p>\n<p><figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260512000026903.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<p>从上到下依次是</p>\n<ul>\n<li>总览（包含数据包的基本信息）</li>\n<li>物理层（<code>source</code>与<code>dist</code>的<code>MAC</code>）</li>\n<li>网络层（<code>source</code>与<code>dist</code>的<code>IP</code>）</li>\n<li>传输层（<code>source</code>与<code>dist</code>的<code>PORT</code>, <code>TCP</code>负载，当然如果是<code>UDP</code>的话就是<code>UDP</code>负载）</li>\n<li>应用层（这是分析重点，可以看到各种奇奇怪怪的协议负载）</li>\n</ul>\n<p>在做恶意流量的分析时其实主要就是在分析应用层的流量（要是没有应用层，只是<code>TCP</code>裸流的话那估摸着就是<code>C2</code>的回连流量，这就得喊逆向师傅干活了），因此学习过程的重点也就是去学习各种应用层的协议，像<code>TCP</code>这边有<code>http</code>,<code>smb</code>,<code>nbns</code>,<code>ssh</code>,<code>smtp</code>,<code>telnet</code>之类的，<code>UDP</code>那边就是<code>dns</code>,<code>rtp</code>,<code>wireguard</code>这些</p>\n<p>那么要关注的就是协议所开放的端口，还有在<code>wireshark</code>中他们各个字段的含义</p>\n<p>除此之外就是经验上的东西了</p>\n<h2>恶意流量的常见形式</h2>\n<h3>外层：漏洞+持久化</h3>\n<ul>\n<li>web端漏洞</li>\n<li>CVE</li>\n</ul>\n<p>就是很众所周知的一点，那些开源项目时不时就会爆一些<code>CVE</code>出来，然后呢，有些洞他的流量特征是很明显的，比如说奥</p>\n<ul>\n<li><code>CVE-2025-55449</code> 伪造<code>JWT</code>加恶意插件包上传实现<code>RCE</code></li>\n<li><code>CVE-2026-24061</code> 载荷开头有一段很明显的<code>USER -f username</code></li>\n<li>OWASP</li>\n</ul>\n<p>这里但就题目来说，比较常见也比较简单的就是文件上传传一个<code>webshell</code>上来，少见一点的会有<code>shiro</code>的反序列化之类的，但最终目的都是为了实现<code>RCE</code>，当然偶尔也会有<code>SQL</code> 注入的，但这个大部分是为了脱库，通过<code>SQL</code>注入实现<code>RCE</code>的也有，就是很少见了</p>\n<ul>\n<li>持久化(webshell/C2上传)</li>\n</ul>\n<p>其实很好理解这一步，黑客嘛肯定不会打一次就走，那么就需要上个🐎来持续控制嘛</p>\n<ul>\n<li>蚁剑</li>\n</ul>\n<p>明文传payload第一人，特征可以说相当明显，连接密码（图中是<code>1</code>）后面直接跟着明文payload<figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260528164149336.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<p>要注意的是，蚁剑命令执行会进行一次<code>base64</code>编码，并在编码开头塞两个随机字符，因此解码的时候要把这俩删掉</p>\n<ul>\n<li>冰蝎</li>\n</ul>\n<p>冰蝎很经典了（<code>beyond</code>），流量通常会使用<code>AES</code>进行加密</p>\n<p>冰蝎的流量中一般可以看到攻击者上传的源码（<code>java</code>的话可能会是字节码，要进行一次反编译）<figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260528165128754.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<p>从源码中可以拿到加密流量的<code>key</code></p>\n<ul>\n<li>哥斯拉</li>\n</ul>\n<p>和冰蝎有点类似，同样能在流量中看到源码，但是哥斯拉可能还会套一层异或，并且处理加密流量的密钥外还会由和蚁剑类似的，供攻击者连接的密码<figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260528165523311.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<blockquote><p>至于解密嘛，希潭的工具箱一把梭就是了</p></blockquote>\n<ul>\n<li>VSHELL</li>\n</ul>\n<p>这个特征就很明显啦，一条长包一条短包交替出现的，然后<code>dump</code>下内存拿到<code>salt</code>和<code>vkey</code>后进行<code>AES</code>解密就好</p>\n<ul>\n<li>Cobalt Strike</li>\n<li><code>checksum8</code>算法特征，即<code>URI</code>在经过<code>checksum8</code>计算后，64位后门的结果是93，32位则是92，举个小栗子</li>\n</ul>\n<p><figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/image-20260515205505594.png\" alt=\"237\" data-is-external-image=\"true\"></figure></p>\n<p>来看这里的<code>FJwV</code>，校验和的计算结果就是93</p>\n<p><figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260515205716308.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<ul>\n<li>没有魔改的CS还会出现诸如<code>/en_US/all.js</code> <code>/submit.php?id=xxx</code> 之类的奇奇怪怪富有特征的<code>URI</code></li>\n</ul>\n<p><figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260515210021347.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<h2>内层：横向移动</h2>\n<blockquote><p>拿到凭据之后攻击者肯定不会只待在一台机器上嘛，横向移动就是他们在内网里到处跑的过程。这里按凭据类型分两条线来讲：基于<code>NTLM</code>哈希的<code>PTH</code>和基于<code>Kerberos</code>票据的<code>PTT</code>，再补充几种常见的横向移动手法的流量特征</p></blockquote>\n<h3>P-T-H（Pass-the-Hash）</h3>\n<h4>NTLMv2 认证流程回顾</h4>\n<p>具体细节可以回头看果子面包那一片，这里不细说啦</p>\n<ul>\n<li><strong><code>NTLMSSP_NEGOTIATE</code>（客户端→服务端）</strong>：客户端发起协商，告知自身支持的<code>NTLM</code>版本和安全特性</li>\n<li><strong><code>NTLMSSP_CHALLENGE</code>（服务端→客户端）</strong>：服务端返回一个随机的<code>Challenge</code>（8字节）</li>\n<li><strong><code>NTLMSSP_AUTH</code>（客户端→服务端）</strong>：客户端用密码哈希对<code>Challenge</code>进行加密，生成<code>Response</code>发回服务端验证</li>\n</ul>\n<h4>PTH 的流量特征</h4>\n<p><code>PTH</code>的核心思路就是攻击者已经拿到了目标用户的<code>NTLM</code>哈希（通常是<code>NTLMv2</code>的<code>NTProofStr + Response</code>），跳过密码直接进行认证。在流量中的表现就是：</p>\n<ul>\n<li><strong>缺少正常的<code>NTLMSSP_NEGOTIATE</code>阶段</strong>，或者<code>NEGOTIATE</code>包极小（因为攻击者直接构造了<code>AUTH</code>包）</li>\n<li><strong><code>NTLMSSP_AUTH</code>包中的<code>NTResponse</code>长度异常</strong>，正常认证的<code>Response</code>长度通常在160-240字节左右，而<code>PTH</code>构造的<code>Response</code>可能偏短或偏长</li>\n<li><strong>时间间隔异常</strong>，正常用户输入密码再认证会有几秒的延迟，而<code>PTH</code>是自动化完成的，<code>NEGOTIATE</code>到<code>AUTH</code>的间隔可能只有几十毫秒</li>\n<li><strong><code>SMB2 Session Setup</code>请求频率异常</strong>，短时间内对多个目标发起<code>SMB</code>认证</li>\n</ul>\n<blockquote><p>果子面包那题就是典型的<code>PTH</code>，通过<code>NTLMv2</code>爆破拿到密码后解密<code>WinRM</code>流量，再进一步横向</p></blockquote>\n<h3>P-T-T（Pass-the-Ticket）</h3>\n<h4>Kerberos 认证流程回顾</h4>\n<p>在正常的<code>Kerberos</code>认证链路下，用户会先请求<code>TGT</code>(<code>AS-REQ/AS-REP</code>)，接着请求服务票据(<code>TGS-REQ/TGS-REP</code>)，最后才是访问服务(<code>AP-REQ</code>)</p>\n<h4>PTT 的流量特征</h4>\n<p>在<code>PTT</code>攻击中，攻击者往往已经窃取了<code>TGT</code>（比如通过<code>mimikatz</code>的<code>kerberos::ptt</code>或者<code>Rubeus</code>的<code>ptt</code>命令注入票据），因此在流量中会看到以下异常：</p>\n<ul>\n<li><strong>缺少<code>AS-REQ/AS-REP</code></strong>，攻击者直接从<code>TGS-REQ</code>开始，因为他已经有了<code>TGT</code>不需要再向<code>KDC</code>申请</li>\n<li><strong><code>TGS-REQ</code>中没有前置的<code>AS</code>交换</strong>，直接出现<code>TGS-REQ</code>请求某个<code>SPN</code>的服务票据</li>\n<li><strong><code>AP-REQ</code>中<code>Ticket</code>的加密类型可能异常</strong>，正常用户使用<code>AES256</code>，而注入的票据可能是<code>RC4</code>加密（取决于票据来源）</li>\n<li><strong><code>cname</code>字段可能与当前登录用户不一致</strong>，因为注入的是其他用户的票据</li>\n</ul>\n<blockquote><p>一个简单的判断方法：如果在<code>Kerberos</code>流量中直接看到<code>TGS-REQ</code>而没有前面的<code>AS-REQ/AS-REP</code>，基本就是<code>PTT</code>了</p></blockquote>\n<h3>SMB 横向手法</h3>\n<p>除了凭据层面的<code>PTH</code>和<code>PTT</code>，攻击者拿到凭据后还需要通过具体的协议来执行远程操作。下面讲几种常见的基于<code>SMB</code>的横向手法</p>\n<h4>PSExec</h4>\n<p><code>PSExec</code>是最经典的横向移动工具了，原理是通过<code>SMB</code>连接到目标的<code>ADMIN$</code>共享，上传一个服务二进制文件，然后通过<code>RPC</code>（<code>svcctl</code>服务控制管理器）注册并启动这个服务</p>\n<p>流量特征：</p>\n<ul>\n<li><code>SMB2 Tree Connect</code>到<code>\\\\目标\\ADMIN$</code>共享</li>\n<li><code>SMB2 Create</code>上传文件（通常是一个<code>.exe</code>或者<code>.dll</code>）</li>\n<li><code>DCERPC</code>绑定到<code>svcctl</code>服务（<code>UUID: 367abb81-9844-35f1-ad32-98f038001003</code>）</li>\n<li><code>svcctl::CreateServiceW</code>创建服务</li>\n<li><code>svcctl::StartServiceW</code>启动服务</li>\n<li>命名管道<code>PSEXESVC</code>的创建与通信</li>\n</ul>\n<h4>WMIExec</h4>\n<p><code>WMIExec</code>通过<code>WMI</code>（Windows Management Instrumentation）服务进行远程命令执行，走的是<code>DCERPC</code>协议，相对于<code>PSExec</code>来说更隐蔽一些</p>\n<p>流量特征：</p>\n<ul>\n<li><code>SMB2 Tree Connect</code>到<code>\\\\目标\\IPC$</code>共享</li>\n<li><code>DCERPC</code>绑定到<code>IWbemServices</code>接口</li>\n<li>调用<code>IWbemServices::ExecMethod</code>执行命令</li>\n<li>命名管道<code>\\\\.\\PIPE\\winreg</code>或<code>\\\\.\\PIPE\\svcctl</code>的创建</li>\n</ul>\n<h4>DCOM 横向移动</h4>\n<p><code>DCOM</code>（Distributed COM）也是一种横向移动方式，攻击者通过<code>DCOM</code>接口远程实例化对象来执行命令。比较常用的是<code>MMC20.Application</code>和<code>ShellWindows</code></p>\n<p>流量特征：</p>\n<ul>\n<li><code>SMB2 Tree Connect</code>到<code>\\\\目标\\IPC$</code></li>\n<li><code>DCERPC</code>绑定到<code>MMC20.Application</code>的<code>IDispatch</code>接口</li>\n<li>调用<code>Document::ExecuteShellCommand</code>执行命令</li>\n<li>流量中可以看到<code>cmd.exe</code>、<code>powershell.exe</code>等命令字符串</li>\n</ul>\n<h4>怎么区分这几种手法</h4>\n<p>说实话，在实际分析中区分这几种手法并不难，主要看<code>DCERPC</code>绑定的<code>UUID</code>和命名管道名称就行了：</p>\n<ul>\n<li>看到<code>svcctl</code> + <code>PSEXESVC</code> → <code>PSExec</code></li>\n<li>看到<code>IWbemServices</code> → <code>WMIExec</code></li>\n<li>看到<code>IDispatch</code> + <code>ExecuteShellCommand</code> → <code>DCOM</code></li>\n</ul>\n<blockquote><p>当然了，攻击者也可以用<code>impacket</code>的<code>smbexec</code>、<code>atexec</code>等变种，流量特征会有些许不同，但核心都是<code>SMB</code> + <code>DCERPC</code>的组合</p></blockquote>\n<h3>附录</h3>\n<h4>流量特征明显的一些CVE</h4>\n<h5>CVE-2025-53770</h5>\n<blockquote><p>漏洞的存在是因为PHP在设计时未能预见到Windows的Best-Fit字符编码转换特性，这使得攻击者可以通过构造特定的请求来绕过安全限制。</p></blockquote>\n<p><strong>影响范围:</strong></p>\n<blockquote><p>PHP 8.3 < 8.3.8<br>PHP 8.2 < 8.2.20<br>PHP 8.1 < 8.1.29</p></blockquote>\n<p><strong>特征：</strong></p>\n<p><figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260516234202543.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<p>如图所示哈，<code>URI</code>中出现<code>php-cgi</code>以及<code>php</code>伪协议，同时请求体中出现恶意<code>php_payload</code></p>\n<h5>CVE-2025-55449</h5>\n<blockquote><p>该漏洞源于 AstrBot 使用了固定的 JWT 签名密钥，攻击者可利用该密钥伪造任意有效的 JWT 认证令牌，完全绕过身份验证机制。成功绕过认证后，攻击者可访问插件管理接口，通过上传恶意的 Python 插件文件实现远程代码执行。</p></blockquote>\n<p><strong>影响范围:</strong></p>\n<blockquote><p>AstrBot < 3.5.18</p></blockquote>\n<p><figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260521231425853.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<p>如图哇，伪造<code>JWT</code>并上传恶意插件压缩包</p>\n<p><figure class=\"post__image\"><img loading=\"lazy\" src=\"https://raw.githubusercontent.com/lQ-A-Ql/blog-image/main/20260521231530061.png\" alt=\"image.png\" data-is-external-image=\"true\"></figure></p>\n<p>后续进行<code>RCE</code></p>\n<h5>CVE-2025-29927</h5>\n<blockquote><p>Next.js 中间件认证绕过漏洞，攻击者通过构造特殊的请求头<code>x-middleware-subrequest</code>可以绕过中间件的认证检查，直接访问受保护的路由</p></blockquote>\n<p><strong>影响范围:</strong></p>\n<blockquote><p>Next.js < 14.2.25、15.x < 15.2.3</p></blockquote>\n<p><strong>特征：</strong></p>\n<p>这个漏洞的特征可以说是一眼就能看出来，在正常的<code>HTTP</code>请求头中会出现一个很不自然的自定义头</p>\n<pre><code>x-middleware-subrequest: middleware:middleware:middleware:middleware:middleware</code></pre>\n<p>注意看，这个<code>middleware</code>字段会重复5次以上，用冒号分隔。在<code>wireshark</code>中可以直接用这个筛选</p>\n<pre><code>http.header contains &quot;x-middleware-subrequest&quot;</code></pre>\n<p>基本上看到这个头就可以确认是这个洞了，因为正常业务不会有人发这种请求头</p>\n<h5>CVE-2025-24893</h5>\n<blockquote><p>XWiki 的<code>SolrSearch</code>接口存在服务端模板注入（<code>SSTI</code>）漏洞，攻击者可以通过<code>text</code>参数注入<code>Groovy</code>模板代码实现<code>RCE</code></p></blockquote>\n<p><strong>影响范围:</strong></p>\n<blockquote><p>XWiki 多个版本受影响</p></blockquote>\n<p><strong>特征：</strong></p>\n<p>流量中可以看到请求<code>/xwiki/bin/get/Main/SolrSearch</code>这个<code>REST API</code>接口，参数中带有<code>Groovy</code>模板语法的双花括号标记</p>\n<pre><code>{{groovy}}...{{/groovy}}</code></pre>\n<p>或者</p>\n<pre><code>{{async async=false}}{{groovy}}...{{/groovy}}{{/async}}</code></pre>\n<p>在<code>wireshark</code>中筛选</p>\n<pre><code>http.request.uri contains &quot;/SolrSearch&quot; and http.request.uri contains &quot;groovy&quot;</code></pre>\n<p>双花括号<code>{{</code>是<code>XWiki</code>的模板语法标记，正常搜索请求中不会出现这种结构</p>\n<h5>CVE-2025-24071</h5>\n<blockquote><p>Windows 在解压包含<code>.library-ms</code>文件的压缩包时，会自动触发<code>SMB</code>连接向攻击者泄露<code>NTLM</code>哈希，全程无需用户交互</p></blockquote>\n<p><strong>影响范围:</strong></p>\n<blockquote><p>Windows 全版本</p></blockquote>\n<p><strong>特征：</strong></p>\n<p>这个洞的利用链很有意思，攻击者构造一个<code>.rar</code>或<code>.zip</code>压缩包，里面放一个<code>.library-ms</code>文件，文件中指向一个<code>UNC</code>路径（<code>\\\\attacker\\share</code>）。当受害者在<code>Windows</code>上解压这个压缩包时，系统会自动尝试连接这个<code>UNC</code>路径，从而触发<code>SMB</code>认证，受害者的<code>NTLMv2</code>哈希就这样泄露了</p>\n<p>在流量中的表现就是：</p>\n<ul>\n<li>解压操作后突然出现<code>SMB2</code>连接到一个外部<code>IP</code></li>\n<li><code>NTLMSSP_AUTH</code>包中包含受害者的<code>NTLMv2</code>哈希</li>\n<li>整个过程没有任何用户点击操作</li>\n</ul>\n<h5>CVE-2025-24813</h5>\n<blockquote><p>Apache Tomcat 反序列化漏洞，攻击者通过<code>PUT</code>方法上传恶意序列化数据，再通过<code>JSESSIONID</code>触发反序列化执行代码</p></blockquote>\n<p><strong>影响范围:</strong></p>\n<blockquote><p>Apache Tomcat 特定版本</p></blockquote>\n<p><strong>特征：</strong></p>\n<p>攻击分两步，流量特征都很明显</p>\n<p>第一步：<code>HTTP PUT</code>请求上传序列化数据，注意<code>Content-Range</code>头，请求体以<code>Java</code>序列化对象的魔数开头</p>\n<pre><code>ac ed 00 05</code></pre>\n<p>第二步：通过构造<code>Cookie</code>中的<code>JSESSIONID</code>触发反序列化</p>\n<p>在<code>wireshark</code>中可以直接搜<code>Java</code>序列化魔数</p>\n<pre><code>frame contains &quot;\\xac\\xed\\x00\\x05&quot;</code></pre>\n<p>配合<code>HTTP PUT</code>方法使用基本就能确认了</p>",
+            "author": {
+                "name": "QAQ"
+            },
+            "tags": [],
+            "date_published": "2026-05-28T18:00:00+08:00",
+            "date_modified": "2026-05-28T18:00:00+08:00"
+        },
+        {
             "id": "https://lq-a-ql.github.io/winrmntlmren-zhengyu-smb3zhuan-lan1.html",
             "url": "https://lq-a-ql.github.io/winrmntlmren-zhengyu-smb3zhuan-lan1.html",
             "title": "WINRM(NTLM认证)与SMB3专栏(1)",
@@ -19,8 +32,7 @@
             "author": {
                 "name": "QAQ"
             },
-            "tags": [
-            ],
+            "tags": [],
             "date_published": "2026-04-24T00:29:58+08:00",
             "date_modified": "2026-04-24T00:29:58+08:00"
         },
@@ -33,8 +45,7 @@
             "author": {
                 "name": "QAQ"
             },
-            "tags": [
-            ],
+            "tags": [],
             "date_published": "2026-04-21T22:53:52+08:00",
             "date_modified": "2026-04-21T23:40:12+08:00"
         },
@@ -47,8 +58,7 @@
             "author": {
                 "name": "QAQ"
             },
-            "tags": [
-            ],
+            "tags": [],
             "date_published": "2026-04-14T21:54:45+08:00",
             "date_modified": "2026-04-14T21:55:10+08:00"
         },
@@ -61,8 +71,7 @@
             "author": {
                 "name": "QAQ"
             },
-            "tags": [
-            ],
+            "tags": [],
             "date_published": "2026-04-12T19:29:26+08:00",
             "date_modified": "2026-04-12T19:29:26+08:00"
         },
@@ -75,8 +84,7 @@
             "author": {
                 "name": "QAQ"
             },
-            "tags": [
-            ],
+            "tags": [],
             "date_published": "2026-04-10T23:50:47+08:00",
             "date_modified": "2026-04-10T23:51:48+08:00"
         },
@@ -89,8 +97,7 @@
             "author": {
                 "name": "QAQ"
             },
-            "tags": [
-            ],
+            "tags": [],
             "date_published": "2026-04-08T11:14:58+08:00",
             "date_modified": "2026-04-08T11:14:58+08:00"
         },
@@ -103,8 +110,7 @@
             "author": {
                 "name": "QAQ"
             },
-            "tags": [
-            ],
+            "tags": [],
             "date_published": "2026-04-06T23:09:15+08:00",
             "date_modified": "2026-04-06T23:15:28+08:00"
         },
@@ -117,8 +123,7 @@
             "author": {
                 "name": "QAQ"
             },
-            "tags": [
-            ],
+            "tags": [],
             "date_published": "2026-04-06T16:33:01+08:00",
             "date_modified": "2026-04-06T20:31:07+08:00"
         }
