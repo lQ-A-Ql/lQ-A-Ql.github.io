@@ -261,9 +261,16 @@ export default function BlogPage() {
           >
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.8fr)]">
               <motion.div
-                className="group/main relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(22,14,34,0.84),rgba(16,10,25,0.72))] p-7 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl transition-all duration-500 hover:border-white/14 hover:shadow-[0_18px_60px_rgba(0,0,0,0.28),0_0_40px_rgba(235,99,197,0.04)] md:p-9"
+                className="group relative overflow-hidden rounded-[2rem] border border-white/[0.03] bg-transparent p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/[0.08] md:p-9"
                 variants={fadeUpVariant}
               >
+                <div className="pointer-events-none absolute inset-0 rounded-[2rem] border border-white/[0.02]" />
+                <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-24 transition-opacity duration-500 group-hover:opacity-44" />
+                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.008),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.008),transparent_28%)] opacity-12 transition-opacity duration-500 group-hover:opacity-22" />
+                <div className="pointer-events-none absolute -inset-[140%] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="absolute left-1/2 top-1/2 h-[150%] w-12 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.36)_42%,rgba(193,106,243,0.36)_58%,rgba(255,255,255,0)_100%)] blur-[12px] animate-spin-slow" />
+                </div>
+
                 <div className="relative z-10">
                   <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/18 bg-background/30 px-3 py-1.5 text-[11px] uppercase tracking-[0.28em] text-white/50">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(235,99,197,0.55)]" />
@@ -282,49 +289,44 @@ export default function BlogPage() {
 
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
                     <motion.div
-                      className="group relative overflow-hidden rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-5 transition-all duration-300 hover:border-primary/24 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(235,99,197,0.08)]"
-                      whileHover={{ y: -3 }}
+                      className="group/sub relative overflow-hidden rounded-[1.4rem] border border-white/[0.03] bg-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/[0.08]"
+                      whileHover={{ scale: 1.01 }}
                     >
-                      <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/6 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-0" />
+                      <div className="pointer-events-none absolute inset-0 rounded-[1.4rem] border border-white/[0.02]" />
+                      <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-20 transition-opacity duration-300 group-hover/sub:opacity-40" />
                       <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Write Style</p>
                       <p className="text-sm leading-7 text-white/74">
                         尽量保留关键证据、核心思路和可复现步骤，不把有效信息埋进长篇背景里。
                       </p>
-                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 bg-gradient-to-r from-primary/50 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+                      <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover/sub:scale-x-100" />
                     </motion.div>
                     <motion.div
-                      className="group relative overflow-hidden rounded-[1.4rem] border border-white/8 bg-white/[0.03] p-5 transition-all duration-300 hover:border-primary/24 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(235,99,197,0.08)]"
-                      whileHover={{ y: -3 }}
+                      className="group/sub relative overflow-hidden rounded-[1.4rem] border border-white/[0.03] bg-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/[0.08]"
+                      whileHover={{ scale: 1.01 }}
                     >
-                      <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/6 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-0" />
+                      <div className="pointer-events-none absolute inset-0 rounded-[1.4rem] border border-white/[0.02]" />
+                      <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-20 transition-opacity duration-300 group-hover/sub:opacity-40" />
                       <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Focus Area</p>
                       <p className="text-sm leading-7 text-white/74">
                         威胁流量、Windows / Linux 入侵排查、取证片段、赛题复盘，以及安全工具开发记录。
                       </p>
-                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px origin-left scale-x-0 bg-gradient-to-r from-primary/50 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+                      <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover/sub:scale-x-100" />
                     </motion.div>
                   </div>
                 </div>
 
-                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem]">
-                  <div className="absolute inset-y-0 -left-1/4 w-1/2 rotate-[16deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.16),rgba(255,255,255,0.06)_22%,rgba(255,194,230,0.08)_44%,rgba(150,210,255,0.06)_62%,transparent_84%)] opacity-80 blur-2xl" />
-                  <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[rgba(255,202,233,0.08)] blur-3xl" />
-                  <div className="absolute left-10 top-0 h-px w-[38%] bg-[linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,255,255,0.14),transparent)] opacity-70" />
-                  <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent)] opacity-60" />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_22%,rgba(255,255,255,0.015)_64%,rgba(0,0,0,0.06))]" />
-                </div>
+                <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
               </motion.div>
 
               <motion.aside
-                className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(20,12,30,0.82),rgba(12,9,20,0.72))] p-7 shadow-[0_18px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+                className="group relative overflow-hidden rounded-[2rem] border border-white/[0.03] bg-transparent p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/[0.08]"
                 variants={scaleUpVariant}
               >
-                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem]">
-                  <div className="absolute inset-y-0 -left-1/4 w-1/2 rotate-[16deg] bg-[linear-gradient(90deg,rgba(255,255,255,0.14),rgba(255,255,255,0.05)_22%,rgba(255,194,230,0.07)_44%,transparent_72%)] opacity-70 blur-2xl" />
-                  <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[rgba(255,202,233,0.07)] blur-3xl" />
-                  <div className="absolute left-8 top-0 h-px w-[32%] bg-[linear-gradient(90deg,rgba(255,255,255,0.5),rgba(255,255,255,0.1),transparent)] opacity-60" />
-                  <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.16),transparent)] opacity-50" />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent_22%,rgba(255,255,255,0.01)_64%,rgba(0,0,0,0.05))]" />
+                <div className="pointer-events-none absolute inset-0 rounded-[2rem] border border-white/[0.02]" />
+                <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-24 transition-opacity duration-500 group-hover:opacity-44" />
+                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.008),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.008),transparent_28%)] opacity-12 transition-opacity duration-500 group-hover:opacity-22" />
+                <div className="pointer-events-none absolute -inset-[140%] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="absolute left-1/2 top-1/2 h-[150%] w-12 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.36)_42%,rgba(193,106,243,0.36)_58%,rgba(255,255,255,0)_100%)] blur-[12px] animate-spin-slow" />
                 </div>
 
                 <div className="relative z-10 mb-6 flex items-center gap-4">
