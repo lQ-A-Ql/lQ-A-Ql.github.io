@@ -77,15 +77,6 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
       <main className="relative min-h-screen bg-background overflow-hidden">
         <Header />
 
-        <div
-          className="pointer-events-none fixed inset-0 z-0 opacity-65"
-          style={{
-            backgroundImage: `linear-gradient(rgba(10,8,18,0.64), rgba(7,7,14,0.88)), url('${siteConfig.heroBackground}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-          }}
-        />
-
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,146,214,0.22),transparent_24%),radial-gradient(circle_at_82%_18%,rgba(176,118,255,0.16),transparent_21%),radial-gradient(circle_at_18%_72%,rgba(255,96,170,0.12),transparent_19%),radial-gradient(circle_at_58%_42%,rgba(255,210,240,0.06),transparent_26%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_42%,rgba(5,5,10,0.18)_72%,rgba(4,4,8,0.44)_100%)]" />
 

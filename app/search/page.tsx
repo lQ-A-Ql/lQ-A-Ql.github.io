@@ -44,14 +44,6 @@ export default function SearchPage() {
       <main className="relative min-h-screen overflow-hidden bg-background">
         <Header />
 
-        <div
-          className="pointer-events-none fixed inset-0 z-0 opacity-65"
-          style={{
-            backgroundImage: `linear-gradient(rgba(10,8,18,0.68), rgba(7,7,14,0.9)), url('${siteConfig.heroBackground}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-          }}
-        />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,146,214,0.18),transparent_24%),radial-gradient(circle_at_82%_18%,rgba(176,118,255,0.14),transparent_21%),radial-gradient(circle_at_18%_72%,rgba(255,96,170,0.1),transparent_19%),radial-gradient(circle_at_58%_42%,rgba(255,210,240,0.05),transparent_26%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_42%,rgba(5,5,10,0.14)_72%,rgba(4,4,8,0.38)_100%)]" />
         
