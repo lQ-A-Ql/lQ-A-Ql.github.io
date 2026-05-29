@@ -479,6 +479,17 @@ img {
   }
 }
 
+@keyframes quote-paw-float {
+  0%, 100% {
+    opacity: 0.18;
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateY(-2px) rotate(-4deg);
+  }
+}
+
 .prose pre::-webkit-scrollbar {
   height: 10px;
 }
@@ -498,10 +509,35 @@ img {
 }
 
 .prose blockquote {
+  position: relative;
   border-left: 3px solid color-mix(in oklab, var(--color-primary) 72%, transparent);
   background: color-mix(in oklab, var(--color-card) 88%, transparent);
   border-radius: 0.75rem;
   padding: 0.75rem 1rem;
+}
+
+.prose blockquote::after {
+  content: "";
+  position: absolute;
+  right: 0.7rem;
+  bottom: -0.2rem;
+  width: 2.8rem;
+  height: 1.8rem;
+  pointer-events: none;
+  opacity: 0.22;
+  background:
+    radial-gradient(circle at 0.45rem 1.12rem, rgba(255, 188, 224, 0.65) 0 0.32rem, transparent 0.38rem),
+    radial-gradient(circle at 0.34rem 0.55rem, rgba(255, 215, 239, 0.58) 0 0.15rem, transparent 0.2rem),
+    radial-gradient(circle at 0.84rem 0.46rem, rgba(255, 215, 239, 0.58) 0 0.16rem, transparent 0.21rem),
+    radial-gradient(circle at 1.16rem 0.73rem, rgba(255, 215, 239, 0.58) 0 0.15rem, transparent 0.2rem),
+    radial-gradient(circle at 1.95rem 1.25rem, rgba(255, 188, 224, 0.38) 0 0.24rem, transparent 0.29rem),
+    radial-gradient(circle at 1.82rem 0.9rem, rgba(255, 215, 239, 0.3) 0 0.12rem, transparent 0.16rem),
+    radial-gradient(circle at 2.16rem 0.84rem, rgba(255, 215, 239, 0.3) 0 0.13rem, transparent 0.17rem),
+    radial-gradient(circle at 2.42rem 1.06rem, rgba(255, 215, 239, 0.3) 0 0.12rem, transparent 0.16rem);
+  filter: drop-shadow(0 0 6px rgba(244, 114, 182, 0.2));
+  image-rendering: pixelated;
+  transform: rotate(-6deg);
+  animation: quote-paw-float 3.8s ease-in-out infinite;
 }
 
 .prose a {
