@@ -46,20 +46,38 @@ const postsSparkles = [
   { id: 7, left: "88%", top: "52%", size: 20, duration: 9, delay: 0.8, rotate: 10, opacity: 0.48 },
 ] as const
 
+const lightPostsSprinkles = [
+  { id: 1, left: "8%", top: "18%", size: 12, duration: 7.2, delay: 0.2, rotate: 14, shape: "diamond" },
+  { id: 2, left: "18%", top: "38%", size: 9, duration: 8.4, delay: 1.1, rotate: -8, shape: "dot" },
+  { id: 3, left: "30%", top: "16%", size: 14, duration: 7.8, delay: 0.7, rotate: 22, shape: "cross" },
+  { id: 4, left: "45%", top: "34%", size: 10, duration: 9.2, delay: 1.6, rotate: -16, shape: "diamond" },
+  { id: 5, left: "58%", top: "14%", size: 13, duration: 8.6, delay: 0.4, rotate: 10, shape: "dot" },
+  { id: 6, left: "71%", top: "36%", size: 11, duration: 7.6, delay: 1.3, rotate: -20, shape: "cross" },
+  { id: 7, left: "84%", top: "20%", size: 15, duration: 9.4, delay: 0.9, rotate: 18, shape: "diamond" },
+  { id: 8, left: "92%", top: "54%", size: 10, duration: 8.2, delay: 1.8, rotate: -10, shape: "dot" },
+] as const
+
+const lightPostsStickers = [
+  { id: 1, left: "7%", top: "48%", icon: "✦", duration: 9.8, delay: 0.5, rotate: -10 },
+  { id: 2, left: "88%", top: "30%", icon: "♡", duration: 10.6, delay: 1.6, rotate: 12 },
+  { id: 3, left: "76%", top: "70%", icon: "⌑", duration: 11.2, delay: 0.9, rotate: -6 },
+] as const
+
 export default function BlogPage() {
   return (
     <PageTransition>
       <main className="relative min-h-screen overflow-hidden bg-background">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[88vh] overflow-hidden">
+        <div className="home-hero-bg-wrap pointer-events-none absolute inset-x-0 top-0 h-[88vh] overflow-hidden">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="home-hero-bg home-hero-bg--dark absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: `url('${siteConfig.heroBackground}')`,
               backgroundPosition: "center 18%",
             }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.01)_0%,rgba(8,8,16,0.08)_24%,rgba(8,8,16,0.2)_52%,rgba(8,8,16,0.76)_86%,rgba(8,8,16,0.96)_100%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,132,190,0.12),transparent_28%)]" />
+          <div className="home-hero-bg home-hero-bg--light absolute inset-0 bg-cover bg-center bg-no-repeat" />
+          <div className="home-hero-shade absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,16,0.01)_0%,rgba(8,8,16,0.08)_24%,rgba(8,8,16,0.2)_52%,rgba(8,8,16,0.76)_86%,rgba(8,8,16,0.96)_100%)]" />
+          <div className="home-hero-glow absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,132,190,0.12),transparent_28%)]" />
         </div>
 
         <Header />
@@ -221,6 +239,61 @@ export default function BlogPage() {
             <div className="meteor meteor-4" />
             <div className="meteor meteor-5" />
           </div>
+
+          <div className="light-posts-decor pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="light-posts-ribbon light-posts-ribbon--one" />
+            <div className="light-posts-ribbon light-posts-ribbon--two" />
+            {lightPostsSprinkles.map((sprinkle) => (
+              <motion.span
+                key={sprinkle.id}
+                className={`light-posts-sprinkle light-posts-sprinkle--${sprinkle.shape}`}
+                style={{
+                  left: sprinkle.left,
+                  top: sprinkle.top,
+                  width: sprinkle.size,
+                  height: sprinkle.size,
+                  rotate: `${sprinkle.rotate}deg`,
+                }}
+                animate={{
+                  y: [0, -16, 0],
+                  x: [0, 6, 0],
+                  opacity: [0.42, 0.86, 0.42],
+                  scale: [1, 1.16, 1],
+                  rotate: [`${sprinkle.rotate}deg`, `${sprinkle.rotate + 18}deg`, `${sprinkle.rotate}deg`],
+                }}
+                transition={{
+                  duration: sprinkle.duration,
+                  delay: sprinkle.delay,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+            {lightPostsStickers.map((sticker) => (
+              <motion.span
+                key={sticker.id}
+                className="light-posts-sticker"
+                style={{
+                  left: sticker.left,
+                  top: sticker.top,
+                  rotate: `${sticker.rotate}deg`,
+                }}
+                animate={{
+                  y: [0, -12, 0],
+                  rotate: [`${sticker.rotate}deg`, `${sticker.rotate + 8}deg`, `${sticker.rotate}deg`],
+                  opacity: [0.38, 0.72, 0.38],
+                }}
+                transition={{
+                  duration: sticker.duration,
+                  delay: sticker.delay,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+              >
+                {sticker.icon}
+              </motion.span>
+            ))}
+          </div>
           <div className="mx-auto max-w-6xl">
             <motion.div
               className="relative z-10 mb-12 text-center md:mb-14"
@@ -230,7 +303,7 @@ export default function BlogPage() {
               variants={staggerContainer}
             >
               <motion.h2
-                className="mb-4 text-4xl font-bold text-foreground md:text-5xl"
+                className="section-heading mb-4 text-4xl font-bold text-foreground md:text-5xl"
                 variants={fadeUpVariant}
                 style={{ textShadow: "0 0 30px rgba(235,99,197,0.15)" }}
               >
@@ -339,48 +412,48 @@ export default function BlogPage() {
           >
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.8fr)]">
               <motion.div
-                className="group relative overflow-hidden rounded-[2rem] border border-white/[0.03] bg-transparent p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/[0.08] md:p-9"
+                className="about-card group relative overflow-hidden rounded-[2rem] border border-white/[0.03] bg-transparent p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/[0.08] md:p-9"
                 variants={fadeUpVariant}
               >
                 <div className="pointer-events-none absolute inset-0 rounded-[2rem] border border-white/[0.02]" />
                 <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-24 transition-opacity duration-500 group-hover:opacity-44" />
-                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.008),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.008),transparent_28%)] opacity-12 transition-opacity duration-500 group-hover:opacity-22" />
-                <div className="pointer-events-none absolute -inset-[140%] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <div className="absolute left-1/2 top-1/2 h-[150%] w-12 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.36)_42%,rgba(193,106,243,0.36)_58%,rgba(255,255,255,0)_100%)] blur-[12px] animate-spin-slow" />
+                <div className="card-soft-glow pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.008),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.008),transparent_28%)] opacity-12 transition-opacity duration-500 group-hover:opacity-22" />
+                <div className="card-sweep-wrap pointer-events-none absolute -inset-[140%] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="card-sweep absolute left-1/2 top-1/2 h-[150%] w-12 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.36)_42%,rgba(193,106,243,0.36)_58%,rgba(255,255,255,0)_100%)] blur-[12px] animate-spin-slow" />
                 </div>
 
                 <div className="relative z-10">
                   <h2
-                    className="mb-4 text-3xl font-bold text-foreground md:text-4xl"
+                    className="about-title mb-4 text-3xl font-bold text-foreground md:text-4xl"
                     style={{ textShadow: "0 0 20px rgba(235,99,197,0.12)" }}
                   >
                     关于这个角落
                   </h2>
-                  <p className="max-w-2xl leading-8 text-muted-foreground">
+                  <p className="about-description max-w-2xl leading-8 text-muted-foreground">
                     偶尔搞搞流量分析、入侵排查、CTF 复盘和安全工具，踩过的坑都记在这里啦 ˃ᴗ˂
                   </p>
 
                   <div className="mt-8 grid gap-4 sm:grid-cols-2">
                     <motion.div
-                      className="group/sub relative overflow-hidden rounded-[1.4rem] border border-white/[0.03] bg-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/[0.08]"
+                      className="about-mini-card group/sub relative overflow-hidden rounded-[1.4rem] border border-white/[0.03] bg-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/[0.08]"
                       whileHover={{ scale: 1.01 }}
                     >
                       <div className="pointer-events-none absolute inset-0 rounded-[1.4rem] border border-white/[0.02]" />
                       <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-20 transition-opacity duration-300 group-hover/sub:opacity-40" />
-                      <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Write Style</p>
-                      <p className="text-sm leading-7 text-white/74">
+                      <p className="about-mini-label mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Write Style</p>
+                      <p className="about-mini-text text-sm leading-7 text-white/74">
                         只留能复现的干货，背景故事什么的才不写呢 ·͜·
                       </p>
                       <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover/sub:scale-x-100" />
                     </motion.div>
                     <motion.div
-                      className="group/sub relative overflow-hidden rounded-[1.4rem] border border-white/[0.03] bg-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/[0.08]"
+                      className="about-mini-card group/sub relative overflow-hidden rounded-[1.4rem] border border-white/[0.03] bg-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/[0.08]"
                       whileHover={{ scale: 1.01 }}
                     >
                       <div className="pointer-events-none absolute inset-0 rounded-[1.4rem] border border-white/[0.02]" />
                       <div className="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-20 transition-opacity duration-300 group-hover/sub:opacity-40" />
-                      <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Focus Area</p>
-                      <p className="text-sm leading-7 text-white/74">
+                      <p className="about-mini-label mb-3 text-xs uppercase tracking-[0.24em] text-white/50">Focus Area</p>
+                      <p className="about-mini-text text-sm leading-7 text-white/74">
                         威胁流量 / 入侵排查 / 取证 / CTF / 安全工具，什么都碰一点点喵~
                       </p>
                       <div className="pointer-events-none absolute bottom-0 left-6 right-6 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/60 to-transparent transition-transform duration-500 group-hover/sub:scale-x-100" />
@@ -392,33 +465,33 @@ export default function BlogPage() {
               </motion.div>
 
               <motion.aside
-                className="group relative overflow-hidden rounded-[2rem] border border-white/[0.03] bg-transparent p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/[0.08]"
+                className="about-card group relative overflow-hidden rounded-[2rem] border border-white/[0.03] bg-transparent p-7 transition-all duration-500 hover:-translate-y-1 hover:border-primary/[0.08]"
                 variants={scaleUpVariant}
               >
                 <div className="pointer-events-none absolute inset-0 rounded-[2rem] border border-white/[0.02]" />
                 <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-24 transition-opacity duration-500 group-hover:opacity-44" />
-                <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.008),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.008),transparent_28%)] opacity-12 transition-opacity duration-500 group-hover:opacity-22" />
-                <div className="pointer-events-none absolute -inset-[140%] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <div className="absolute left-1/2 top-1/2 h-[150%] w-12 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.36)_42%,rgba(193,106,243,0.36)_58%,rgba(255,255,255,0)_100%)] blur-[12px] animate-spin-slow" />
+                <div className="card-soft-glow pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_top_right,rgba(255,132,190,0.008),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(122,88,255,0.008),transparent_28%)] opacity-12 transition-opacity duration-500 group-hover:opacity-22" />
+                <div className="card-sweep-wrap pointer-events-none absolute -inset-[140%] opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="card-sweep absolute left-1/2 top-1/2 h-[150%] w-12 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(193,106,243,0.36)_42%,rgba(193,106,243,0.36)_58%,rgba(255,255,255,0)_100%)] blur-[12px] animate-spin-slow" />
                 </div>
 
                 <div className="relative z-10 mb-6 flex items-center gap-4">
                   <div className="relative">
-                    <div className="absolute inset-0 -m-1 rounded-full bg-gradient-to-br from-primary/30 to-accent/20 blur-sm" />
-                    <div className="relative h-16 w-16 overflow-hidden rounded-full border border-white/12 shadow-[0_0_36px_rgba(235,99,197,0.2)]">
+                    <div className="about-avatar-halo absolute inset-0 -m-1 rounded-full bg-gradient-to-br from-primary/30 to-accent/20 blur-sm" />
+                    <div className="about-avatar-frame relative h-16 w-16 overflow-hidden rounded-full border border-white/12 shadow-[0_0_36px_rgba(235,99,197,0.2)]">
                       <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-white/42">Author</p>
-                    <p className="mt-1 text-xl font-semibold text-white">{siteConfig.author}</p>
+                    <p className="about-mini-label text-xs uppercase tracking-[0.24em] text-white/42">Author</p>
+                    <p className="about-author-name mt-1 text-xl font-semibold text-white">{siteConfig.author}</p>
                   </div>
                 </div>
 
                 <div className="relative z-10 space-y-3">
                   <Link
                     href="/archive"
-                    className="group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
+                    className="about-link-card group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
                   >
                     <span className="inline-flex items-center gap-2">
                       <Archive className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
@@ -428,7 +501,7 @@ export default function BlogPage() {
                   </Link>
                   <Link
                     href="/search"
-                    className="group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
+                    className="about-link-card group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
                   >
                     <span className="inline-flex items-center gap-2">
                       <Search className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
@@ -440,7 +513,7 @@ export default function BlogPage() {
                     href={siteConfig.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
+                    className="about-link-card group flex items-center justify-between rounded-[1.2rem] border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/80 transition-all duration-300 hover:border-primary/18 hover:bg-white/[0.06] hover:text-primary hover:shadow-[0_4px_20px_rgba(235,99,197,0.06)]"
                   >
                     <span className="inline-flex items-center gap-2">
                       <Github className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />

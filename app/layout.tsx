@@ -38,10 +38,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="zh-CN" className={`${displayFont.variable} ${monoFont.variable}`}>
+    <html lang="zh-CN" className={`${displayFont.variable} ${monoFont.variable}`} suppressHydrationWarning>
       <body className="font-serif antialiased bg-background text-foreground">
-        <PageBackground />
         <Providers>
+          <PageBackground />
           {children}
         </Providers>
         {process.env.NODE_ENV === 'production' && <Analytics />}

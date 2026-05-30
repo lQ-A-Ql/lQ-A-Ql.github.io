@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
+import { motion, AnimatePresence, useReducedMotion, type Transition, type Variants } from "framer-motion"
 import { ReactNode } from "react"
 
 interface PageTransitionProps {
@@ -8,7 +8,7 @@ interface PageTransitionProps {
 }
 
 // 优化的页面进入动画
-const pageVariants = {
+const pageVariants: Variants = {
   initial: {
     opacity: 0,
     y: 30,
@@ -26,7 +26,7 @@ const pageVariants = {
   }
 }
 
-const pageTransition = {
+const pageTransition: Transition = {
   type: "spring",
   stiffness: 260,
   damping: 25,
@@ -42,7 +42,7 @@ export function PageTransition({ children }: PageTransitionProps) {
   
   return (
     <motion.div
-      initial="initial"
+      initial={false}
       animate="animate"
       exit="exit"
       variants={pageVariants}
@@ -54,7 +54,7 @@ export function PageTransition({ children }: PageTransitionProps) {
 }
 
 // 优化的交错动画容器
-export const staggerContainer = {
+export const staggerContainer: Variants = {
   initial: {},
   animate: {
     transition: {
@@ -65,7 +65,7 @@ export const staggerContainer = {
 }
 
 // 快速淡入上滑动画
-export const fadeUpVariant = {
+export const fadeUpVariant: Variants = {
   initial: {
     opacity: 0,
     y: 30,
@@ -82,7 +82,7 @@ export const fadeUpVariant = {
 }
 
 // 平滑淡入左滑
-export const fadeLeftVariant = {
+export const fadeLeftVariant: Variants = {
   initial: {
     opacity: 0,
     x: -40,
@@ -99,7 +99,7 @@ export const fadeLeftVariant = {
 }
 
 // 平滑淡入右滑
-export const fadeRightVariant = {
+export const fadeRightVariant: Variants = {
   initial: {
     opacity: 0,
     x: 40,
@@ -116,7 +116,7 @@ export const fadeRightVariant = {
 }
 
 // 弹性缩放动画
-export const scaleUpVariant = {
+export const scaleUpVariant: Variants = {
   initial: {
     opacity: 0,
     scale: 0.85,
@@ -133,7 +133,7 @@ export const scaleUpVariant = {
 }
 
 // 遮罩揭示动画
-export const revealVariant = {
+export const revealVariant: Variants = {
   initial: {
     clipPath: "inset(0 100% 0 0)",
     opacity: 0,
@@ -149,7 +149,7 @@ export const revealVariant = {
 }
 
 // 平滑淡入动画（无位移）
-export const fadeInVariant = {
+export const fadeInVariant: Variants = {
   initial: {
     opacity: 0,
   },
@@ -163,7 +163,7 @@ export const fadeInVariant = {
 }
 
 // 列表项动画
-export const listItemVariant = {
+export const listItemVariant: Variants = {
   initial: {
     opacity: 0,
     x: -20,

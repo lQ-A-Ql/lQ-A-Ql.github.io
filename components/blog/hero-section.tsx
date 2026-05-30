@@ -20,13 +20,13 @@ const floatingParticles = [
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-[82vh] items-center justify-center overflow-hidden pt-24 pb-14 md:min-h-[88vh] md:pt-28 md:pb-20">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,136,191,0.14),transparent_32%),linear-gradient(180deg,rgba(12,8,18,0.02)_0%,rgba(12,8,18,0.14)_38%,rgba(12,8,18,0.46)_76%,rgba(12,8,18,0.8)_100%)]" />
+    <section className="hero-section relative flex min-h-[82vh] items-center justify-center overflow-hidden pt-24 pb-14 md:min-h-[88vh] md:pt-28 md:pb-20">
+      <div className="hero-curtain pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,136,191,0.14),transparent_32%),linear-gradient(180deg,rgba(12,8,18,0.02)_0%,rgba(12,8,18,0.14)_38%,rgba(12,8,18,0.46)_76%,rgba(12,8,18,0.8)_100%)]" />
 
       {floatingParticles.map((particle) => (
         <motion.span
           key={particle.id}
-          className="pointer-events-none absolute rounded-full bg-primary"
+          className="hero-particle pointer-events-none absolute rounded-full bg-primary"
           style={{
             left: particle.left,
             top: particle.top,
@@ -46,12 +46,12 @@ export function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
       >
-        <div className="absolute top-[14%] left-[14%] h-[420px] w-[420px] rounded-full bg-gradient-to-br from-primary/14 to-transparent blur-[100px] animate-pulse" />
-        <div className="absolute right-[10%] bottom-[18%] h-[340px] w-[340px] rounded-full bg-gradient-to-tl from-accent/12 to-transparent blur-[90px] animate-pulse delay-1000" />
+        <div className="hero-ambient-orb hero-ambient-primary absolute top-[14%] left-[14%] h-[420px] w-[420px] rounded-full bg-gradient-to-br from-primary/14 to-transparent blur-[100px] animate-pulse" />
+        <div className="hero-ambient-orb hero-ambient-accent absolute right-[10%] bottom-[18%] h-[340px] w-[340px] rounded-full bg-gradient-to-tl from-accent/12 to-transparent blur-[90px] animate-pulse delay-1000" />
       </motion.div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-6">
-        <div className="pointer-events-none absolute left-1/2 top-[14%] h-[280px] w-[360px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.12),rgba(255,145,205,0.015)_44%,transparent_72%)] blur-[44px]" />
+        <div className="hero-center-glow pointer-events-none absolute left-1/2 top-[14%] h-[280px] w-[360px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(255,145,205,0.12),rgba(255,145,205,0.015)_44%,transparent_72%)] blur-[44px]" />
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,29 +66,29 @@ export function HeroSection() {
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
             >
-              <div className="absolute inset-0 -m-2 rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-spin-slow opacity-55 blur-sm" />
+              <div className="hero-avatar-ring absolute inset-0 -m-2 rounded-full bg-gradient-to-r from-primary via-accent to-primary animate-spin-slow opacity-55 blur-sm" />
               <div
-                className="absolute inset-0 -m-5 rounded-full bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 animate-spin-slow opacity-35 blur-md"
+                className="hero-avatar-ring-soft absolute inset-0 -m-5 rounded-full bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 animate-spin-slow opacity-35 blur-md"
                 style={{ animationDirection: "reverse", animationDuration: "12s" }}
               />
-              <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/12 shadow-[0_0_60px_rgba(235,99,197,0.28),0_0_110px_rgba(235,99,197,0.08)] transition-shadow duration-500 hover:shadow-[0_0_86px_rgba(235,99,197,0.46),0_0_160px_rgba(235,99,197,0.16)] md:h-28 md:w-28">
+              <div className="hero-avatar-frame relative h-24 w-24 overflow-hidden rounded-full border border-white/12 shadow-[0_0_60px_rgba(235,99,197,0.28),0_0_110px_rgba(235,99,197,0.08)] transition-shadow duration-500 hover:shadow-[0_0_86px_rgba(235,99,197,0.46),0_0_160px_rgba(235,99,197,0.16)] md:h-28 md:w-28">
                 <img src={siteConfig.avatarUrl} alt={siteConfig.author} className="h-full w-full object-cover" />
               </div>
             </motion.div>
 
             <div className="space-y-3">
               <motion.h1
-                className="text-center text-5xl font-bold tracking-[0.1em] md:text-[5.2rem] md:leading-none"
+                className="hero-title text-center text-5xl font-bold tracking-[0.1em] md:text-[5.2rem] md:leading-none"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
                 style={{ textShadow: "0 0 22px rgba(235,99,197,0.18), 0 0 72px rgba(235,99,197,0.06)" }}
               >
-                <span className="text-primary">Q</span>
-                <span className="text-white">AQ</span>
+                <span className="hero-title-q text-primary">Q</span>
+                <span className="hero-title-rest text-white">AQ</span>
               </motion.h1>
               <motion.p
-                className="mx-auto max-w-md text-sm leading-relaxed text-white/72"
+                className="hero-kicker mx-auto max-w-md text-sm leading-relaxed text-white/72"
                 initial={{ opacity: 0, x: 12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.42, duration: 0.75 }}
@@ -104,10 +104,10 @@ export function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            <p className="text-balance text-lg leading-relaxed text-white/92 md:text-[1.55rem] md:leading-[1.55]">
+            <p className="hero-description text-balance text-lg leading-relaxed text-white/92 md:text-[1.55rem] md:leading-[1.55]">
               {siteConfig.description}
             </p>
-            <p className="mt-3 text-sm text-white/70 md:text-[15px]">{siteConfig.shortDescription}</p>
+            <p className="hero-short-description mt-3 text-sm text-white/70 md:text-[15px]">{siteConfig.shortDescription}</p>
           </motion.div>
 
           <motion.div

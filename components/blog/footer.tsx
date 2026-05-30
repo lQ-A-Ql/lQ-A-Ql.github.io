@@ -8,8 +8,8 @@ import { categories, siteConfig } from "@/lib/blog-data"
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/8 bg-[linear-gradient(180deg,rgba(16,10,24,0.96),rgba(10,8,18,1))]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,132,190,0.08),transparent_34%)]" />
+    <footer className="site-footer relative overflow-hidden border-t border-white/8 bg-[linear-gradient(180deg,rgba(16,10,24,0.96),rgba(10,8,18,1))]">
+      <div className="site-footer-glow pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,132,190,0.08),transparent_34%)]" />
       <motion.div
         className="relative mx-auto max-w-6xl px-6 py-10 md:py-12"
         initial="initial"
@@ -19,8 +19,8 @@ export function Footer() {
       >
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <motion.div variants={fadeUpVariant} className="max-w-md">
-            <h3 className="mb-3 text-xl font-bold tracking-[0.18em] text-white">
-              <span className="text-primary" style={{ textShadow: "0 0 12px rgba(235,99,197,0.25)" }}>
+            <h3 className="site-footer-title mb-3 text-xl font-bold tracking-[0.18em] text-white">
+              <span className="site-footer-title-accent text-primary" style={{ textShadow: "0 0 12px rgba(235,99,197,0.25)" }}>
                 {siteConfig.title.slice(0, 1)}
               </span>
               {siteConfig.title.slice(1)}
@@ -31,16 +31,19 @@ export function Footer() {
           </motion.div>
 
           <motion.div variants={fadeUpVariant} className="flex flex-col gap-3 md:items-center">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/40">Quick Links</p>
+            <p className="site-footer-label text-xs uppercase tracking-[0.28em] text-white/40">Quick Links</p>
             <div className="flex flex-wrap gap-2">
-              <Link href="/archive" className="rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-primary">
+              <Link href="/archive" className="site-footer-pill rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-primary">
                 所有文章
+              </Link>
+              <Link href="/friends" className="site-footer-pill rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-primary">
+                友链
               </Link>
               {categories.filter((item) => item !== "全部").map((category) => (
                 <Link
                   key={category}
                   href={`/search?category=${encodeURIComponent(category)}`}
-                  className="rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+                  className="site-footer-pill rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
                   {category}
                 </Link>
@@ -49,13 +52,13 @@ export function Footer() {
           </motion.div>
 
           <motion.div variants={fadeUpVariant} className="md:text-right">
-            <p className="mb-3 text-xs uppercase tracking-[0.28em] text-white/40">Reach Out</p>
+            <p className="site-footer-label mb-3 text-xs uppercase tracking-[0.28em] text-white/40">Reach Out</p>
             <div className="flex gap-3 md:justify-end">
               <motion.a
                 href={siteConfig.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/8 bg-white/[0.03] text-muted-foreground transition-all hover:border-primary/24 hover:bg-primary/10 hover:text-primary"
+                className="site-footer-icon flex h-11 w-11 items-center justify-center rounded-full border border-white/8 bg-white/[0.03] text-muted-foreground transition-all hover:border-primary/24 hover:bg-primary/10 hover:text-primary"
                 whileHover={{ scale: 1.06, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -63,7 +66,7 @@ export function Footer() {
               </motion.a>
               <motion.a
                 href="/search"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/8 bg-white/[0.03] text-muted-foreground transition-all hover:border-primary/24 hover:bg-primary/10 hover:text-primary"
+                className="site-footer-icon flex h-11 w-11 items-center justify-center rounded-full border border-white/8 bg-white/[0.03] text-muted-foreground transition-all hover:border-primary/24 hover:bg-primary/10 hover:text-primary"
                 whileHover={{ scale: 1.06, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -81,7 +84,7 @@ export function Footer() {
           transition={{ delay: 0.5 }}
         >
           <p>© 2026 {siteConfig.title}. Security notes, traffic traces, and incident writeups.</p>
-          <p className="text-white/42">Built for readable evidence, not ornamental noise.</p>
+          <p className="site-footer-note text-white/42">Built for readable evidence, not ornamental noise.</p>
         </motion.div>
       </motion.div>
     </footer>
