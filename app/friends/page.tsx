@@ -54,6 +54,17 @@ const friendLinks: FriendLink[] = [
     avatarUrl: "https://fallingdusky.github.io/avatar/avatar.webp",
     actionLabel: "去串门",
   },
+  {
+    name: "Po1nt",
+    href: "https://po1nttt.github.io/",
+    description: "大黑客！",
+    category: "HACKER",
+    status: "ONLINE",
+    initials: "P1",
+    tags: ["Security", "Hacker", "Writeup"],
+    avatarUrl: "https://avatars.githubusercontent.com/u/241124566?v=4",
+    actionLabel: "去串门",
+  },
 ]
 
 function isExternalHref(href: string) {
