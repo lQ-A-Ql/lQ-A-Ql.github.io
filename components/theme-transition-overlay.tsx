@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { themeTransitionEvent } from "@/lib/client-events"
 
 type ThemeDirection = "light" | "dark"
 
@@ -15,6 +16,7 @@ export function ThemeTransitionOverlay() {
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout> | undefined
+    let frameId: number | undefined
 
     const handleThemeTransition = (event: Event) => {
       const nextTheme = (event as CustomEvent<ThemeTransitionEventDetail>).detail?.theme
@@ -23,20 +25,26 @@ export function ThemeTransitionOverlay() {
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
+      if (frameId) {
+        cancelAnimationFrame(frameId)
+      }
 
       setDirection(null)
-      requestAnimationFrame(() => {
+      frameId = requestAnimationFrame(() => {
         setDirection(safeTheme)
         timeoutId = setTimeout(() => setDirection(null), transitionDuration)
       })
     }
 
-    window.addEventListener("qaq-theme-transition", handleThemeTransition)
+    window.addEventListener(themeTransitionEvent, handleThemeTransition)
 
     return () => {
-      window.removeEventListener("qaq-theme-transition", handleThemeTransition)
+      window.removeEventListener(themeTransitionEvent, handleThemeTransition)
       if (timeoutId) {
         clearTimeout(timeoutId)
+      }
+      if (frameId) {
+        cancelAnimationFrame(frameId)
       }
     }
   }, [])
@@ -48,10 +56,15 @@ export function ThemeTransitionOverlay() {
         direction ? ` theme-transition-overlay--${direction}` : ""
       }`}
     >
-      <div className="theme-transition-sweep" />
-      <div className="theme-transition-spark theme-transition-spark--one" />
-      <div className="theme-transition-spark theme-transition-spark--two" />
-      <div className="theme-transition-spark theme-transition-spark--three" />
+      {direction ? (
+        <>
+          <div className="theme-transition-curtain" />
+          <div className="theme-transition-ribbon" />
+          <div className="theme-transition-sticker theme-transition-sticker--moon" data-label="MOON" />
+          <div className="theme-transition-sticker theme-transition-sticker--heart" data-label="LOVE" />
+          <div className="theme-transition-sticker theme-transition-sticker--star" data-label="STAR" />
+        </>
+      ) : null}
     </div>
   )
 }

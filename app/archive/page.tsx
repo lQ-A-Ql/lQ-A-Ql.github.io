@@ -8,6 +8,7 @@ import { Header } from "@/components/blog/header"
 import { Footer } from "@/components/blog/footer"
 import { PageTransition, fadeUpVariant, staggerContainer } from "@/components/blog/page-transition"
 import { blogPosts, siteConfig } from "@/lib/blog-data"
+import { routeTransitionClassName, routeTransitionStartEvent } from "@/lib/client-events"
 
 // Group posts by year and month
 function groupPostsByDate(posts: typeof blogPosts) {
@@ -51,6 +52,12 @@ export default function ArchivePage() {
   }
 
   const totalPosts = blogPosts.length
+
+  const openPost = (postId: string) => {
+    document.documentElement.classList.add(routeTransitionClassName)
+    window.dispatchEvent(new CustomEvent(routeTransitionStartEvent))
+    router.push(`/post/${postId}`)
+  }
 
   return (
     <PageTransition>
@@ -184,15 +191,12 @@ export default function ArchivePage() {
                                       className="space-y-3 ml-6"
                                     >
                                       {monthPosts.map((post, postIndex) => (
-                                        <motion.div
+                                        <div
                                           key={post.id}
-                                          initial={{ opacity: 0, x: -10 }}
-                                          animate={{ opacity: 1, x: 0 }}
-                                          transition={{ delay: postIndex * 0.05 }}
                                           className="group"
                                         >
                                           <button
-                                            onClick={() => router.push(`/post/${post.id}`)}
+                                            onClick={() => openPost(post.id)}
                                             className="w-full text-left p-4 rounded-lg bg-card/30 border border-border/30 hover:border-primary/50 hover:bg-card/50 transition-all"
                                           >
                                             <div className="flex items-start gap-3">
@@ -210,7 +214,7 @@ export default function ArchivePage() {
                                               </div>
                                             </div>
                                           </button>
-                                        </motion.div>
+                                        </div>
                                       ))}
                                     </motion.div>
                                   )}

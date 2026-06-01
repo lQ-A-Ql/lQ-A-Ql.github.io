@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { siteConfig } from "@/lib/blog-data"
 
 const heroBg = siteConfig.heroBackground
@@ -85,23 +85,16 @@ export function PageBackground() {
   const pathname = usePathname()
   const { resolvedTheme } = useTheme()
   const [isMounted, setIsMounted] = useState(false)
-  const [previewPathname, setPreviewPathname] = useState<string | null>(null)
   const [renderedBackground, setRenderedBackground] = useState<ResolvedBackground>(
     () => resolveBackground("/search/")!
   )
-  const [isRouteAnimating, setIsRouteAnimating] = useState(false)
-  const routeAnimationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
   const currentBackground = useMemo(() => resolveBackground(pathname), [pathname])
-  const previewBackground = useMemo(
-    () => (previewPathname ? resolveBackground(previewPathname) : null),
-    [previewPathname]
-  )
-  const activeBackground = currentBackground ?? previewBackground
+  const activeBackground = currentBackground
   const config = (activeBackground ?? renderedBackground).config
 
   useEffect(() => {
@@ -109,82 +102,6 @@ export function PageBackground() {
       setRenderedBackground(activeBackground)
     }
   }, [activeBackground])
-
-  useEffect(() => {
-    if (currentBackground) {
-      setPreviewPathname(null)
-      return
-    }
-
-    setPreviewPathname(null)
-    setIsRouteAnimating(false)
-  }, [currentBackground?.pathname])
-
-  useEffect(() => {
-    const startRoutePreview = (href: string) => {
-      const url = new URL(href)
-      if (url.origin !== window.location.origin || window.location.pathname !== "/") return
-
-      const targetBackground = resolveBackground(url.pathname)
-      if (!targetBackground || !["/search/", "/archive/", "/friends/"].includes(targetBackground.pathname)) return
-
-      setPreviewPathname(targetBackground.pathname)
-      setIsRouteAnimating(true)
-      if (routeAnimationTimerRef.current) {
-        clearTimeout(routeAnimationTimerRef.current)
-      }
-
-      routeAnimationTimerRef.current = setTimeout(() => {
-        setIsRouteAnimating(false)
-        setPreviewPathname(null)
-      }, 980)
-    }
-
-    const getAnchorFromEvent = (event: MouseEvent | PointerEvent) => {
-      if (
-        event.defaultPrevented ||
-        ("button" in event && event.button !== 0) ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey
-      ) {
-        return
-      }
-
-      const target = event.target
-      if (!(target instanceof Element)) return
-
-      const anchor = target.closest<HTMLAnchorElement>("a[href]")
-      if (!anchor || anchor.target || anchor.hasAttribute("download")) return
-
-      return anchor
-    }
-
-    const handlePointerDown = (event: PointerEvent) => {
-      const anchor = getAnchorFromEvent(event)
-      if (anchor) {
-        startRoutePreview(anchor.href)
-      }
-    }
-
-    const handleClick = (event: MouseEvent) => {
-      const anchor = getAnchorFromEvent(event)
-      if (anchor) {
-        startRoutePreview(anchor.href)
-      }
-    }
-
-    document.addEventListener("pointerdown", handlePointerDown, true)
-    document.addEventListener("click", handleClick, true)
-    return () => {
-      document.removeEventListener("pointerdown", handlePointerDown, true)
-      document.removeEventListener("click", handleClick, true)
-      if (routeAnimationTimerRef.current) {
-        clearTimeout(routeAnimationTimerRef.current)
-      }
-    }
-  }, [])
 
   const isLightTheme = isMounted && resolvedTheme === "light"
   const isVisible = Boolean(activeBackground)
@@ -196,7 +113,7 @@ export function PageBackground() {
 
   return (
     <div
-      className={`page-bg-root pointer-events-none fixed inset-0 z-[1] page-bg-root--${activeBackground?.kind ?? renderedBackground.kind}${isVisible ? " is-visible" : ""}${isRouteAnimating ? " is-route-animating" : ""}`}
+      className={`page-bg-root pointer-events-none fixed inset-0 z-[1] page-bg-root--${activeBackground?.kind ?? renderedBackground.kind}${isVisible ? " is-visible" : ""}`}
     >
       <div
         className={`page-bg-layer page-bg-layer--dark${isVisible && !isLightTheme ? " is-active" : ""}`}
@@ -227,7 +144,6 @@ export function PageBackground() {
         className={`page-bg-vignette page-bg-vignette--light${isVisible && isLightTheme ? " is-active" : ""}`}
         style={{ backgroundImage: lightVignette }}
       />
-      <div className="page-bg-route-mask" />
     </div>
   )
 }

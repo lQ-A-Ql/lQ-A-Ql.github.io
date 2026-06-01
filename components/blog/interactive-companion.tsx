@@ -2,6 +2,7 @@
 
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react"
 import { MessageCircle, Minus, Sparkles, X } from "lucide-react"
+import { routeTransitionClassName, routeTransitionEndEvent, routeTransitionStartEvent } from "@/lib/client-events"
 
 const L2D_RUNTIME_URL = "/live2d/runtime/l2d.min.js"
 const MODEL_URL = "/live2d/dusk-companion/model.model3.json"
@@ -44,6 +45,12 @@ interface Live2DInstance {
   setScale(scale: number): void
   setPosition(x: number, y: number): void
   destroy(): void
+  _state?: {
+    l2d6Model?: {
+      stop?: () => void
+      run?: () => void
+    } | null
+  }
 }
 
 interface Live2DGlobal {
@@ -152,6 +159,7 @@ export function InteractiveCompanion() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const stageRef = useRef<HTMLButtonElement | null>(null)
   const live2dModelRef = useRef<Live2DInstance | null>(null)
+  const isLive2DRenderPausedRef = useRef(false)
   const moodRef = useRef<Mood>("idle")
   const availableParamsRef = useRef<Set<string>>(new Set())
   const dragStateRef = useRef<{
@@ -246,6 +254,36 @@ export function InteractiveCompanion() {
 
     live2dModelRef.current?.setParams(getMoodParams(mood, gaze, availableParamsRef.current))
   }, [gaze, loadState, mood])
+
+  useEffect(() => {
+    const pauseLive2DRender = () => {
+      const live2dRenderer = live2dModelRef.current?._state?.l2d6Model
+      if (isLive2DRenderPausedRef.current || !live2dRenderer?.stop || !live2dRenderer.run) return
+
+      document.documentElement.classList.add(routeTransitionClassName)
+      live2dRenderer.stop()
+      isLive2DRenderPausedRef.current = true
+    }
+
+    const resumeLive2DRender = () => {
+      const live2dRenderer = live2dModelRef.current?._state?.l2d6Model
+      if (!isLive2DRenderPausedRef.current || !live2dRenderer?.run) return
+
+      live2dRenderer.run()
+      isLive2DRenderPausedRef.current = false
+    }
+
+    window.addEventListener(routeTransitionStartEvent, pauseLive2DRender)
+    window.addEventListener(routeTransitionEndEvent, resumeLive2DRender)
+    window.addEventListener("focus", resumeLive2DRender)
+
+    return () => {
+      window.removeEventListener(routeTransitionStartEvent, pauseLive2DRender)
+      window.removeEventListener(routeTransitionEndEvent, resumeLive2DRender)
+      window.removeEventListener("focus", resumeLive2DRender)
+      resumeLive2DRender()
+    }
+  }, [])
 
   useEffect(() => {
     if (isHidden || isMinimized) return

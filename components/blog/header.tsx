@@ -1,13 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { Menu, Moon, Search, Sun, X } from "lucide-react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/lib/blog-data"
+import { routeTransitionClassName, routeTransitionStartEvent, themeTransitionEvent } from "@/lib/client-events"
 
 const navItems = [
   { label: "首页", href: "/" },
@@ -19,13 +20,23 @@ const navItems = [
 
 export function Header() {
   const pathname = usePathname()
+  const router = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const themeSwitchTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (themeSwitchTimer.current) {
+        clearTimeout(themeSwitchTimer.current)
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -40,6 +51,16 @@ export function Header() {
     setIsMobileMenuOpen(false)
   }, [pathname])
 
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      router.prefetch("/search")
+      router.prefetch("/archive")
+      router.prefetch("/friends")
+    }, 700)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [router])
+
   const handleNavClick = (href: string) => {
     if (href.startsWith("/#") && pathname === "/") {
       const id = href.replace("/#", "")
@@ -53,11 +74,25 @@ export function Header() {
 
   const isActive = (href: string) => pathname === href
   const isLightTheme = isMounted && resolvedTheme === "light"
+  const markRouteTransition = (href: string) => {
+    if (href.startsWith("#") || href.startsWith("/#") || href === pathname) return
+
+    document.documentElement.classList.add(routeTransitionClassName)
+    window.dispatchEvent(new CustomEvent(routeTransitionStartEvent))
+  }
+
   const toggleTheme = () => {
     const nextTheme = isLightTheme ? "dark" : "light"
 
-    window.dispatchEvent(new CustomEvent("qaq-theme-transition", { detail: { theme: nextTheme } }))
-    setTheme(nextTheme)
+    if (themeSwitchTimer.current) {
+      clearTimeout(themeSwitchTimer.current)
+    }
+
+    window.dispatchEvent(new CustomEvent(themeTransitionEvent, { detail: { theme: nextTheme } }))
+    themeSwitchTimer.current = setTimeout(() => {
+      setTheme(nextTheme)
+      themeSwitchTimer.current = null
+    }, 140)
   }
 
   return (
@@ -85,6 +120,7 @@ export function Header() {
             <Link
               key={item.label}
               href={item.href}
+              onPointerDownCapture={() => markRouteTransition(item.href)}
               onClick={(e) => {
                 if (item.href.startsWith("/#") && pathname === "/") {
                   e.preventDefault()
@@ -110,6 +146,7 @@ export function Header() {
           <Link
             href="/search"
             aria-label="搜索文章"
+            onPointerDownCapture={() => markRouteTransition("/search")}
             className="site-icon-button flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-primary"
           >
             <Search className="w-4 h-4" />
@@ -157,6 +194,7 @@ export function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
+                  onPointerDownCapture={() => markRouteTransition(item.href)}
                   onClick={(e) => {
                     if (item.href.startsWith("/#") && pathname === "/") {
                       e.preventDefault()
@@ -176,6 +214,7 @@ export function Header() {
               <div className="flex items-center gap-3 pt-2">
                 <Link
                   href="/search"
+                  onPointerDownCapture={() => markRouteTransition("/search")}
                   className="flex-1 rounded-full border border-white/10 px-4 py-3 text-center text-sm text-white/84"
                 >
                   搜索文章

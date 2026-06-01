@@ -12,6 +12,17 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { blogPosts, categories, siteConfig } from "@/lib/blog-data"
 
+const searchablePosts = blogPosts.map((post) => ({
+  post,
+  searchText: [
+    post.title,
+    post.excerpt,
+    post.contentHtml,
+    post.contentMarkdown ?? "",
+    post.tags.join(" "),
+  ].join("\n").toLowerCase(),
+}))
+
 export default function SearchPage() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
@@ -26,17 +37,14 @@ export default function SearchPage() {
   }, [])
 
   const filteredPosts = useMemo(() => {
-    return blogPosts.filter(post => {
-      const matchesSearch = searchQuery === "" || 
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.contentHtml.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (post.contentMarkdown || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    const normalizedQuery = searchQuery.trim().toLowerCase()
+
+    return searchablePosts.flatMap(({ post, searchText }) => {
+      const matchesSearch = normalizedQuery === "" || searchText.includes(normalizedQuery)
       
       const matchesCategory = selectedCategory === "全部" || post.category === selectedCategory
       
-      return matchesSearch && matchesCategory
+      return matchesSearch && matchesCategory ? [post] : []
     })
   }, [searchQuery, selectedCategory])
 
@@ -142,6 +150,7 @@ export default function SearchPage() {
                     <BlogCard
                       id={post.id}
                       index={index}
+                      animateIn={false}
                       title={post.title}
                       excerpt={post.excerpt}
                       date={post.date}

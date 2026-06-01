@@ -13,6 +13,7 @@ interface BlogCardProps {
   category: string
   imageUrl?: string
   index: number
+  animateIn?: boolean
 }
 
 export function BlogCard({
@@ -24,21 +25,27 @@ export function BlogCard({
   category,
   imageUrl,
   index,
+  animateIn = true,
 }: BlogCardProps) {
   const entryCode = `ENTRY ${String(index + 1).padStart(2, "0")}`
+  const entranceMotion = animateIn
+    ? {
+        initial: { opacity: 0, y: 40 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: {
+          type: "spring" as const,
+          stiffness: 200,
+          damping: 25,
+          delay: index * 0.1,
+        },
+      }
+    : {}
 
   const content = (
     <motion.article
       className="blog-card group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[1.9rem] border border-white/[0.03] bg-transparent transition-all duration-500 hover:-translate-y-2 hover:border-primary/[0.08]"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 25,
-        delay: index * 0.1,
-      }}
+      {...entranceMotion}
     >
       <div className="pointer-events-none absolute inset-0 rounded-[1.9rem] border border-white/[0.02]" />
       <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-24 transition-opacity duration-500 group-hover:opacity-44" />

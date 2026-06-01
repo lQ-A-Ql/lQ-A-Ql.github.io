@@ -326,6 +326,7 @@ export default function BlogPage() {
                   key={post.id}
                   id={post.id}
                   index={index}
+                  animateIn={false}
                   title={post.title}
                   excerpt={post.excerpt}
                   date={post.date}

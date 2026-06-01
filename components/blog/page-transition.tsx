@@ -11,26 +11,21 @@ interface PageTransitionProps {
 const pageVariants: Variants = {
   initial: {
     opacity: 0,
-    y: 30,
-    scale: 0.98,
+    y: 10,
   },
   animate: {
     opacity: 1,
     y: 0,
-    scale: 1,
   },
   exit: {
     opacity: 0,
-    y: -20,
-    scale: 0.98,
+    y: -6,
   }
 }
 
 const pageTransition: Transition = {
-  type: "spring",
-  stiffness: 260,
-  damping: 25,
-  mass: 0.8,
+  duration: 0.18,
+  ease: [0.22, 1, 0.36, 1],
 }
 
 export function PageTransition({ children }: PageTransitionProps) {
@@ -58,8 +53,8 @@ export const staggerContainer: Variants = {
   initial: {},
   animate: {
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1
+      staggerChildren: 0.035,
+      delayChildren: 0.04
     }
   }
 }
@@ -68,15 +63,14 @@ export const staggerContainer: Variants = {
 export const fadeUpVariant: Variants = {
   initial: {
     opacity: 0,
-    y: 30,
+    y: 12,
   },
   animate: {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 24,
+      duration: 0.18,
+      ease: [0.22, 1, 0.36, 1],
     }
   }
 }
@@ -85,15 +79,14 @@ export const fadeUpVariant: Variants = {
 export const fadeLeftVariant: Variants = {
   initial: {
     opacity: 0,
-    x: -40,
+    x: -14,
   },
   animate: {
     opacity: 1,
     x: 0,
     transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 24,
+      duration: 0.2,
+      ease: [0.22, 1, 0.36, 1],
     }
   }
 }
@@ -102,15 +95,14 @@ export const fadeLeftVariant: Variants = {
 export const fadeRightVariant: Variants = {
   initial: {
     opacity: 0,
-    x: 40,
+    x: 14,
   },
   animate: {
     opacity: 1,
     x: 0,
     transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 24,
+      duration: 0.2,
+      ease: [0.22, 1, 0.36, 1],
     }
   }
 }
@@ -119,15 +111,14 @@ export const fadeRightVariant: Variants = {
 export const scaleUpVariant: Variants = {
   initial: {
     opacity: 0,
-    scale: 0.85,
+    scale: 0.96,
   },
   animate: {
     opacity: 1,
     scale: 1,
     transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 20,
+      duration: 0.2,
+      ease: [0.22, 1, 0.36, 1],
     }
   }
 }
@@ -135,14 +126,12 @@ export const scaleUpVariant: Variants = {
 // 遮罩揭示动画
 export const revealVariant: Variants = {
   initial: {
-    clipPath: "inset(0 100% 0 0)",
     opacity: 0,
   },
   animate: {
-    clipPath: "inset(0 0% 0 0)",
     opacity: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.22,
       ease: [0.22, 1, 0.36, 1]
     }
   }
@@ -156,7 +145,7 @@ export const fadeInVariant: Variants = {
   animate: {
     opacity: 1,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: "easeOut"
     }
   }
@@ -166,15 +155,14 @@ export const fadeInVariant: Variants = {
 export const listItemVariant: Variants = {
   initial: {
     opacity: 0,
-    x: -20,
+    x: -10,
   },
   animate: {
     opacity: 1,
     x: 0,
     transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 25,
+      duration: 0.18,
+      ease: [0.22, 1, 0.36, 1],
     }
   }
 }

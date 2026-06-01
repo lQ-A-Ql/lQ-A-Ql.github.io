@@ -1,26 +1,16 @@
 "use client"
 
 import DOMPurify from "isomorphic-dompurify"
-import hljs from "highlight.js/lib/core"
-import bash from "highlight.js/lib/languages/bash"
-import c from "highlight.js/lib/languages/c"
-import cpp from "highlight.js/lib/languages/cpp"
-import javascript from "highlight.js/lib/languages/javascript"
-import json from "highlight.js/lib/languages/json"
-import plaintext from "highlight.js/lib/languages/plaintext"
-import powershell from "highlight.js/lib/languages/powershell"
-import python from "highlight.js/lib/languages/python"
-import typescript from "highlight.js/lib/languages/typescript"
 import { motion } from "framer-motion"
 import { ArrowLeft, Calendar, Clock, Tag, Share2 } from "lucide-react"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Header } from "@/components/blog/header"
 import { Footer } from "@/components/blog/footer"
 import { PageTransition, fadeUpVariant, staggerContainer } from "@/components/blog/page-transition"
 import { Button } from "@/components/ui/button"
-import { siteConfig, type BlogPost } from "@/lib/blog-data"
-import { compileMarkdown } from "@/lib/markdown"
+import { type BlogPost } from "@/lib/blog-data"
+import { routeTransitionClassName, routeTransitionStartEvent } from "@/lib/client-events"
 
 interface PostPageClientProps {
   post: BlogPost
@@ -28,28 +18,60 @@ interface PostPageClientProps {
   next?: BlogPost
 }
 
-hljs.registerLanguage("bash", bash)
-hljs.registerLanguage("sh", bash)
-hljs.registerLanguage("shell", bash)
-hljs.registerLanguage("c", c)
-hljs.registerLanguage("cpp", cpp)
-hljs.registerLanguage("c++", cpp)
-hljs.registerLanguage("javascript", javascript)
-hljs.registerLanguage("js", javascript)
-hljs.registerLanguage("json", json)
-hljs.registerLanguage("plaintext", plaintext)
-hljs.registerLanguage("text", plaintext)
-hljs.registerLanguage("powershell", powershell)
-hljs.registerLanguage("ps1", powershell)
-hljs.registerLanguage("python", python)
-hljs.registerLanguage("py", python)
-hljs.registerLanguage("typescript", typescript)
-hljs.registerLanguage("ts", typescript)
+async function enhancePostHtml(html: string) {
+  const [
+    hljsModule,
+    bashModule,
+    cModule,
+    cppModule,
+    javascriptModule,
+    jsonModule,
+    plaintextModule,
+    powershellModule,
+    pythonModule,
+    typescriptModule,
+  ] = await Promise.all([
+    import("highlight.js/lib/core"),
+    import("highlight.js/lib/languages/bash"),
+    import("highlight.js/lib/languages/c"),
+    import("highlight.js/lib/languages/cpp"),
+    import("highlight.js/lib/languages/javascript"),
+    import("highlight.js/lib/languages/json"),
+    import("highlight.js/lib/languages/plaintext"),
+    import("highlight.js/lib/languages/powershell"),
+    import("highlight.js/lib/languages/python"),
+    import("highlight.js/lib/languages/typescript"),
+  ])
+  const hljs = hljsModule.default
+  const languageLoaders = {
+    bash: bashModule.default,
+    sh: bashModule.default,
+    shell: bashModule.default,
+    c: cModule.default,
+    cpp: cppModule.default,
+    "c++": cppModule.default,
+    javascript: javascriptModule.default,
+    js: javascriptModule.default,
+    json: jsonModule.default,
+    plaintext: plaintextModule.default,
+    text: plaintextModule.default,
+    powershell: powershellModule.default,
+    ps1: powershellModule.default,
+    python: pythonModule.default,
+    py: pythonModule.default,
+    typescript: typescriptModule.default,
+    ts: typescriptModule.default,
+  }
 
-const highlightHtml = (html: string) =>
-  html.replace(
-    /<pre><code class="language-([^"]+)">([\s\S]*?)<\/code><\/pre>/gi,
-    (_match, language, code) => {
+  Object.entries(languageLoaders).forEach(([language, loader]) => {
+    if (!hljs.getLanguage(language)) {
+      hljs.registerLanguage(language, loader)
+    }
+  })
+
+  return html.replace(
+    /<pre><code(?: class="language-([^"]+)")?>([\s\S]*?)<\/code><\/pre>/gi,
+    (_match, language = "plaintext", code) => {
       const normalizedLanguage = String(language).toLowerCase()
       const decodedCode = code
         .replace(/&amp;/g, "&")
@@ -67,38 +89,92 @@ const highlightHtml = (html: string) =>
       return `<pre class="hljs-wrapper"><code class="hljs language-${validLanguage}">${highlightedCode}</code></pre>`
     },
   )
+}
+
+const compilePostMarkdown = async (markdown: string) => {
+  const { compileMarkdown } = await import("@/lib/markdown")
+  return compileMarkdown(markdown)
+}
+
+type IdleHandle =
+  | { kind: "idle"; id: number }
+  | { kind: "timeout"; id: ReturnType<typeof setTimeout> }
+  | { kind: "none" }
+
+const normalizeLegacyCodeBlocks = (html: string) =>
+  html.replace(
+    /<pre><code(?: class="language-([^"]+)")?>/gi,
+    (_match, language = "plaintext") => {
+      const normalizedLanguage = String(language).toLowerCase()
+      return `<pre class="hljs-wrapper"><code class="language-${normalizedLanguage}">`
+    },
+  )
+
+const runWhenIdle = (callback: () => void): IdleHandle => {
+  if (typeof window === "undefined") {
+    callback()
+    return { kind: "none" }
+  }
+
+  if (typeof window.requestIdleCallback === "function") {
+    return { kind: "idle", id: window.requestIdleCallback(callback, { timeout: 1200 }) }
+  }
+
+  return { kind: "timeout", id: setTimeout(callback, 220) }
+}
+
+const cancelIdleRun = (handle: IdleHandle) => {
+  if (typeof window === "undefined") return
+
+  if (handle.kind === "idle" && typeof window.cancelIdleCallback === "function") {
+    window.cancelIdleCallback(handle.id)
+    return
+  }
+
+  if (handle.kind === "timeout") {
+    clearTimeout(handle.id)
+  }
+}
 
 export function PostPageClient({ post, previous, next }: PostPageClientProps) {
   const router = useRouter()
-  const legacySanitizedHtml = useMemo(
-    () => DOMPurify.sanitize(highlightHtml(post.contentHtml)),
-    [post.contentHtml],
+  const [sanitizedContentHtml, setSanitizedContentHtml] = useState(() =>
+    DOMPurify.sanitize(normalizeLegacyCodeBlocks(post.contentHtml)),
   )
-  const [sanitizedContentHtml, setSanitizedContentHtml] = useState(legacySanitizedHtml)
 
   useEffect(() => {
     let cancelled = false
+    setSanitizedContentHtml(DOMPurify.sanitize(normalizeLegacyCodeBlocks(post.contentHtml)))
 
-    const run = async () => {
+    const idleHandle = runWhenIdle(async () => {
       if (!post.contentMarkdown) {
-        setSanitizedContentHtml(legacySanitizedHtml)
+        if (!cancelled) {
+          const highlightedHtml = await enhancePostHtml(post.contentHtml)
+          if (!cancelled) setSanitizedContentHtml(DOMPurify.sanitize(highlightedHtml))
+        }
         return
       }
 
-      const parsedHtml = await compileMarkdown(post.contentMarkdown)
+      const parsedHtml = await compilePostMarkdown(post.contentMarkdown)
       if (cancelled) {
         return
       }
 
-      setSanitizedContentHtml(DOMPurify.sanitize(highlightHtml(parsedHtml)))
-    }
-
-    run()
+      const highlightedHtml = await enhancePostHtml(parsedHtml)
+      if (!cancelled) setSanitizedContentHtml(DOMPurify.sanitize(highlightedHtml))
+    })
 
     return () => {
       cancelled = true
+      cancelIdleRun(idleHandle)
     }
-  }, [legacySanitizedHtml, post.contentMarkdown])
+  }, [post.contentHtml, post.contentMarkdown])
+
+  const openPost = (slug: string) => {
+    document.documentElement.classList.add(routeTransitionClassName)
+    window.dispatchEvent(new CustomEvent(routeTransitionStartEvent))
+    router.push(`/post/${slug}`)
+  }
 
   return (
     <PageTransition>
@@ -231,7 +307,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
             {previous && (
               <motion.button
                 className="p-4 rounded-lg border border-border/50 bg-card/30 text-left hover:border-primary/50 transition-colors"
-                onClick={() => router.push(`/post/${previous.slug}`)}
+                onClick={() => openPost(previous.slug)}
                 whileHover={{ x: -5 }}
               >
                 <span className="text-xs text-muted-foreground">上一篇</span>
@@ -241,7 +317,7 @@ export function PostPageClient({ post, previous, next }: PostPageClientProps) {
             {next && (
               <motion.button
                 className="p-4 rounded-lg border border-border/50 bg-card/30 text-right hover:border-primary/50 transition-colors md:col-start-2"
-                onClick={() => router.push(`/post/${next.slug}`)}
+                onClick={() => openPost(next.slug)}
                 whileHover={{ x: 5 }}
               >
                 <span className="text-xs text-muted-foreground">下一篇</span>
