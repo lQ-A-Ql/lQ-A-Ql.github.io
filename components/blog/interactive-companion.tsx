@@ -3,6 +3,7 @@
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react"
 import { MessageCircle, Minus, Sparkles, X } from "lucide-react"
 
+const L2D_RUNTIME_URL = "/live2d/runtime/l2d.min.js"
 const MODEL_URL = "/live2d/dusk-companion/model.model3.json"
 
 const companionMessages = [
@@ -21,7 +22,73 @@ const idleMessages = [
 type Mood = "idle" | "happy" | "curious"
 type LoadState = "idle" | "loading" | "ready" | "error"
 
-type Live2DInstance = import("l2d").L2D
+interface Live2DParam {
+  id: string
+  value: number
+  min: number
+  max: number
+  default: number
+}
+
+interface Live2DInstance {
+  load(options: {
+    path: string
+    position?: [x: number, y: number]
+    scale?: number
+    logLevel?: "error" | "warn" | "info" | "trace"
+    volume?: number
+  }): Promise<void>
+  resize(): void
+  getParams(): Live2DParam[]
+  setParams(params: Record<string, number>): void
+  setScale(scale: number): void
+  setPosition(x: number, y: number): void
+  destroy(): void
+}
+
+interface Live2DGlobal {
+  init(canvas: HTMLCanvasElement): Live2DInstance | null
+}
+
+declare global {
+  interface Window {
+    L2D?: Live2DGlobal
+  }
+}
+
+let live2dRuntimePromise: Promise<Live2DGlobal> | null = null
+
+function loadLive2DRuntime() {
+  if (typeof window === "undefined") return Promise.reject(new Error("Live2D runtime 只能在浏览器中加载"))
+  if (window.L2D) return Promise.resolve(window.L2D)
+
+  live2dRuntimePromise ??= new Promise<Live2DGlobal>((resolve, reject) => {
+    const existingScript = document.querySelector<HTMLScriptElement>(`script[src="${L2D_RUNTIME_URL}"]`)
+
+    const resolveIfReady = () => {
+      if (window.L2D) {
+        resolve(window.L2D)
+      } else {
+        reject(new Error("Live2D runtime 已加载，但全局 L2D 不存在"))
+      }
+    }
+
+    if (existingScript) {
+      existingScript.addEventListener("load", resolveIfReady, { once: true })
+      existingScript.addEventListener("error", () => reject(new Error("Live2D runtime 加载失败")), { once: true })
+      return
+    }
+
+    const script = document.createElement("script")
+    script.src = L2D_RUNTIME_URL
+    script.async = true
+    script.onload = resolveIfReady
+    script.onerror = () => reject(new Error("Live2D runtime 加载失败"))
+    document.head.appendChild(script)
+  })
+
+  return live2dRuntimePromise
+}
 
 const faceParamIds = [
   "ParamAngleX",
@@ -197,13 +264,13 @@ export function InteractiveCompanion() {
       setLoadState("loading")
 
       try {
-        const { init } = await import("l2d")
+        const live2dRuntime = await loadLive2DRuntime()
         if (disposed) return
 
         canvas.width = Math.max(1, Math.round(stage.clientWidth * window.devicePixelRatio))
         canvas.height = Math.max(1, Math.round(stage.clientHeight * window.devicePixelRatio))
 
-        const model = init(canvas)
+        const model = live2dRuntime.init(canvas)
         if (!model) throw new Error("Live2D canvas 初始化失败")
 
         live2dModel = model
