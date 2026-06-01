@@ -43,6 +43,17 @@ const friendLinks: FriendLink[] = [
     avatarUrl: "/friends/fa1lsnow.jpg",
     actionLabel: "去串门",
   },
+  {
+    name: "DUSK",
+    href: "https://fallingdusky.github.io/",
+    description: "Fa1lSnow 亲传大弟子",
+    category: "SECURITY",
+    status: "ONLINE",
+    initials: "DK",
+    tags: ["Security", "Pwn", "Writeup"],
+    avatarUrl: "https://fallingdusky.github.io/avatar/avatar.webp",
+    actionLabel: "去串门",
+  },
 ]
 
 function isExternalHref(href: string) {
